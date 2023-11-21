@@ -1,0 +1,48 @@
+#profile{border:1px solid var(--s-g1); width: 370px; height: 190px;}
+#profile .container1{display: flex;align-items: center; justify-content: center; margin-top: 15px; margin-left: 10px;}
+#profile .img-box{border-radius: 50%; background-color: rgb(230, 230, 230); width:80px; height: 80px; margin-right: 15px; }
+#profile .txt-box{width:250px; display: flex; height: 80px; flex-direction: column; justify-content: space-evenly;}
+#profile .t1-box{display: flex; justify-content: space-between;}
+#profile .t1{font-size: 14px; font-weight: bold;}
+#profile .t2{font-size: 12px; color: var(--s-g1); margin-right: 5px;}
+#profile .t2:hover, #profile .t4:hover{cursor: pointer;}
+#profile .t3{font-size: 16px; font-weight: bold;}
+#profile .t4{font-size: 11px;  color: var(--s-g2);}
+
+#profile .container2{display: flex; justify-content: space-evenly; margin-top: 10px;}
+#profile .m{font-size: 13px; width: 100px; height: 85px; display: flex;justify-content: space-evenly; flex-direction: column; align-items: center; transition: 0.1s all;}
+#profile .m:hover{cursor: pointer; background-color: var(--s-g0-1);}
+#profile .icon{font-size: 15px; position: relative; top:5px;}
+#profile .cnt{ font-size: 16px; }
+
+#profile-not-login{border:1px solid var(--s-g1); width: 370px; height: 190px; display: flex;flex-direction: column; justify-content: space-evenly; align-items: center;}
+#profile-not-login .p{font-weight: bold;}
+#profile-not-login .login{border-radius: 10px; color:white; font-weight: bold;font-size: 17px; background-color: var(--m-g); width:270px; height:47px; text-align: center;font-size: 17px; line-height: 2.7em; margin-top:-5px;}
+#profile-not-login .sub-box{display: flex; justify-content: space-between;width: 190px;margin-top:-15px;} 
+#profile-not-login .sub{display:block; color: var(--s-g2); font-size: 14px; } 
+
+
+/* open-chat */
+
+#chat-room{ width: 430px; background-color: white; position:fixed;z-index: 1000; right: 12%; bottom: 5%; border-radius: 20px; box-shadow: 1px 1px 3px 1px var(--s-g2);}
+#chat-room .box1{height:53px; background-color: var(--m-y); border: 2px solid var(--s-g1); border-radius: 20px 20px 0px 0px; border-bottom: none; display: flex; justify-content: space-between; align-items: center;}
+#chat-room .curcle{background-color: white; width: 8px; height: 8px; border-radius: 50%; margin-left: 15px; margin-right: 15px;}
+#chat-room .title{color:white; font-weight: bold; font-size: 20px; letter-spacing: 1.5px;}
+#chat-room .box2{height:33px; background-color: var(--s-g0-1); border-left: 2px solid var(--s-g1);border-right: 2px solid var(--s-g1);
+                text-align: center; line-height: 2.5; font-size: 13px;}
+#chat-room .box3{height: 330px; background-color: white;  border-left: 2px solid var(--s-g1);border-right: 2px solid var(--s-g1);
+                overflow-y: auto;}
+#chat-room .box4{background-color: white; border: 2px solid var(--s-g1); border-radius: 0 0 20px 20px;
+                display: flex;flex-direction: column;}      
+#chat-room .text-box{height: 70px; padding:15px; border: none; font-size: 15px;  resize: none;}            
+#chat-room .btn-box{display: flex; justify-content: flex-end;}
+#chat-room .enter{width:70px; height: 40px; margin-right: 20px;margin-bottom: 10px; border-radius: 10px; border: none; color: var(--s-g1);}
+#chat-room .enter.active{color: white; background-color: var(--m-lg);}
+
+
+/* write */
+
+#write{ display:flex; width: 370px; height: 45px; margin-top: 15px; border: 1px solid var(--s-g1); color: var(--s-g2); font-size: 15px;align-items: center; justify-content: center; border-radius: 5px;} 
+#write:hover{color: white; background-color:var(--m-dg); transition: 0.1s all; }
+
+
