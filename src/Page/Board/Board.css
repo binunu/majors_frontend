@@ -1,5 +1,5 @@
 /* home */
-#home .board{margin-bottom: 10%;}
+#home .board{margin-bottom: 10%; }
 #home .board2{width:310px; }
 #home .section{display: flex; justify-content: space-between;}
 #home .title{border-bottom: 2px solid var(--s-g2); font-size: 18px; padding-bottom: 15px; font-weight: bold; margin-bottom: 30px;}
@@ -18,3 +18,10 @@
 #home .pf3{font-size: 13px; border:2px solid var(--s-g2); padding:4px 15px 4px 15px; border-radius: 20px; font-weight: bold;}
 #home .rank-1{color:var(--r-1); border-color: var(--r-1);}
 #home .rank-2{color:var(--r-2); border-color: var(--r-2);} 
+
+/* main-board */ 
+.main-board .mode{display: flex; justify-content: flex-end;margin-top:10px;}
+.main-board .icon{color:rgb(34, 34, 34); margin-left: 5px;}
+.main-board .cur{color:var(--s-g2);} 
+
+/* study-as-peed */
