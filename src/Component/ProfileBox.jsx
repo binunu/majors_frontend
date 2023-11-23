@@ -23,7 +23,7 @@ const ProfileBox = ({setLogInPage,dmIsLogIn}) => {
             <p className='t2'>X 로그아웃</p>
           </div>
           <p className='t3'>병아리는삐약삐약</p>
-          <p className='t4'>개인정보수정</p>
+          <Link to='/mypage' className='t4'>개인정보수정</Link>
         </div>
       </div>
       <div className='container2'>

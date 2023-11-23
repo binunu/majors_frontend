@@ -1,0 +1,12 @@
+/* mypage */
+
+#mypage .top{height:45px; margin-bottom: 40px; border:none; background-color: var(--m-lg); color: white;font-size: 14px; line-height: 3em; padding-left: 10px; font-weight: bold; font-size: 15px;}
+
+#mypage .content{display: flex; flex-direction: row; margin-bottom: 20px; margin-top: 20px;}
+#mypage .menu-box{color:var(--s-g1); margin-right:20px; padding-right: 20px; border-right: 1px solid var(--s-g1); }
+#mypage .li{ margin-bottom: 30px; font-size: 15px;} 
+#mypage .p{font-size: 14px; margin-bottom: 20px;}
+#mypage .article{background-color: red; width:90%; color: black; margin-bottom: 20px; display: flex;  align-items: center;justify-content: space-between;}
+#mypage .title{font-size:14px; width:70%; overflow: hidden;white-space: nowrap;text-overflow: ellipsis; }
+#mypage .icon-box{display:flex; align-items: center; font-size:12px;}
+#mypage .icon{font-size: 13px; color: var(--s-g2);}
