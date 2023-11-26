@@ -6,10 +6,15 @@ import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
 import BookmarksOutlinedIcon from '@mui/icons-material/BookmarksOutlined';
 import SmsOutlinedIcon from '@mui/icons-material/SmsOutlined';
 import PostAddIcon from '@mui/icons-material/PostAdd';
+import Alarm from './Alarm';
 const ProfileBox = ({setLogInPage,dmIsLogIn}) => {
   // const isLogin = false; //로그인여부 수정
+  const [showAlarm,setShowAlarm]=useState(false);
   const offProfileBox=()=>{
     setLogInPage(true)
+  }
+  const ActiveAlarm=()=>{
+    setShowAlarm(!showAlarm)
   }
   return (
     <div id='right-content'>
@@ -22,12 +27,12 @@ const ProfileBox = ({setLogInPage,dmIsLogIn}) => {
             <p className='t1'>학과명</p>
             <p className='t2'>X 로그아웃</p>
           </div>
-          <p className='t3'>병아리는삐약삐약</p>
+          <></><p className='t3'> 병아리는삐약삐약</p>
           <Link to='/mypage' className='t4'>개인정보수정</Link>
         </div>
       </div>
       <div className='container2'>
-        <div className='m m1'>
+        <div className={`m m1 ${showAlarm ? 'on':''}`} onClick={ActiveAlarm}>
           <p><NotificationsNoneIcon className='icon'/>&nbsp;알림</p> 
           <p className='cnt'>10</p>
         </div>
@@ -54,8 +59,11 @@ const ProfileBox = ({setLogInPage,dmIsLogIn}) => {
       <Link to ='/join'className='sub' onClick={offProfileBox}>회원가입</Link>
       </div>
       </div>}
-
-    {dmIsLogIn&&<Link to='/write' id='write'><PostAddIcon/>&nbsp;글쓰기</Link>}
+    {
+      showAlarm &&
+      <Alarm/>
+    }
+    {dmIsLogIn&&<Link to='/write' className='write-btn'><PostAddIcon/>&nbsp;글쓰기</Link>}
     </div>
    
 

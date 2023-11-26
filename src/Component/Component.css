@@ -15,6 +15,8 @@
 #profile .icon{font-size: 15px; position: relative; top:5px;}
 #profile .cnt{ font-size: 16px; }
 
+#profile .m1.on{background-color: var(--m-lg); color:#fff}
+
 #profile-not-login{border:1px solid var(--s-g1); width: 370px; height: 190px; display: flex;flex-direction: column; justify-content: space-evenly; align-items: center;}
 #profile-not-login .p{font-weight: bold;}
 #profile-not-login .login{border-radius: 10px; color:white; font-weight: bold;font-size: 17px; background-color: var(--m-g); width:270px; height:47px; text-align: center;font-size: 17px; line-height: 2.7em; margin-top:-5px;}
@@ -42,8 +44,8 @@
 
 /* write */
 
-#write{ display:flex; width: 370px; height: 45px; margin-top: 15px; border: 1px solid var(--s-g1); color: var(--s-g2); font-size: 15px;align-items: center; justify-content: center; border-radius: 5px;} 
-#write:hover{color: white; background-color:var(--m-dg); transition: 0.1s all; }
+.write-btn{ display:flex; width: 370px; height: 45px; margin-top: 15px; border: 1px solid var(--s-g1); color: var(--s-g2); font-size: 15px;align-items: center; justify-content: center; border-radius: 5px;} 
+.write-btn:hover{color: white; background-color:var(--m-dg); transition: 0.1s all; }
 
 
 /* major-select */
@@ -57,3 +59,22 @@
 #major-select .option:hover{background-color: var(--m-lg); color:black; font-weight: bold; transition:0.1s all;}
 #major-select .cen{display: flex; align-items: center;}
 #major-select .background{position:fixed;top:0; left: 0; width: 100vw;height: 1000vw;}
+
+/* alarm */
+#alarm {height:370px; width:370px; border: 1px solid var(--s-g1); border-top: none; overflow-y:auto ;}
+#alarm .container{padding : 10px 15px 12px 15px; border-bottom: 1px solid var(--s-g1);}
+#alarm .row1{display: flex; justify-content: space-between; margin-bottom:2px; font-size: 13px; align-items:center;}
+#alarm .row2{ display:-webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;overflow: hidden;font-size: 13px;text-overflow: ellipsis; }
+#alarm .p2{font-size: 18px; color:var(--s-g2); padding-bottom:10px;}
+#alarm .span{display: inline-block; vertical-align: top; max-width:150px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;}
+
+/* editor */
+#editor {background-color:white; border: 1px solid var(--s-g0-1); margin-top: 20px;}
+#editor img{width:17px; }
+#editor .DraftEditor-root{padding-left: 30px;} /*텍스트 들여쓰기*/ 
+#editor .rdw-editor-toolbar *{background-color: var(--s-g0);}
+#editor .rdw-editor-toolbar     {background-color: var(--s-g0);}
+#editor .editor .toolbar-class .rdw-option-wrapper{border:none; width:20px;}
+#editor .rdw-fontsize-dropdown{width:50px;} /* 가로너비(글자크기설정) */
+#editor .rdw-link-dropdown{width:50px;}
+#editor .rdw-editor-main{height:350px; }

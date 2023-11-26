@@ -50,3 +50,23 @@
 .search-result .highlight{color:var(--h);}
 
 .search-result .pagenation{display: flex;justify-content: center; margin-top: 60px;}
+
+
+/* write */
+/* #write {width:1000px;} */
+#write .bar{height:45px; border:none; background-color: var(--m-lg); color: white; font-weight: bold; font-size: 15px; padding-left: 20px; line-height: 3em;}
+#write .set-box{margin: 2%; height:200px; font-size: 16px; display: flex; flex-direction: column; justify-content: space-evenly;}
+#write .t-box{display: flex;}
+#write .t-tit{color: black; width: 85px; padding:10px;}
+#write .t-txt{ border:none;border-bottom: 1px solid var(--s-g1); width:540px;}
+#write .sub-box{display: flex;}
+#write .sub-t-box{display: flex; align-items: center;}
+#write .second{margin-left: 50px;}
+#write .s-box{height: 37px; display: block; width: 170px; border-radius: 5px; }
+#write .s-box:active,  #write .s-box:focus{outline: none;}
+#write select { -moz-appearance: none; -webkit-appearance: none; appearance: none; background-color: var(--s-g0); text-align: center; border: 1PX solid var(--s-g1); } 
+#write select:hover{cursor:pointer; background-color: var(--s-g0-1);}
+#write .s-txt{border:none; border-bottom: 1px solid var(--s-g1); padding:10px; width: 210px; margin-left: -20px;} 
+
+#write .btn-box{display: flex; justify-content: center; margin-top: 50px;}
+#write .btn{ width: 140px; height: 45px; font-size: 17px; color:white; background-color: var(--m-g); border: none; border-radius: 5px;}
