@@ -14,6 +14,7 @@
 #profile .m:hover{cursor: pointer; background-color: var(--s-g0-1);}
 #profile .icon{font-size: 15px; position: relative; top:5px;}
 #profile .cnt{ font-size: 16px; }
+#proflie .m2{}
 
 #profile .m1.on{background-color: var(--m-lg); color:#fff}
 
@@ -78,3 +79,15 @@
 #editor .rdw-fontsize-dropdown{width:50px;} /* 가로너비(글자크기설정) */
 #editor .rdw-link-dropdown{width:50px;}
 #editor .rdw-editor-main{height:350px; }
+
+
+/* custom-modal */
+#custom-modal { width: 100vw; height: 100vw; position:fixed; top: 0; left: 0; right: 0;  background-color: transparent;  color:black; bottom: 0; margin:auto;  z-index: 1002; display:flex;align-items: center; justify-content: center; }
+#custom-modal .modal-background{ width:460px; height: 210px; background-color: #fff;  display: flex;align-items: center; justify-content: center;border:1px solid var(--s-g2); }
+#custom-modal .modal-box{width:80%; height: 80%; display: flex; flex-direction: column; align-items: center; justify-content: space-evenly;}
+#custom-modal .question{font-size: 20px; font-weight: bold;}
+#custom-modal .warnning{color: red; font-weight: bold; font-size: 15px; margin-top: 10px; }
+#custom-modal .q-box{text-align: center; } 
+#custom-modal .btn-box{margin-bottom: -18px;}
+#custom-modal .btn{font-size: 16px; width: 150px; height: 45px; border:none; background-color: var(--s-g0-1); margin-left: 12px; margin-right: 12px;} 
+#custom-modal .btn.yes{background-color: var(--m-g); color: white;} 

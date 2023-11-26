@@ -60,11 +60,11 @@ const DevelopMode = ({ setDmIsLogIn,setDmGraduate }) => {
 
       <div className='dm-login'>
         <div>
-          <input id='yes-gd' type='radio' name='on' className='radio' onClick={() => { setDmGraduate(true)}} />
+          <input id='yes-gd' type='radio' name='gd' className='radio' onClick={() => { setDmGraduate(true)}} />
           <label htmlFor='yes-gd' >졸업생</label>
         </div>
         <div>
-          <input id='not-gd' type='radio' name='on' defaultChecked={true} className='radio' onClick={() => { setDmGraduate(false) }} />
+          <input id='not-gd' type='radio' name='gd' defaultChecked={true} className='radio' onClick={() => { setDmGraduate(false) }} />
           <label htmlFor='not-gd' >미졸업생</label>
         </div> 
       </div>

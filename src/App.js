@@ -52,7 +52,7 @@ function App() {
                 <Route path="/articleDetail" element={<ArticleDetail/>} />
                 <Route path="/searchResult/:word" element={<SearchResult/>} />
                 <Route path="/searchResult/plus/:boardType/:word" element={<SearchResultPlus/>} />
-                <Route path="/mypage" element={<Mypage/>} /> 
+                <Route path="/mypage/:menu" element={<Mypage dmGraduate={dmGraduate}/>} /> 
               </Routes>
             </div>
             <ProfileBox setLogInPage={setLogInPage} dmIsLogIn={dmIsLogIn} dmGraduate={dmGraduate}/>

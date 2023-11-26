@@ -19,9 +19,7 @@
   /* 검색어표시 */
   --h:blue;
   
-}
-
-Link {color:black;}
+} 
 
 /* wrap */
 .wrap { width: 1100px; margin:0 auto; }  
