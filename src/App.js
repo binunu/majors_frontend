@@ -26,9 +26,10 @@ function App() {
   const [chatRoom, setChatRoom] = useState(false)
   const [logInPage, setLogInPage] = useState(false)
   const [dmIsLogIn,setDmIsLogIn] = useState(false)
+  const [dmGraduate,setDmGraduate] = useState(false)
   return (
     <>
-    <DevelopMode setDmIsLogIn={setDmIsLogIn}/>
+    <DevelopMode setDmIsLogIn={setDmIsLogIn} setDmGraduate={setDmGraduate}/>
       <Header setLogInPage={setLogInPage} />
       <div id='main' className='wrap'>
         {logInPage ?
@@ -54,7 +55,7 @@ function App() {
                 <Route path="/mypage" element={<Mypage/>} /> 
               </Routes>
             </div>
-            <ProfileBox setLogInPage={setLogInPage} dmIsLogIn={dmIsLogIn}/>
+            <ProfileBox setLogInPage={setLogInPage} dmIsLogIn={dmIsLogIn} dmGraduate={dmGraduate}/>
           </>
         }
       </div>
