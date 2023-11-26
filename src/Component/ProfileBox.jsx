@@ -6,7 +6,7 @@ import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
 import BookmarksOutlinedIcon from '@mui/icons-material/BookmarksOutlined';
 import SmsOutlinedIcon from '@mui/icons-material/SmsOutlined';
 import PostAddIcon from '@mui/icons-material/PostAdd';
-const ProfileBox = ({setLogInPage,dmIsLogIn}) => {
+const ProfileBox = ({setLogInPage,dmIsLogIn,dmGraduate}) => {
   // const isLogin = false; //로그인여부 수정
   const offProfileBox=()=>{
     setLogInPage(true)
@@ -21,8 +21,13 @@ const ProfileBox = ({setLogInPage,dmIsLogIn}) => {
           <div className='t1-box'>
             <p className='t1'>학과명</p>
             <p className='t2'>X 로그아웃</p>
+          </div> 
+          <div className='t3'>
+          {
+            dmGraduate && <span>🎓</span>  }
+          <p>병아리는삐약삐약</p> 
           </div>
-          <p className='t3'>병아리는삐약삐약</p>
+         
           <Link to='/mypage' className='t4'>개인정보수정</Link>
         </div>
       </div>

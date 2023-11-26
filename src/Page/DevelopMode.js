@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import './DevelopMode.css';
 
-const DevelopMode = ({ setDmIsLogIn }) => {
+const DevelopMode = ({ setDmIsLogIn,setDmGraduate }) => {
   const dmRef = useRef(null);
   let pos1 = 0,
     pos2 = 0,
@@ -55,6 +55,17 @@ const DevelopMode = ({ setDmIsLogIn }) => {
         <div>
           <input id='not-login' type='radio' name='on' defaultChecked={true} className='radio' onClick={() => { setDmIsLogIn(false) }} />
           <label htmlFor='not-login' >미로그인</label>
+        </div> 
+      </div>
+
+      <div className='dm-login'>
+        <div>
+          <input id='yes-gd' type='radio' name='on' className='radio' onClick={() => { setDmGraduate(true)}} />
+          <label htmlFor='yes-gd' >졸업생</label>
+        </div>
+        <div>
+          <input id='not-gd' type='radio' name='on' defaultChecked={true} className='radio' onClick={() => { setDmGraduate(false) }} />
+          <label htmlFor='not-gd' >미졸업생</label>
         </div> 
       </div>
     </div>

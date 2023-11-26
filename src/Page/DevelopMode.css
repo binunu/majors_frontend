@@ -3,8 +3,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center; cursor: move; }
-
+#dm *{ font-size: 20px;}
 
 #dm .dm-login{border-bottom: 1px solid gray;padding: 20px;}
 
-#dm *{margin-top: 10px; font-size: 20px;}
+#dm input{margin-top: 15px;}
