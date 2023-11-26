@@ -48,7 +48,7 @@ function App() {
                 <Route path="/jobAsPeed" element={<JobAsPeed />} />
                 <Route path="/studyAsList" element={<StudyAsList />} />
                 <Route path="/studyAsPeed" element={<StudyAsPeed />} />
-                <Route path="/write" element={<Write />} />
+                <Route path="/write" element={<Write/>} />
                 <Route path="/articleDetail" element={<ArticleDetail/>} />
                 <Route path="/searchResult/:word" element={<SearchResult/>} />
                 <Route path="/searchResult/plus/:boardType/:word" element={<SearchResultPlus/>} />
