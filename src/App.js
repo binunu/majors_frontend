@@ -3,9 +3,9 @@ import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import Footer from './Page/Footer';
 import Home from './Page/Board/Home';
-import Community from './Page/Board/Community.jsx';
+import Community from './Page/Board/Community';
 import JobAsList from './Page/Board/JobAsList';
-import JobAsPeed from './Page/Board/JobAsPeed.jsx';
+import JobAsPeed from './Page/Board/JobAsPeed';
 import StudyAsList from './Page/Board/StudyAsList';
 import StudyAsPeed from './Page/Board/StudyAsPeed';
 import ProfileBox from './Component/ProfileBox';
@@ -18,9 +18,9 @@ import Find from './Page/Member/Find';
 import Join from './Page/Member/Join';
 import DevelopMode from './Page/DevelopMode';
 import ArticleDetail from './Page/Board/ArticleDetail.js'; 
-import SearchResult from './Page/Board/SearchResult.js';
-import SearchResultPlus from './Page/Board/SearchResultPlus.js';
-import Mypage from './Page/Member/Mypage.js';
+import SearchResult from './Page/Board/SearchResult';
+import SearchResultPlus from './Page/Board/SearchResultPlus';
+import Mypage from './Page/Member/Mypage';
 import ScrollToTop from './ScrollToTop.jsx';
 function App() {
   const [chatRoom, setChatRoom] = useState(false)
@@ -47,9 +47,9 @@ function App() {
                 <Route path="/jobAsList" element={<JobAsList />} />
                 <Route path="/jobAsPeed" element={<JobAsPeed />} />
                 <Route path="/studyAsList" element={<StudyAsList />} />
-                <Route path="/studyAsPeed" element={<StudyAsPeed />} />
+                <Route path="/studyAsPeed" element={<StudyAsPeed  dmGraduate={dmGraduate} />} />
                 <Route path="/write" element={<Write/>} />
-                <Route path="/articleDetail" element={<ArticleDetail/>} />
+                <Route path="/articleDetail" element={<ArticleDetail dmGraduate={dmGraduate}/>} />
                 <Route path="/searchResult/:word" element={<SearchResult/>} />
                 <Route path="/searchResult/plus/:boardType/:word" element={<SearchResultPlus/>} />
                 <Route path="/mypage/:menu" element={<Mypage dmGraduate={dmGraduate}/>} /> 

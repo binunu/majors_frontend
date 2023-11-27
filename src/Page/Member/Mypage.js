@@ -34,10 +34,10 @@ const Mypage = ({ dmGraduate }) => {
   },[menu])
 
   //졸업생여부관련
-  const OnNickBtn = (e) => {
+  const onNickBtn = (e) => {
     setNickCheckBtn(true)
   }
-  const NicknameCheck = () => {
+  const nicknameCheck = () => {
     // 닉네임중복확인  
     // 결과에 따라 메세지 변경
     const dmTest = false
@@ -50,11 +50,11 @@ const Mypage = ({ dmGraduate }) => {
       setIsAbleNicname(false)
     }
   }
-  const ChangeGdBtn = (e) => {
+  const changeGdBtn = (e) => {
     setIsGraduate(e.target.id)
     setActiveUpdateBtn(true) //수정버튼
   }
-  const Update = () => {
+  const update = () => {
     //수정점있는지확인 후 수정하기
   }
 
@@ -64,7 +64,7 @@ const Mypage = ({ dmGraduate }) => {
   } 
  
   //모달띄우기
-  const OnDelModal=(type)=>{
+  const onDelModal=(type)=>{
     setModalType(type)
     setOnModal(true)  
   }
@@ -87,15 +87,15 @@ const Mypage = ({ dmGraduate }) => {
               <p className='info-p'>홍길동</p>
               <p className='info-p'>llsbdm@naver.com</p>
               <p className='info-p'>가입일&nbsp;&nbsp;2023-07-11</p>
-              <div><Link to='#' className='info-p3'>비밀번호 변경</Link><input type='button' className='info-p3 input' value='회원탈퇴' onClick={()=>{OnDelModal('leave')}} /> </div>
+              <div><Link to='#' className='info-p3'>비밀번호 변경</Link><input type='button' className='info-p3 input' value='회원탈퇴' onClick={()=>{onDelModal('leave')}} /> </div>
             
           </div>
           <div className='update'>
             <div className='row1'>
               <div className='row'>
                 <p className='row-t'>닉네임</p>
-                <input className='row-2' defaultValue='병아리는삐약삐약' onChange={OnNickBtn}></input>
-                <button className={`nic-btn ${nickCheckBtn ? 'on' : ''}`} onClick={NicknameCheck}>중복확인</button>
+                <input className='row-2' defaultValue='병아리는삐약삐약' onChange={onNickBtn}></input>
+                <button className={`nic-btn ${nickCheckBtn ? 'on' : ''}`} onClick={nicknameCheck}>중복확인</button>
               </div>
               <p className={`check ${isAbleNickname ? 'pass' : ''}`}>{nickCheckMessage}</p>
             </div>
@@ -110,10 +110,10 @@ const Mypage = ({ dmGraduate }) => {
             </div>
             <div className='row'>
               <p className='row-t'>졸업여부</p>
-              <button id='yes-btn' className={`gd-btn ${isGraduate === 'yes-btn' ? 'select' : ''}`} onClick={ChangeGdBtn}>예</button>
-              <button id='no-btn' className={`gd-btn no ${isGraduate === 'no-btn' ? 'select' : ''}`} onClick={ChangeGdBtn}>아니오</button>
+              <button id='yes-btn' className={`gd-btn ${isGraduate === 'yes-btn' ? 'select' : ''}`} onClick={changeGdBtn}>예</button>
+              <button id='no-btn' className={`gd-btn no ${isGraduate === 'no-btn' ? 'select' : ''}`} onClick={changeGdBtn}>아니오</button>
             </div>
-            <button className={`update-btn no ${activeUpdateBtn ? 'on' : ''}`} onClick={Update}>수정하기</button>
+            <button className={`update-btn no ${activeUpdateBtn ? 'on' : ''}`} onClick={update}>수정하기</button>
           </div>
         </div>
       </div>
@@ -137,7 +137,7 @@ const Mypage = ({ dmGraduate }) => {
                     <div className='icon-box'>
                       <GoodIcon className='icon' />&nbsp;{item.goodCnt}&nbsp;&nbsp;
                       <ReplyIcon className='icon' />&nbsp;{item.replyCnt}&nbsp;&nbsp;
-                      <DelIcon className='icon del-icon' onClick={()=>{OnDelModal(selectMenu)}}/>
+                      <DelIcon className='icon del-icon' onClick={()=>{onDelModal(selectMenu)}}/>
                     </div> 
                   </div> 
                 )) 

@@ -52,7 +52,7 @@
 /* major-select */
 #major-select .select{height:45px; border:none; background-color: var(--m-lg); color: white;  padding-left: 10px; font-weight: bold; font-size: 15px;}
 #major-select .select:hover{cursor: pointer; }
-#major-select .option-box{position:absolute;  background-color: #fff; }
+#major-select .option-box{position:absolute; z-index: 10; background-color: #fff; }
 #major-select .input-div{height:45px; font-size: 15px;border-bottom: 1px solid var(--s-g1); width:680px; font-size:15px;}
 #major-select .input{width:100%; padding:10px;  font-size: 15px;color:black;  border:none;}
 #major-select .op-box{height:225px; overflow-y: auto; width:680px;}

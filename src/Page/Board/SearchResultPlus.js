@@ -30,7 +30,7 @@ const SearchResultPlus = () => {
     }
 
   }, [])
-  const HighlightText = (text) => {
+  const highlightText = (text) => {
     //문자열 전체에서, 공백을 포함해, word와 일치하는 문자를 찾음
     const regex = new RegExp(`(${word.replace(/ /g, '\\s*')})`, 'gi');
     // $1은 정규표현식에서 매치된 첫 번째 그룹을 가리키는데, 여기서는 괄호로 묶인 패턴을 의미
@@ -44,13 +44,13 @@ const SearchResultPlus = () => {
           boardA.map((item, index) => (
             <Link to='/articleDetail' className='article' key={index}>
               <div className='row1'>
-                <div className='title'><b>[{item.subject}]</b>&nbsp;{HighlightText(item.title)}</div>
+                <div className='title'><b>[{item.subject}]</b>&nbsp;{highlightText(item.title)}</div>
                 <div className='icon-box'>
                   <GoodIcon className='icon' />&nbsp;{item.goodCnt}&nbsp;&nbsp;
                   <ReplyIcon className='icon' />&nbsp;{item.replyCnt}
                 </div>
               </div>
-              <div className='row2'>{HighlightText(item.content)}</div>
+              <div className='row2'>{highlightText(item.content)}</div>
             </Link>
           ))
           :

@@ -20,7 +20,7 @@
 #home .rank-2{color:var(--r-2); border-color: var(--r-2);} 
 
 /* main-board */ 
-.main-board .mode{display: flex; justify-content: flex-end; margin-bottom:30px; margin-top: 10px;}
+.main-board .mode{display: flex; justify-content: flex-end; margin-bottom:6px; margin-top: 10px;}
 .main-board .icon{color:rgb(34, 34, 34); margin-left: 5px;}
 .main-board .cur{color:var(--s-g2);} 
 .main-board .title{font-weight: bold; font-size: 17px;}
@@ -28,7 +28,8 @@
 /* study-as-peed */
 
 /* study-as-list */ 
-#study-as-list .article{color: black; display: flex; justify-content: space-between; align-items: center; margin-bottom: 35px;}
+#study-as-list .article-list{margin-top: 15px;}
+#study-as-list .article{border-bottom: 1px solid var(--s-g0-1); padding-bottom: 10px; color: black; display: flex; justify-content: space-between; align-items: center; margin-bottom:30px;}
 #study-as-list .a-title{width: 550px; overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
 #study-as-list .a-tail{color: var(--s-g2); display: flex;align-items: center; font-size: 14px;}
 #study-as-list .a-tail .icon{color: var(--s-g2); font-size: 15px;}
@@ -70,3 +71,63 @@
 
 #write .btn-box{display: flex; justify-content: center; margin-top: 50px;}
 #write .btn{ width: 140px; height: 45px; font-size: 17px; color:white; background-color: var(--m-g); border: none; border-radius: 5px;}
+
+
+/* article-detail , peed*/
+
+#article-detail .title-box{padding-left: 30px; border : 1px solid  var(--s-g1); height: 135px; display: flex; flex-direction: column; align-items: flex-start; }
+#article-detail .tag{position:relative;  top : -10px; background-color: var(--m-dg); color:white; border-radius: 0 0 15px 15px; font-size: 13px; width: 95px; height: 30px; text-align: center; line-height: 2.3em;}
+#article-detail .title{font-weight: bold; font-size: 17px; margin-top: 16px;}
+#article-detail .t-sub-box{display: flex; justify-content: space-between;flex-direction: row; width: 100%; align-items: center;margin-top: 15px;}
+#article-detail .t-sub-box-1{display: flex;align-items: center;}
+#article-detail .img{width: 35px;height: 35px;background-color:var(--s-g1);border-radius: 50%;  margin-right: 10px;}
+#article-detail .sub-p{font-size: 13px; color: var(--s-g2); margin-right: 15px;} 
+#article-detail .icon{margin-right: 0;}  
+#article-detail .bookmark-icon{position:relative; right:20px;top:13px; font-size: 25px; color:var(--m-dg);}  
+
+#article-detail .content-box{border : 1px solid  var(--s-g1); height: 400px; font-size: 14px; border-top: none; }
+
+#article-detail .response-box{position:relative; display: flex; justify-content: center; top:-70px;}
+#article-detail .response{line-height: 2.6em; background-color: white; width:120px;height: 45px; border-radius: 7px; font-weight: bold; font-size: 17px; margin-left: 5px; margin-right: 5px;}
+#article-detail .good{ border: 2px solid var(--r-2); color: var(--r-2); }
+#article-detail .bad{ border: 2px solid var(--m-g); color: var(--m-g); }
+#article-detail .good.on{background-color: var(--r-2); color: white;}
+#article-detail .bad.on{background-color: var(--m-g); color: white;}
+#article-detail .edit-box{position:absolute; right:0px; bottom:0; display: flex;justify-content: flex-end; margin-right: 30px; } 
+#article-detail .edit-btn{ font-size: 13px; color:var(--s-g2);border:none; background-color: transparent;} 
+#article-detail .edit-btn:hover{text-decoration: underline;} 
+ 
+#article-detail .reply-cnt{font-weight: bold;margin-top: -20px;}
+#article-detail .replyes-container{width:90%; margin:0 auto; margin-top:20px; }
+
+#article-detail .reply{border-bottom: 1px solid var(--s-g1); padding-bottom: 15px;}
+#article-detail .sec-1{ margin-top: 10px; display: flex; justify-content: space-between;}
+#article-detail .sec-1-1{display: flex; align-items: center;}
+#article-detail .sec-2{ font-size:15px;  margin-top: 10px;line-height: 1.4em;}
+#article-detail .sec-3{display: flex; justify-content: space-between; margin-top: 10px;}
+#article-detail .re-reply{margin-bottom: -15px;}
+#article-detail .nickname{ font-size:15px;}
+#article-detail .sympathy{color:red; border-radius: 50px; border:1px solid red; background-color: transparent; padding: 5px 15px 5px 15px; line-height: 1.3em; font-size: 13px; font-weight: bold;}
+#article-detail .upload-date{margin-left: 10px; font-size: 13px; color:var(--s-g2);}
+#article-detail .re-del-btn{text-decoration: none; margin-right: 12px;}
+#article-detail .re-reply-who{color:var(--m-g);}
+#article-detail .re-reply-icon{font-size:20px; margin-right: 6px;}
+#article-detail .write-reply-box{padding:15px;   border:1px solid var(--s-g1);width:90%; margin:0 auto; margin-top:20px;}
+#article-detail .txtarea{line-height: 1.4em; margin-bottom: 5px; font-size: 15px; border: none; display: block;width:100%;  min-height: 50px;resize: none; }
+#article-detail .write-reply-btn{display: flex; justify-content: flex-end;} 
+#article-detail .wr-btn{ width:90px; height: 35px; border-radius: 5px; border:none; color:white; background-color: var(--m-lg);} 
+
+/* study-as-peed */
+#article-detail .peed-reply-box{
+    /* max-height: 0; */
+    overflow: hidden;
+    transition: max-height 0.3s ease; }
+#article-detail .peed-eply-box.visible{
+    /* max-height: 500px;  */
+    transition: max-height 0.3s ease;}
+    
+#article-detail .peed-article{margin-bottom:100px;}
+#article-detail .peed-visible-btn:hover{cursor: pointer;}
+
+#study-as-peed .scroll-button{cursor: pointer; position:fixed; right:60px; bottom:185px; font-size: 50px; font-weight: lighter; box-shadow: 0 0 2px 2px var(--s-g2); border-radius: 50%; padding: 5px; color:var(--s-g2);}
+#study-as-peed .scroll-button:hover{box-shadow: 0 0 2px 2px var(--s-b1); color: var(--s-b1);}

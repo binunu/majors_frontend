@@ -14,7 +14,7 @@ const ProfileBox = ({setLogInPage,dmIsLogIn,dmGraduate}) => {
   const offProfileBox=()=>{
     setLogInPage(true)
   }
-  const ActiveAlarm=()=>{
+  const activeAlarm=()=>{
     setShowAlarm(!showAlarm)
   }
   return (
@@ -37,7 +37,7 @@ const ProfileBox = ({setLogInPage,dmIsLogIn,dmGraduate}) => {
         </div>
       </div>
       <div className='container2'>
-        <div className={`m m1 ${showAlarm ? 'on':''}`} onClick={ActiveAlarm}>
+        <div className={`m m1 ${showAlarm ? 'on':''}`} onClick={activeAlarm}>
           <p><NotificationsNoneIcon className='icon'/>&nbsp;알림</p> 
           <p className='cnt'>10</p>
         </div>
