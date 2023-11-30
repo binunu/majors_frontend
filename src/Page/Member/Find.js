@@ -90,9 +90,8 @@ const Find = () => {
       <div className='container'>
         {state === 'A' &&
           <div className='container'>
-            <div className='menu-box'>
               <h1 className='h1'>비밀번호 재설정</h1>
-            </div>
+              <Link to='/main' className='to-main'>메인으로</Link>
             <input className={`input ${isPassTest ? '' : 'red'}`} placeholder='이메일을 입력해주세요' onChange={changeEmail} />
             {
               onEmailMessage &&

@@ -12,8 +12,8 @@ const Join = () => {
 
 
   const [emailForm, setEmailForm] = useState(null) //이메일형식체크
-  const [passwordForm, setPasswordFrom] = useState(null) //이메일형식체크
   const [passEmail, setPassEmail] = useState(null) //이메일중복체크
+  const [passwordForm, setPasswordFrom] = useState(null) //비번형식체크
   const [passPassword, setPassPassword] = useState(null)
   const [passAuthNum, setPassAuthNum] = useState(null)
   const [passNickname, setPassNickname] = useState(null)
@@ -96,8 +96,8 @@ const Join = () => {
   return (
     <div id='join' className='member-basic'>
       <form>
-        <div className='container'>
-          <h1 className='h1'>회원가입</h1>
+        <div className='container'> 
+          <h1 className='h1'>회원가입</h1> 
           <input className='input' placeholder='이름' minLength={2} maxLength={10} onChange={(e) => setName(e.target.value)} />
           <div className='auth-box'>
             <input className='input ip-auth' min={3} maxLength={254} placeholder='email@majors.com' onChange={changeEmail} />
@@ -173,6 +173,7 @@ const Join = () => {
           }
           <div className='login-box'> 
           <p className='login-p'>이미 계정이 있으신가요?<Link to='/login' className='login-btn'>로그인</Link></p>
+          <Link to='/main' className='to-main'>메인으로</Link>
           {/* <div className='social-box'>간편로그인</div> */}
           </div>
         </div>

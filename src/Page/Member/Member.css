@@ -45,17 +45,20 @@
 #mypage .pagenation{text-align: center;margin-top: 40px; }
 #mypage .del-icon{cursor:pointer;}
 
+
 /* login */
+.member-basic .to-main{font-size: 13px; text-align: end; margin-bottom: -10px;}
+.member-basic .to-main:hover{text-decoration: underline;}
 .member-basic{width:1100px; margin: 0 auto;  display: flex;align-items: center; justify-content: center;}
-#login { height: 500px; padding-top: 180px;}
+#login { height: 500px; padding-top: 120px; }
 .member-basic .container{ margin:0 auto; display: flex; width: 400px; flex-direction: column; }
-.member-basic .h1{font-size:23px; font-weight: bold; margin-bottom: 20px;}
+.member-basic .h1{text-align: center; font-size:23px; font-weight: bold; margin-bottom: 20px;}
 .member-basic .input{ font-size:15px; height:47px; border:1px solid var(--s-g1);margin-top: 20px; border-radius: 3px; padding-left: 10px; }
 #login .submit-btn{font-size:17px;  height:50px; border:none; background-color: var(--m-g); color:white; border-radius: 3px; margin-top: 20px; font-weight: bold;}
 #login .etc-box{font-size: 14px; display: flex; flex-direction: row; justify-content: space-between;margin-top: 15px;}
 #login .join-btn{font-weight:bold ;}
 
-#join{padding-top: 200px; padding-bottom: 70px;}
+#join{padding-top: 120px; padding-bottom: 70px;} 
 .member-basic .auth-box{ display: flex; justify-content: space-between;}
 .member-basic .ip-auth{width: 70%;}
 .member-basic .auth-btn{ font-size:15px; margin-top: 15px; width: 25%; height:47px; background-color: var(--s-g0-2); color: white; border:none; border-radius: 5px; font-weight:bold ;}
@@ -69,8 +72,8 @@
 #join .login-box{font-size: 14px; color:var(--s-g2); margin: 0 auto; margin-top: 25px;} 
 #join .login-btn{margin-left: 10px; text-decoration: underline; }
 
-/* find */
-#find{height: 500px; padding-top: 180px;}
+/* find */     
+#find{height: 500px; padding-top: 120px;}
 #find .menu-box{display: flex; justify-content: space-around;}
 #find .submit-btn{font-size:17px;  height:50px; border:none; background-color: var(--m-g); color:white; border-radius: 3px; margin-top: 20px; font-weight: bold;}
 #find .auth-btn{margin-top:20px;}

@@ -1,5 +1,8 @@
 import React, { useState } from 'react'
 import { Route, Routes } from 'react-router-dom';
+import Header from './Page/Header';
+import Footer from './Page/Footer';
+import DevelopMode from './Page/DevelopMode';
 import Home from './Page/Board/Home';
 import Community from './Page/Board/Community';
 import JobAsList from './Page/Board/JobAsList';
@@ -17,11 +20,14 @@ import SearchResultPlus from './Page/Board/SearchResultPlus';
 import './App.css';
 
 
-const MainPage = ({dmIsLogIn, dmGraduate }) => {
+const MainPage = () => {
     const [chatRoom, setChatRoom] = useState(false) 
-
+    const [dmIsLogIn, setDmIsLogIn] = useState(false)
+    const [dmGraduate, setDmGraduate] = useState(false)
     return (
         <>
+        <DevelopMode setDmIsLogIn={setDmIsLogIn} setDmGraduate={setDmGraduate} />
+        <Header/>
             <div className='content'>
                 <div id='main' className='wrap'>
                     <div className='content'>
@@ -48,6 +54,7 @@ const MainPage = ({dmIsLogIn, dmGraduate }) => {
                 {chatRoom && <p className='text'>나가기</p>}
             </div>
             {chatRoom && <OpenChat />}
+        <Footer />
         </>
 
     )
