@@ -36,6 +36,7 @@ const StudyAsPeed = ({dmGraduate}) => {
   const contentRef = useRef(null);
   useEffect(()=>{
     const handleScroll = () => {
+      console.log('hello')
       if (window.scrollY > 300) { 
         setShowScrollButton(true);
       } else {

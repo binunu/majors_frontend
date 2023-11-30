@@ -7,13 +7,11 @@ import BookmarksOutlinedIcon from '@mui/icons-material/BookmarksOutlined';
 import SmsOutlinedIcon from '@mui/icons-material/SmsOutlined';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import Alarm from './Alarm';  
-const ProfileBox = ({setLogInPage,dmIsLogIn,dmGraduate}) => { 
+const ProfileBox = ({dmIsLogIn,dmGraduate}) => { 
 
   // const isLogin = false; //로그인여부 수정
   const [showAlarm,setShowAlarm]=useState(false);
-  const offProfileBox=()=>{
-    setLogInPage(true)
-  }
+  
   const activeAlarm=()=>{
     setShowAlarm(!showAlarm)
   }
@@ -33,7 +31,7 @@ const ProfileBox = ({setLogInPage,dmIsLogIn,dmGraduate}) => {
             dmGraduate && <span>🎓</span>  }
           <p>병아리는삐약삐약</p> 
           </div>  
-          <Link to='/mypage/write' className='t4'>개인정보수정</Link>
+          <Link to='/main/mypage/write' className='t4'>개인정보수정</Link>
         </div>
       </div>
       <div className='container2'>
@@ -41,15 +39,15 @@ const ProfileBox = ({setLogInPage,dmIsLogIn,dmGraduate}) => {
           <p><NotificationsNoneIcon className='icon'/>&nbsp;알림</p> 
           <p className='cnt'>10</p>
         </div>
-        <Link to='/mypage/write' className='m m2'>
+        <Link to='/main/mypage/write' className='m m2'>
           <p><ArticleOutlinedIcon className='icon'/>&nbsp;게시글</p>
           <p className='cnt'>10</p>
         </Link>
-        <Link to='/mypage/reply' className='m m3'>
+        <Link to='/main/mypage/reply' className='m m3'>
           <p><SmsOutlinedIcon className='icon'/>&nbsp;댓글</p>
           <p className='cnt'>10</p>
         </Link>
-        <Link to='/mypage/scrap' className='m m4'>
+        <Link to='/main/mypage/scrap' className='m m4'>
           <p><BookmarksOutlinedIcon className='icon'/>&nbsp;스크랩</p>
           <p className='cnt'>10</p>
         </Link>
@@ -58,10 +56,10 @@ const ProfileBox = ({setLogInPage,dmIsLogIn,dmGraduate}) => {
     :
     <div id='profile-not-login'>
       <p className='p'>로그인이 필요한 서비스입니다</p>
-      <Link to ='/logIn'className='login' onClick={offProfileBox}>로그인하기</Link>
+      <Link to ='/logIn'className='login' >로그인하기</Link>
       <div className='sub-box'>
-      <Link to ='/find'className='sub' onClick={offProfileBox}>아이디/비밀번호 찾기</Link>
-      <Link to ='/join'className='sub' onClick={offProfileBox}>회원가입</Link>
+      <Link to ='/join'className='sub' >회원가입</Link>
+      <Link to ='/find'className='sub' >비밀번호 재설정</Link>
       </div>
       </div>}
     {

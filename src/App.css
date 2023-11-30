@@ -7,6 +7,8 @@
 
   --s-g0 : #FBFBFB; /* 선 */
   --s-g0-1 : #EFEFEF; /* 선 */
+  --s-g0-2 : #E0E0E0; /* 선 */
+
   --s-g1 : #CDCDCD; /* 선 */
   --s-g2 : #919191; /* 글씨 */
   --s-b1: #494949;
@@ -18,8 +20,12 @@
 
   /* 검색어표시 */
   --h:blue;
-  
+
+  /* 이메일형식불일치-비밀번호재설정 */
+  --r:rgb(255, 68, 68);
+  --r:red;
 } 
+
 
 /* wrap */
 .wrap { width: 1100px; margin:0 auto; }  
@@ -34,3 +40,4 @@
 #open-chat .icon{font-size: 70px; color: white;}
 #open-chat .text{ display: block; background-color: white; border: 1px solid black; border-radius: 50px; padding:5px 10px 5px 10px;position: absolute; bottom: -5px;}
 #open-chat:hover{cursor: pointer;}
+ 

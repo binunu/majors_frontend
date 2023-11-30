@@ -4,16 +4,11 @@ import { useState } from 'react';
 import './Main.css';
 import SearchIcon from '@mui/icons-material/Search';  
 
-const Header = ({setLogInPage}) => {
+const Header = () => {
     const [onMenu, setOnMenu] = useState('');
     const [word, setWord] = useState('');
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();  
 
-    //헤더 메뉴 클릭에 따른 css변화
-    const changeOnMenu = (e) => { 
-        setOnMenu(e.target.id);
-        setLogInPage(false); 
-    }
     //키를눌렀을때 enter이면 서버로 전송
     const KeyDownSearch=(e)=>{
         if (e.key === 'Enter'){
@@ -28,7 +23,7 @@ const Header = ({setLogInPage}) => {
 
             */
              
-            navigate(`/searchResult/${encodeURIComponent(word)}`);  
+            navigate(`/main/searchResult/${encodeURIComponent(word)}`);  
         }
     }
  
@@ -36,7 +31,7 @@ const Header = ({setLogInPage}) => {
         <div id='header'>
             <div className='header-wrap'>
                 <div className='menu1'>
-                    <Link to='/' className='logo' onClick={()=>{setOnMenu('')}}> 
+                    <Link to='/main' className='logo' onClick={()=>{setOnMenu('')}}> 
                         <img src='/image/logo.png' alt='로고 및 홈버튼'></img>
                     </Link>
                     <div className='seach'>
@@ -45,9 +40,9 @@ const Header = ({setLogInPage}) => {
                     </div>
                 </div>
                 <div className='menu2'> 
-                    <Link to='/studyAsPeed' id='m1' className={`m ${onMenu === 'm1' ? 'on' : ''}`} onClick={changeOnMenu}>공부궁물</Link>
-                    <Link to='/jobAsPeed' id='m2' className={`m ${onMenu === 'm2' ? 'on' : ''}`} onClick={changeOnMenu}>취업궁물</Link> 
-                    <Link to='/community' id='m3' className={`m ${onMenu === 'm3' ? 'on' : ''}`} onClick={changeOnMenu}>자유게시판</Link>
+                    <Link to='/main/studyAsPeed' id='m1' className={`m ${onMenu === 'm1' ? 'on' : ''}`} onClick={(e)=>{setOnMenu(e.target.id)}}>공부궁물</Link>
+                    <Link to='/main/jobAsPeed' id='m2' className={`m ${onMenu === 'm2' ? 'on' : ''}`} onClick={(e)=>{setOnMenu(e.target.id)}}>취업궁물</Link> 
+                    <Link to='/main/community' id='m3' className={`m ${onMenu === 'm3' ? 'on' : ''}`} onClick={(e)=>{setOnMenu(e.target.id)}}>자유게시판</Link>
                 </div>
             </div>
         </div>

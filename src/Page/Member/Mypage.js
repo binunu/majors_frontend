@@ -87,7 +87,7 @@ const Mypage = ({ dmGraduate }) => {
               <p className='info-p'>홍길동</p>
               <p className='info-p'>llsbdm@naver.com</p>
               <p className='info-p'>가입일&nbsp;&nbsp;2023-07-11</p>
-              <div><Link to='#' className='info-p3'>비밀번호 변경</Link><input type='button' className='info-p3 input' value='회원탈퇴' onClick={()=>{onDelModal('leave')}} /> </div>
+              <div><Link to='/find' className='info-p3'>비밀번호 변경</Link><input type='button' className='info-p3 input' value='회원탈퇴' onClick={()=>{onDelModal('leave')}} /> </div>
             
           </div>
           <div className='update'>
