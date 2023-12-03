@@ -31,7 +31,7 @@ const ProfileBox = ({dmIsLogIn,dmGraduate}) => {
             dmGraduate && <span>🎓</span>  }
           <p>병아리는삐약삐약</p> 
           </div>  
-          <Link to='/main/mypage/write' className='t4'>개인정보수정</Link>
+          <Link to='/mypage/write' className='t4'>개인정보수정</Link>
         </div>
       </div>
       <div className='container2'>
@@ -39,15 +39,15 @@ const ProfileBox = ({dmIsLogIn,dmGraduate}) => {
           <p><NotificationsNoneIcon className='icon'/>&nbsp;알림</p> 
           <p className='cnt'>10</p>
         </div>
-        <Link to='/main/mypage/write' className='m m2'>
+        <Link to='/mypage/write' className='m m2'>
           <p><ArticleOutlinedIcon className='icon'/>&nbsp;게시글</p>
           <p className='cnt'>10</p>
         </Link>
-        <Link to='/main/mypage/reply' className='m m3'>
+        <Link to='/mypage/reply' className='m m3'>
           <p><SmsOutlinedIcon className='icon'/>&nbsp;댓글</p>
           <p className='cnt'>10</p>
         </Link>
-        <Link to='/main/mypage/scrap' className='m m4'>
+        <Link to='/mypage/scrap' className='m m4'>
           <p><BookmarksOutlinedIcon className='icon'/>&nbsp;스크랩</p>
           <p className='cnt'>10</p>
         </Link>

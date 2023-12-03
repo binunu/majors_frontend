@@ -39,8 +39,7 @@ const Find = () => {
   const nextToC = () => {
     //인증번호 맞는지 확인
     const answer = '1234'
-    if (authNum === answer) {
-      alert('인증 성공')
+    if (authNum === answer) { 
       setState('C')
       setOnAuthMessage(false)
     } else {
@@ -146,8 +145,7 @@ const Find = () => {
             <p className='h4'>다시 로그인해주세요</p>
             <Link to='/login' className='login-btn'>로그인</Link>
             <Link to='/main'className='main-btn'>메인으로</Link>
-          </div>
-
+          </div> 
         }
 
       </div>

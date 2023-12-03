@@ -1,24 +1,26 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
-const Join = () => {
-
+const Join = () => { 
+  const [state, setState] = useState('A')
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [onAuthEmail, setOnAuthEmail] = useState(false)
   const [authNum, setAuthNum] = useState('')
   const [nickname, setNickname] = useState('')
-
-
+ 
   const [emailForm, setEmailForm] = useState(null) //이메일형식체크
   const [passEmail, setPassEmail] = useState(null) //이메일중복체크
   const [passwordForm, setPasswordFrom] = useState(null) //비번형식체크
   const [passPassword, setPassPassword] = useState(null)
   const [passAuthNum, setPassAuthNum] = useState(null)
   const [passNickname, setPassNickname] = useState(null)
- 
 
+  const [graduate, setGraduate] = useState()
+  const [onCustomMajor, setOnCustomMajor]=useState(false)
+  const [major, setMajor]=useState('')
+  
   const checkEmail = () => {  // 1. 형식체크 t/f, 중복확인 t/f, 인증번호 폼 on/off
     //이메일형식체크
     const emailPattern = /^[가-힣a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -51,7 +53,6 @@ const Join = () => {
   const checkPassword = (e) => {
     setPassword(e.target.value)
     setPassPassword(null)
-    // const passwordPattern =/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[\d!@#$%^&*()_+!@#$%^&*()_+])[a-zA-Z\d!@#$%^&*()_+]{8,16}$/;
     const passwordPattern = /^(?=.*[a-zA-Z])(?=.*\d).{8,16}$/;
 
     if (passwordPattern.test(e.target.value)) {
@@ -89,12 +90,25 @@ const Join = () => {
       setPassNickname(false)
     }
   }
-  const test = (e) => {
-    e.preventDefault()
+  const changeMajor=(e)=>{ 
+    if(e.target.value === '직접입력'){ 
+      setOnCustomMajor(true) 
+      setMajor(null)
+    }else{
+      setMajor(e.target.value) 
+      setOnCustomMajor(false)
+    }
+  }
+  const submitJoin = (e) => { 
     console.log(passEmail,passAuthNum, passPassword, passNickname)
+    setState('B')
+  }
+  const submitSet=()=>{
+    setState('Last')
   }
   return (
     <div id='join' className='member-basic'>
+      { state==='A'&&
       <form>
         <div className='container'> 
           <h1 className='h1'>회원가입</h1> 
@@ -167,9 +181,9 @@ const Join = () => {
           }
           {
             passEmail && passPassword && passNickname && passAuthNum ?
-              <button type='button' className='submit-btn on' onClick={test} >회원가입</button>
+              <button type='button' className='submit-btn on' onClick={submitJoin} >회원가입</button>
               :
-              <button type='submit' className='submit-btn d' onClick={test}>회원가입</button>
+              <button type='submit' className='submit-btn d' onClick={submitJoin}>회원가입</button>
           }
           <div className='login-box'> 
           <p className='login-p'>이미 계정이 있으신가요?<Link to='/login' className='login-btn'>로그인</Link></p>
@@ -178,6 +192,45 @@ const Join = () => {
           </div>
         </div>
       </form>
+      }
+      {state==='B'&& 
+      <div className='container'>
+        <h1 className='h1'>당신의 전공은 무엇인가요?</h1>
+        <select className='input' onChange={changeMajor}>
+          <option value='base'>선택하세요</option>
+          <option value='a'>경제학</option>
+          <option value='a'>서양미술</option>
+          <option value='a'>조소</option>
+          <option value='a'>역사학</option>
+          <option value='a'>영어</option>
+          <option value='직접입력'>직접입력</option>
+          </select>  
+          {
+            onCustomMajor &&
+            <input className='input' placeholder='전공을 입력해주세요' onChange={(e)=>{setMajor(e.target.value)}}></input> 
+          }
+
+          <h1 className='h1'>대학교를 졸업했나요?</h1> 
+          <div className='gd-box'>
+          <input className={`gd-btn ${graduate==='Y'?'on':''}`} type='button' value='예' onClick={()=>{setGraduate('Y')}}></input>
+          <input className={`gd-btn ${graduate==='N'?'on':''}`} type='button' value='아니오' onClick={()=>{setGraduate('N')}}></input> 
+          </div>
+          {
+            major && major !== 'base' &&graduate ?
+            <button className='submit-btn on width' onClick={submitSet}>확인</button>
+            :
+            <button disabled className='submit-btn width no'>확인</button>
+          }
+      </div>
+    }
+      {state==='Last'&&
+      <div className='container'>
+        <p className='h1'>회원가입이 완료되었습니다</p>
+        <p className='h5'>다양한 {major}의 전공자들을 만나보세요!</p> 
+        <Link to='/login' className='last-login-btn'>로그인</Link>
+        <Link to='/main'className='main-btn'>메인으로</Link>
+      </div> 
+      }  
     </div>
   )
 }

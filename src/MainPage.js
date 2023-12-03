@@ -31,7 +31,7 @@ const MainPage = () => {
             <div className='content'>
                 <div id='main' className='wrap'>
                     <div className='content'>
-                        <Routes path="/main">
+                        <Routes >
                             <Route exact path="/" element={<Home dmIsLogIn={dmIsLogIn} />} />
                             <Route path="/community" element={<Community />} />
                             <Route path="/jobAsList" element={<JobAsList />} />

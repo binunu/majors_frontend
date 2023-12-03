@@ -25,14 +25,14 @@ const StudyAsList = () => {
       <MajorSelect dmSubject={dmSubject} setDmSubject={setDmSubject} />
       <div className='mode'>
         <div>
-          <Link to='/studyAsPeed'><PeedIcon className='icon' /></Link>
+          <Link to='/main/studyAsPeed'><PeedIcon className='icon' /></Link>
           <ListIcon className='icon cur' />
         </div>
       </div>
       <div className='article-list'>
         {
           articles.map((item,index)=>(
-            <Link to='/articleDetail' className='article' key={index}>
+            <Link to='/main/articleDetail' className='article' key={index}>
             <div className='a-title'><b>[{item.subject}]</b> {item.title}</div>
             <div className='a-tail'>
               <GoodIcon className='icon'/>&nbsp;{item.replyCnt}&nbsp;&nbsp;

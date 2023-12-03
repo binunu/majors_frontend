@@ -6,15 +6,17 @@ import Find from './Page/Member/Find';
 import Join from './Page/Member/Join';
 import ScrollToTop from './ScrollToTop.jsx';
 import MainPage from './MainPage';
+import ApiTest from './ApiTest.js';
 
 function App() { 
   return (
     <> 
       <Routes>
-        <Route path="/main/*" element={<MainPage/>} />
+        <Route path="/*" element={<MainPage/>} />
         <Route exact path="/login" element={<LogIn />} />
         <Route exact path="/find" element={<Find />} />
         <Route exact path="/join" element={<Join />} />
+        <Route exact path="/apitest" element={<ApiTest />} />
       </Routes> 
       <ScrollToTop />
 

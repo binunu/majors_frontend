@@ -74,6 +74,18 @@
 #join .login-box{font-size: 14px; color:var(--s-g2); margin: 0 auto; margin-top: 25px;} 
 #join .login-btn{margin-left: 10px; text-decoration: underline; }
 
+#join .gd-box{display: flex; justify-content: space-between; margin-bottom: 80px; margin-top: 15px;}
+#join .h1{margin-top: 50px;}
+#join .gd-btn{cursor:pointer; transition: 0.2s; border-radius: 5px; border:1px solid var(--s-g1); background-color: white; display: block; width: 190px; height: 45px; color:var(--s-b1); } 
+#join .input:focus{outline: none;}
+#join .gd-btn.on{background-color: var(--s-b1); color: white;} 
+#join .submit-btn.width{width: 200px; margin: 0 auto;}
+#join .submit-btn.no{cursor: default;}
+
+#join .last-login-btn{font-size:17px; border: none; background-color: var(--m-g); color: white; text-align: center; line-height: 3em; height:50px; border-radius: 3px; margin-top: 20px; font-weight: bold;}
+#join .last-login-btn:hover{ background-color: var(--m-lg); color:white; transition: 0.3s;}
+#join .h5{font-size: 18px; font-weight: bold; text-align: center; margin-top: 20px; margin-bottom: 25px;}
+
 /* find */     
 #find{height: 500px; padding-top: 120px;}
 #find .menu-box{display: flex; justify-content: space-around;}
@@ -84,10 +96,11 @@
 #find .submit-btn{color:white; background-color: var(--s-g0-2);}
 #find .submit-btn.on{background-color: var(--m-g);cursor: pointer; }
 
-#find .h2{font-size: 17px; text-align: center; font-weight: bold; line-height: 1.7em; margin-bottom: 15px;}
+.member-basic .h2{font-size: 17px; text-align: center; font-weight: bold; line-height: 1.7em; margin-bottom: 15px;}
 #find .h3{font-size: 14px; text-decoration: underline; text-align: center; cursor: pointer;}
-#find .h4{font-size:15px; text-align: center; margin-bottom: 10px; margin-top: -5px;}
-#find .login-btn{font-size:17px; border: none; background-color: var(--m-lg); color: white; text-align: center; line-height: 3em; height:50px; border-radius: 3px; margin-top: 20px; font-weight: bold;}
-#find .main-btn{font-size:17px; border: none; background-color: var(--m-y); color:white; text-align: center; line-height: 3em; height:50px;  border-radius: 3px; margin-top: 20px; font-weight: bold;}
-#find .login-btn:hover{ background-color: var(--m-g); color:white; transition: 0.3s;}
-#find .main-btn:hover{ background-color: var(--s-b1); color:white; transition:0.3s;}
+.member-basic .h4{font-size:15px; text-align: center; margin-bottom: 10px; margin-top: -5px;}
+#find .login-btn{font-size:17px; border: none; background-color: var(--m-g); color: white; text-align: center; line-height: 3em; height:50px; border-radius: 3px; margin-top: 20px; font-weight: bold;}
+.member-basic .main-btn{font-size:17px; border: none; background-color: var(--s-b1); color:white; text-align: center; line-height: 3em; height:50px;  border-radius: 3px; margin-top: 20px; font-weight: bold;}
+#find .login-btn:hover{ background-color: var(--m-lg); color:white; transition: 0.3s;}
+.member-basic .main-btn:hover{ background-color: var(--m-y); color:white; transition:0.3s;}
+

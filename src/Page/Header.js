@@ -23,7 +23,7 @@ const Header = () => {
 
             */
              
-            navigate(`/main/searchResult/${encodeURIComponent(word)}`);  
+            navigate(`/searchResult/${encodeURIComponent(word)}`);  
         }
     }
  
@@ -31,7 +31,7 @@ const Header = () => {
         <div id='header'>
             <div className='header-wrap'>
                 <div className='menu1'>
-                    <Link to='/main' className='logo' onClick={()=>{setOnMenu('')}}> 
+                    <Link to='/' className='logo' onClick={()=>{setOnMenu('')}}> 
                         <img src='/image/logo.png' alt='로고 및 홈버튼'></img>
                     </Link>
                     <div className='seach'>
@@ -40,9 +40,9 @@ const Header = () => {
                     </div>
                 </div>
                 <div className='menu2'> 
-                    <Link to='/main/studyAsPeed' id='m1' className={`m ${onMenu === 'm1' ? 'on' : ''}`} onClick={(e)=>{setOnMenu(e.target.id)}}>공부궁물</Link>
-                    <Link to='/main/jobAsPeed' id='m2' className={`m ${onMenu === 'm2' ? 'on' : ''}`} onClick={(e)=>{setOnMenu(e.target.id)}}>취업궁물</Link> 
-                    <Link to='/main/community' id='m3' className={`m ${onMenu === 'm3' ? 'on' : ''}`} onClick={(e)=>{setOnMenu(e.target.id)}}>자유게시판</Link>
+                    <Link to='/studyAsPeed' id='m1' className={`m ${onMenu === 'm1' ? 'on' : ''}`} onClick={(e)=>{setOnMenu(e.target.id)}}>공부궁물</Link>
+                    <Link to='/jobAsPeed' id='m2' className={`m ${onMenu === 'm2' ? 'on' : ''}`} onClick={(e)=>{setOnMenu(e.target.id)}}>취업궁물</Link> 
+                    <Link to='/community' id='m3' className={`m ${onMenu === 'm3' ? 'on' : ''}`} onClick={(e)=>{setOnMenu(e.target.id)}}>자유게시판</Link>
                 </div>
             </div>
         </div>

@@ -102,7 +102,7 @@ const StudyAsPeed = ({dmGraduate}) => {
         <div className='mode'>
           <div>
             <PeedIcon className='icon cur' />
-            <Link to='/studyAsList'><ListIcon className='icon' /></Link>
+            <Link to='/main/studyAsList'><ListIcon className='icon' /></Link>
           </div>
         </div>
       </div>
