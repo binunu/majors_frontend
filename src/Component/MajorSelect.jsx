@@ -13,7 +13,7 @@ const MajorSelect = ({ dmSubject, setDmSubject }) => {
     }
     useEffect(()=>{ 
         //중분류가져오기
-        axiosURL.get('/contents/getMajorList/middle')
+        axiosURL.get('/contents/major-list/middle')
         .then(res=>{
             console.log(res.data)
             setMajors(res.data);
