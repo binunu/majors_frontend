@@ -23,7 +23,7 @@ const LogIn = () => {
       <form onSubmit={tryLogIn}>
         <div className='container'> 
           <h1 className='h1'>로그인</h1>
-          <Link to='/main' className='to-main'>메인으로</Link> 
+          <Link to='/' className='to-main'>메인으로</Link> 
           <input className='input' minLength={3} maxLength={254} placeholder='이메일을 입력하세요' onChange={(e) => { setEmail(e.target.value) }} required />
           <input className='input' type='password' minLength={8} maxLength={16} onChange={(e) => { setPassword(e.target.value) }} placeholder='비밀번호를 입력하세요' required />
           <button className='submit-btn' type='submit'>로그인</button>

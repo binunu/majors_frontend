@@ -58,7 +58,7 @@
 #major-select .input{width:100%; padding:10px;  font-size: 15px;color:black;  border:none;}
 #major-select .op-box{height:225px; overflow-y: auto; width:680px;}
 #major-select .option{height:45px; font-size: 15px;color:black;  padding-left: 10px; }
-#major-select .option:hover{background-color: var(--m-lg); color:black; font-weight: bold; transition:0.1s all;}
+#major-select .option:hover{background-color: var(--s-g0-1); color:black; font-weight: bold; transition:0.1s all;}
 #major-select .cen{display: flex; align-items: center;}
 #major-select .background{position:fixed;top:0; left: 0; width: 100vw;height: 1000vw;}
 

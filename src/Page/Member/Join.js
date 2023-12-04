@@ -1,7 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 
-const Join = () => { 
+const Join = () => {
+  const axiosURL = axios.create({ baseURL: 'http://localhost:8080' })
   const [state, setState] = useState('A')
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -9,7 +11,8 @@ const Join = () => {
   const [onAuthEmail, setOnAuthEmail] = useState(false)
   const [authNum, setAuthNum] = useState('')
   const [nickname, setNickname] = useState('')
- 
+  const [major, setMajor] = useState('')
+
   const [emailForm, setEmailForm] = useState(null) //이메일형식체크
   const [passEmail, setPassEmail] = useState(null) //이메일중복체크
   const [passwordForm, setPasswordFrom] = useState(null) //비번형식체크
@@ -18,9 +21,26 @@ const Join = () => {
   const [passNickname, setPassNickname] = useState(null)
 
   const [graduate, setGraduate] = useState()
-  const [onCustomMajor, setOnCustomMajor]=useState(false)
-  const [major, setMajor]=useState('')
-  
+  const [onCustomMajor, setOnCustomMajor] = useState(false) 
+  //전공선택
+  const [largeList, setLargeList] = useState([])
+  const [middleList, setMiddleList] = useState([])
+  const [smallList, setSmallList] = useState([])
+  const [showMiddle, setShowMiddle] = useState(false)
+  const [showSmall, setShowSmall] = useState(false)
+
+
+  useEffect(() => {
+    //중분류가져오기
+    axiosURL.get('/contents/getMajorList/large')
+      .then(res => {
+        setLargeList(res.data);
+      })
+      .catch(error => {
+        console.error(error);
+      })
+  }, [])
+
   const checkEmail = () => {  // 1. 형식체크 t/f, 중복확인 t/f, 인증번호 폼 on/off
     //이메일형식체크
     const emailPattern = /^[가-힣a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -28,16 +48,16 @@ const Join = () => {
       setEmailForm(true)
       if (email === 'llsbdm001@naver.com') { //이메일서버보내서 중복체크하기
         setOnAuthEmail(true)
-        setPassEmail(true) 
+        setPassEmail(true)
       } else {
-        setPassEmail(false) 
-        setOnAuthEmail(false) 
-      }  
+        setPassEmail(false)
+        setOnAuthEmail(false)
+      }
     } else {
       //형식체크 실패시
       setEmailForm(false)
-      setOnAuthEmail(false) 
-      setPassEmail(null) 
+      setOnAuthEmail(false)
+      setPassEmail(null)
     }
 
   }
@@ -61,7 +81,7 @@ const Join = () => {
       setPasswordFrom(true)
     }
   }
-  const checkDoublePassword = (e) => { 
+  const checkDoublePassword = (e) => {
     var value = e.target.value
     if (value === '') {
       setPassPassword(null)
@@ -90,147 +110,211 @@ const Join = () => {
       setPassNickname(false)
     }
   }
-  const changeMajor=(e)=>{ 
-    if(e.target.value === '직접입력'){ 
+  const changeLargeMajor = (e) => {
+    setOnCustomMajor(false) 
+    setShowMiddle(false)
+    setShowSmall(false)
+    setMajor('')
+    if (e.target.value === 'base') { 
+      setShowMiddle(false)
+    } else {
+      setShowMiddle(true)
+      const large = e.target.value;
+      axiosURL.get(`/contents/getMajorList/middle`, {
+        params: { large }
+      })
+        .then(res => {
+          setMiddleList(res.data);
+        })
+        .catch(error => {
+          console.error(error);
+        }) 
+    }
+  }
+  const changeMiddleMajor = (e) => {
+    setOnCustomMajor(false)  
+    setMajor('')
+    if (e.target.value === 'base') {
+      setShowSmall(false)
+    } else {
+      setShowSmall(true)
+      const middle = e.target.value;
+      axiosURL.get(`/contents/getMajorList/small`, {
+        params: { middle }
+      })
+        .then(res => {
+          setSmallList(res.data);
+        })
+        .catch(error => {
+          console.error(error);
+        }) 
+
+    }
+  }
+  const changeSmallMajor = (e) => {
+    if (e.target.value === '직접입력') { 
       setOnCustomMajor(true) 
       setMajor(null)
-    }else{
+    } else { 
       setMajor(e.target.value) 
       setOnCustomMajor(false)
     }
   }
-  const submitJoin = (e) => { 
-    console.log(passEmail,passAuthNum, passPassword, passNickname)
+  const submitJoin = (e) => {
+    // console.log(passEmail, passAuthNum, passPassword, passNickname)
     setState('B')
   }
-  const submitSet=()=>{
+  const submitSet = () => {
+    // console.log(major)
     setState('Last')
   }
   return (
     <div id='join' className='member-basic'>
-      { state==='A'&&
-      <form>
-        <div className='container'> 
-          <h1 className='h1'>회원가입</h1> 
-          <input className='input' placeholder='이름' minLength={2} maxLength={10} onChange={(e) => setName(e.target.value)} />
-          <div className='auth-box'>
-            <input className='input ip-auth' min={3} maxLength={254} placeholder='email@majors.com' onChange={changeEmail} />
+      {state === 'A' &&
+        <form>
+          <div className='container'>
+            <h1 className='h1'>회원가입</h1>
+            <input className='input' placeholder='이름' minLength={2} maxLength={10} onChange={(e) => setName(e.target.value)} />
+            <div className='auth-box'>
+              <input className='input ip-auth' min={3} maxLength={254} placeholder='email@majors.com' onChange={changeEmail} />
+              {
+                email ?
+                  <input type='button' className='auth-btn on' value='중복확인' onClick={checkEmail} />
+                  :
+                  <input type='button' className='auth-btn' value='중복확인' />
+              }
+            </div>
             {
-              email ?
-                <input type='button' className='auth-btn on' value='중복확인' onClick={checkEmail} />
-                :
-                <input type='button' className='auth-btn' value='중복확인' />
+              emailForm === false && passEmail == null &&
+              <p className='message-f'>올바른 이메일 형식을 입력해주세요</p>
             }
-          </div>
-          {
-            emailForm === false && passEmail==null &&
-            <p className='message-f'>올바른 이메일 형식을 입력해주세요</p>
-          }
             {
               emailForm && passEmail == false &&
               <p className='message-f'>이미 존재하는 이메일입니다</p>
-  
+
             }
-          {
-            emailForm && passEmail &&
-            <p className='message-t'>인증번호가 발송되었습니다</p>
-          }
-          {onAuthEmail &&
+            {
+              emailForm && passEmail &&
+              <p className='message-t'>인증번호가 발송되었습니다</p>
+            }
+            {onAuthEmail &&
+              <div className='auth-box'>
+                <input className='input ip-auth' placeholder='인증번호를 입력해주세요' onChange={(e) => { setAuthNum(e.target.value) }} />
+                {
+                  authNum ?
+                    <input type='button' className='auth-btn on' value='확인' onClick={checkAuthNum} />
+                    :
+                    <input type='button' className='auth-btn' value='확인' />
+                }
+              </div>
+            }
+            {passAuthNum &&
+              <p className='message-t'>인증이 완료되었습니다</p>
+            }
+            {passAuthNum === false &&
+              <p className='message-f'>인증번호가 일치하지 않습니다</p>
+            }
+            <input className='input' type='password' minLength={8} maxLength={16} placeholder='8~16자리 비밀번호 입력' onChange={checkPassword} />
+            {passwordForm &&
+              <p className='message-f'>8~16자이내, 대소문자와 숫자를 1개 이상 포함해주세요</p>
+            }
+            <input className='input' type='password' placeholder='비밀번호 확인' onChange={checkDoublePassword} />
+            {passPassword === true &&
+              <p className='message-t'>비밀번호가 일치합니다</p>
+            }
+            {passPassword === false &&
+              <p className='message-f'>비밀번호가 일치하지 않습니다</p>
+            }
             <div className='auth-box'>
-              <input className='input ip-auth' placeholder='인증번호를 입력해주세요' onChange={(e) => { setAuthNum(e.target.value) }} />
+              <input className='input ip-auth' placeholder='닉네임을 입력해주세요' minLength={2} maxLength={8} onChange={(e) => setNickname(e.target.value)} />
               {
-                authNum ?
-                  <input type='button' className='auth-btn on' value='확인' onClick={checkAuthNum} />
+                nickname ?
+                  <input type='button' className='auth-btn on' value='중복확인' onClick={checkNickname} />
                   :
-                  <input type='button' className='auth-btn' value='확인' />
+                  <input type='button' className='auth-btn' value='중복확인' />
               }
             </div>
-          }
-          {passAuthNum &&
-            <p className='message-t'>인증이 완료되었습니다</p>
-          }
-          {passAuthNum === false &&
-            <p className='message-f'>인증번호가 일치하지 않습니다</p>
-          }
-          <input className='input' type='password' minLength={8} maxLength={16} placeholder='8~16자리 비밀번호 입력' onChange={checkPassword} />
-          {passwordForm &&
-            <p className='message-f'>8~16자이내, 대소문자와 숫자를 1개 이상 포함해주세요</p>
-          }
-          <input className='input' type='password' placeholder='비밀번호 확인' onChange={checkDoublePassword} />
-          {passPassword === true &&
-            <p className='message-t'>비밀번호가 일치합니다</p>
-          }
-          {passPassword === false &&
-            <p className='message-f'>비밀번호가 일치하지 않습니다</p>
-          }
-          <div className='auth-box'>
-            <input className='input ip-auth' placeholder='닉네임을 입력해주세요' minLength={2} maxLength={8} onChange={(e) => setNickname(e.target.value)} />
-            {
-              nickname ?
-                <input type='button' className='auth-btn on' value='중복확인' onClick={checkNickname} />
-                :
-                <input type='button' className='auth-btn' value='중복확인' />
-            }
-          </div>
-          {passNickname &&
-            <p className='message-t'>사용가능한 닉네임입니다 </p>
-          }{
-            passNickname === false &&
-            <p className='message-f'>이미 존재하는 닉네임입니다 </p>
+            {passNickname &&
+              <p className='message-t'>사용가능한 닉네임입니다 </p>
+            }{
+              passNickname === false &&
+              <p className='message-f'>이미 존재하는 닉네임입니다 </p>
 
-          }
-          {
-            passEmail && passPassword && passNickname && passAuthNum ?
-              <button type='button' className='submit-btn on' onClick={submitJoin} >회원가입</button>
-              :
-              <button type='submit' className='submit-btn d' onClick={submitJoin}>회원가입</button>
-          }
-          <div className='login-box'> 
-          <p className='login-p'>이미 계정이 있으신가요?<Link to='/login' className='login-btn'>로그인</Link></p>
-          <Link to='/main' className='to-main'>메인으로</Link>
-          {/* <div className='social-box'>간편로그인</div> */}
+            }
+            {
+              passEmail && passPassword && passNickname && passAuthNum ?
+                <button type='submit' className='submit-btn on' onClick={submitJoin} >회원가입</button>
+                :
+                <button type='button' className='submit-btn d' >회원가입</button>
+            }
+            <div className='login-box'>
+              <p className='login-p'>이미 계정이 있으신가요?<Link to='/login' className='login-btn'>로그인</Link></p>
+              <Link to='/' className='to-main'>메인으로</Link>
+              {/* <div className='social-box'>간편로그인</div> */}
+            </div>
           </div>
-        </div>
-      </form>
+        </form>
       }
-      {state==='B'&& 
-      <div className='container'>
-        <h1 className='h1'>당신의 전공은 무엇인가요?</h1>
-        <select className='input' onChange={changeMajor}>
-          <option value='base'>선택하세요</option>
-          <option value='a'>경제학</option>
-          <option value='a'>서양미술</option>
-          <option value='a'>조소</option>
-          <option value='a'>역사학</option>
-          <option value='a'>영어</option>
-          <option value='직접입력'>직접입력</option>
-          </select>  
+      {state === 'B' &&
+        <div className='container'>
+          <h1 className='h1'>당신의 전공은 무엇인가요?</h1>
+          <select className='input' onChange={changeLargeMajor}>
+            <option value='base'>대분류 선택</option>
+            {
+              largeList.map((item, index) => (
+                <option value={item.large} key={index}>{item.large}</option>
+              ))
+            }
+          </select>
+          {
+            showMiddle &&
+            <select className='input select-h' onChange={changeMiddleMajor}>
+              <option value='base'>중분류 선택</option>
+              {
+                middleList.map((item, index) => (
+                  <option value={item.middle} key={index}>{item.middle}</option>
+                ))
+              }
+            </select>
+          }
+           {
+            showSmall &&
+            <select className='input select-h' onChange={changeSmallMajor}>
+              <option value='base'>소분류 선택</option>
+              {
+                smallList.map((item, index) => (
+                  <option value={item.small} key={index}>{item.small}</option>
+                ))
+              }
+            <option value='직접입력'>직접입력</option>
+            </select>
+          }
           {
             onCustomMajor &&
-            <input className='input' placeholder='전공을 입력해주세요' onChange={(e)=>{setMajor(e.target.value)}}></input> 
+            <input className='input' placeholder='전공을 입력해주세요' onChange={(e) => { setMajor(e.target.value) }}></input>
           }
 
-          <h1 className='h1'>대학교를 졸업했나요?</h1> 
+          <h1 className='h1'>대학교를 졸업했나요?</h1>
           <div className='gd-box'>
-          <input className={`gd-btn ${graduate==='Y'?'on':''}`} type='button' value='예' onClick={()=>{setGraduate('Y')}}></input>
-          <input className={`gd-btn ${graduate==='N'?'on':''}`} type='button' value='아니오' onClick={()=>{setGraduate('N')}}></input> 
+            <input className={`gd-btn ${graduate === 'Y' ? 'on' : ''}`} type='button' value='예' onClick={() => { setGraduate('Y') }}></input>
+            <input className={`gd-btn ${graduate === 'N' ? 'on' : ''}`} type='button' value='아니오' onClick={() => { setGraduate('N') }}></input>
           </div>
           {
-            major && major !== 'base' &&graduate ?
-            <button className='submit-btn on width' onClick={submitSet}>확인</button>
-            :
-            <button disabled className='submit-btn width no'>확인</button>
+            major && major !== 'base' && graduate ?
+              <button className='submit-btn on width' onClick={submitSet}>확인</button>
+              :
+              <button disabled className='submit-btn width no'>확인</button>
           }
-      </div>
-    }
-      {state==='Last'&&
-      <div className='container'>
-        <p className='h1'>회원가입이 완료되었습니다</p>
-        <p className='h5'>다양한 {major}의 전공자들을 만나보세요!</p> 
-        <Link to='/login' className='last-login-btn'>로그인</Link>
-        <Link to='/main'className='main-btn'>메인으로</Link>
-      </div> 
-      }  
+        </div>
+      }
+      {state === 'Last' &&
+        <div className='container'>
+          <p className='h1'>회원가입이 완료되었습니다</p>
+          <p className='h5'>다양한 {major}의 전공자들을 만나보세요!</p>
+          <Link to='/login' className='last-login-btn'>로그인</Link>
+          <Link to='/main' className='main-btn'>메인으로</Link>
+        </div>
+      }
     </div>
   )
 }

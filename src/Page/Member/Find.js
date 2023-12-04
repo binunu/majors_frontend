@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import './Member.css'
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 
 const Find = () => {
+  // const navigate = useNavigate();
   const emailPattern = /^[가-힣a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   const [onBtn, setOnBtn] = useState(false)
   const [isPassTest, setIsPassTest] = useState(true)
-  const [state, setState] = useState('A')
+  const [state, setState] = useState('B')
   const [email, setEmail] = useState('')
   const [authNum, setAuthNum] = useState('')
   const [onEmailMessage,setOnEmailMessage] = useState(false)
@@ -90,7 +91,7 @@ const Find = () => {
         {state === 'A' &&
           <div className='container'>
               <h1 className='h1'>비밀번호 재설정</h1>
-              <Link to='/main' className='to-main'>메인으로</Link>
+              <Link to='/' className='to-main'>메인으로</Link>
             <input className={`input ${isPassTest ? '' : 'red'}`} placeholder='이메일을 입력해주세요' onChange={changeEmail} />
             {
               onEmailMessage &&
