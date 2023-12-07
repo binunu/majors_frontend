@@ -1,19 +1,36 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import './Member.css'
+import axiosURL from '../../Utill/AxiosURL' 
+import { useNavigate } from 'react-router-dom'
 
 const LogIn = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [availableEmail, setAvailable] = useState(false)
   // const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
   const tryLogIn = (e) => {
-    e.preventDefault()
+    e.preventDefault() 
     const emailPattern = /^[가-힣a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (emailPattern.test(email)) {
-      alert('성공!')
-    } else {
+      axiosURL.post('/member/login',{
+        email:email,
+        password:password,
+      })
+      .then(res=>{
+        const token = res.data
+        localStorage.setItem("accessToken" ,token) 
+        navigate('/');  
+        
+      }).catch(err=>{
+        e.preventDefault() 
+        console.log(err)
+        alert(err.response.data)
+      })
+      
+    } else { 
       alert('올바른 이메일 형식을 입력해주세요')
     }
 

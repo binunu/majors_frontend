@@ -1,6 +1,5 @@
-import React, { useRef, useEffect } from 'react';
-import './Component.css' 
-import { useState } from 'react'
+import React, { useRef, useEffect,useState } from 'react';
+import './Component.css'  
 
 const OpenChat = () => {
   const [sendBtn,setSendBtn] = useState(0)

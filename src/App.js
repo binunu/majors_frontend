@@ -3,10 +3,10 @@ import { Route, Routes } from 'react-router-dom';
 import './App.css'; 
 import LogIn from './Page/Member/LogIn';
 import Find from './Page/Member/Find';
-import Join from './Page/Member/Join';
-import ScrollToTop from './ScrollToTop.jsx';
+import Join from './Page/Member/Join'; 
 import MainPage from './MainPage';
 import Error from './Error.js';
+import ScrollToTop from './Utill/ScrollToTop.jsx';
 
 
 function App() { 

@@ -1,12 +1,11 @@
 import { List } from '@mui/material'
 import React,{useEffect,useState} from 'react' 
-import axios from 'axios'
+import axiosURL from '../Utill/AxiosURL'
 
 const MajorSelect = ({ dmSubject, setDmSubject }) => {
     const [showList, setShowList] = useState(false)
     const [majors, setMajors] = useState([])
-    const [copyMajors,setCopyMajors] = useState([])   
-    const axiosURL = axios.create({baseURL:'http://localhost:8080'})
+    const [copyMajors,setCopyMajors] = useState([])    
     const dmChangeSub = (e) => {
         setDmSubject(e.target.dataset.value)
         setShowList(false)

@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
+import axiosURL from '../../Utill/AxiosURL'
 
-const Join = () => {
-  const axiosURL = axios.create({ baseURL: 'http://localhost:8080' })
+const Join = () => { 
   const [state, setState] = useState('A')
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')

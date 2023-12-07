@@ -20,7 +20,7 @@
 
 #profile-not-login{border:1px solid var(--s-g1); width: 370px; height: 190px; display: flex;flex-direction: column; justify-content: space-evenly; align-items: center;}
 #profile-not-login .p{font-weight: bold;}
-#profile-not-login .login{border-radius: 10px; color:white; font-weight: bold;font-size: 17px; background-color: var(--m-g); width:270px; height:47px; text-align: center;font-size: 17px; line-height: 2.7em; margin-top:-5px;}
+#profile-not-login .login{border-radius: 5px; color:white; font-weight: bold;font-size: 17px; background-color: var(--m-g); width:280px; height:47px; text-align: center;font-size: 17px; line-height: 2.7em; margin-top:-5px;}
 #profile-not-login .sub-box{display: flex; justify-content: space-between;width: 190px;margin-top:-15px;} 
 #profile-not-login .sub{display:block; color: var(--s-g2); font-size: 14px; } 
 
@@ -47,7 +47,7 @@
 /* write */
 
 .write-btn{ display:flex; width: 370px; height: 45px; margin-top: 15px; border: 1px solid var(--s-g1); color: var(--s-g2); font-size: 15px;align-items: center; justify-content: center; border-radius: 5px;} 
-.write-btn:hover{color: white; background-color:var(--m-dg); transition: 0.1s all; }
+.write-btn:hover{color: white; background-color:var(--m-g); transition: 0.1s all; border:none;}
 
 
 /* major-select */
