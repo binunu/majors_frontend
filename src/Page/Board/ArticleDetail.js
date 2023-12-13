@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import TimeIcon from '@mui/icons-material/AccessTime';
 import CustomModal from '../../Component/CustomModal';
 import ReReplyIcon from '@mui/icons-material/SubdirectoryArrowRightOutlined';
 import BookmarkAddOutlinedIcon from '@mui/icons-material/BookmarkAddOutlined';
 import BookmarkAddedRoundedIcon from '@mui/icons-material/BookmarkAddedRounded';
+import axiosURL from '../../Utill/AxiosURL';
 
 const ArticleDetail = ({dmGraduate}) => {
   const [onGood, setOnGood] = useState(false);
@@ -12,6 +13,21 @@ const ArticleDetail = ({dmGraduate}) => {
   const [onModal, setOnModal] = useState(false);
   const [type, setType] = useState('false')
   const [dmReReply, setDmReReply] = useState('누구에게답장')
+  const {id} = useParams()
+  const [article,setArticle]=useState({}); 
+  const [member, setMember]=useState({});
+  useEffect(()=>{ 
+    axiosURL.get(`/board/article/detail/${id}`)
+    .then(res=>{
+      setArticle(res.data.article) 
+      setMember(res.data.profile)
+      console.log(res.data.profile)
+    }).catch(err=>{
+      console.log(err)
+      alert("존재하지 않는 게시물입니다.")
+      // navigate('/studyAsPeed')
+    }) 
+  },[])
   const stamp = (e) => {
     const type = e.target.value
     if (type === 'good') {
@@ -34,15 +50,15 @@ const ArticleDetail = ({dmGraduate}) => {
     <div id='article-detail'>
       <div className='article-box'>
         <div className='title-box'>
-          <div className='tag'>경제학원론</div>
-          <p className='title'>경제학 공부하는데 미시경제 거시경제 차이가 헷갈려요 ㅠ</p>
+          <div className='tag'>{article.boardType==='공부궁물' ? article.subject : article.middleMajor}</div>
+          <p className='title'>{article.title}</p>
           <div className='t-sub-box'>
             <div className='t-sub-box-1'>
               <div className='img'><img src='' alt='' /></div>
               {
-            dmGraduate && <span>🎓</span>  }
-              <p className='sub-p'>병아리는삐약삐약</p>
-              <TimeIcon className='sub-p icon' />&nbsp;<span className='sub-p'>5시간</span>
+            member.graduate==="Y" && <span>🎓</span>  }
+              <p className='sub-p'>{member.nickname}</p>
+              <TimeIcon className='sub-p icon' />&nbsp;<span className='sub-p'>{article.uploadDate}</span>
             </div>
             <div> 
             <BookmarkAddOutlinedIcon className='bookmark-icon' />
@@ -50,12 +66,11 @@ const ArticleDetail = ({dmGraduate}) => {
             </div>
           </div>
         </div>
-        <div className='content-box'>
-          {/* 에디터 */}
+        <div className='content-box' dangerouslySetInnerHTML={{ __html: article.content }} >          
         </div>
         <div className='response-box'>
-          <button className={`response good ${onGood ? 'on' : ''}`} value='good' onClick={stamp}>👍 22</button>
-          <button className={`response bad ${onBad ? 'on' : ''}`} value='bad' onClick={stamp}>👎 0</button>
+          <button className={`response good ${onGood ? 'on' : ''}`} value='good' onClick={stamp}>👍 {article.goods && article.goods.length}</button>
+          <button className={`response bad ${onBad ? 'on' : ''}`} value='bad' onClick={stamp}>👎 {article.bads && article.bads.length}</button>
           <div className='edit-box'>
             <Link tso='#' className='edit-btn'>수정</Link>&nbsp;&nbsp;<button className='edit-btn' onClick={() => { delAction('write') }}>삭제</button>
           </div>

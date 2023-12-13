@@ -58,8 +58,9 @@
 #write .bar{height:45px; border:none; background-color: var(--m-lg); color: white; font-weight: bold; font-size: 15px; padding-left: 20px; line-height: 3em;}
 #write .set-box{margin: 2%; height:200px; font-size: 16px; display: flex; flex-direction: column; justify-content: space-evenly;}
 #write .t-box{display: flex;}
-#write .t-tit{color: black; width: 85px; padding:10px;}
+#write .t-tit{color: black; width: 85px; padding:10px;} 
 #write .t-txt{ border:none;border-bottom: 1px solid var(--s-g1); width:540px;}
+#write .t-txt:focus{border-bottom: 1px solid var(--s-b1);}
 #write .sub-box{display: flex;}
 #write .sub-t-box{display: flex; align-items: center;}
 #write .second{margin-left: 50px;}
@@ -68,24 +69,39 @@
 #write select { -moz-appearance: none; -webkit-appearance: none; appearance: none; background-color: var(--s-g0); text-align: center; border: 1PX solid var(--s-g1); } 
 #write select:hover{cursor:pointer; background-color: var(--s-g0-1);}
 #write .s-txt{border:none; border-bottom: 1px solid var(--s-g1); padding:10px; width: 210px; margin-left: -20px;} 
+#write .s-txt:focus{border-bottom: 1px solid var(--s-b1);}
 
-#write .btn-box{display: flex; justify-content: center; margin-top: 50px;}
-#write .btn{ width: 140px; height: 45px; font-size: 17px; color:white; background-color: var(--m-g); border: none; border-radius: 5px;}
+#write .btn-box{display: flex; justify-content: center; margin-top: 30px;}
+#write .btn{ width: 150px; height: 45px; font-size: 17px; color:white; background-color: var(--m-g); border: none; border-radius: 17px 0 17px 0;}
+#write .public-DraftStyleDefault-ltr{line-height: 1.5em;}
+
+
+/* write - editor */
+/* #editor {background-color:white; border: 1px solid var(--s-g0-1); margin-top: 20px;}
+#editor img{width:15px; }
+#editor .DraftEditor-root{padding-left: 30px;} /*텍스트 들여쓰기*/ 
+#editor .rdw-editor-toolbar *{background-color: var(--s-g0);} 
+#editor .editor .toolbar-class .rdw-option-wrapper{border:none; width:17px;}
+#editor .rdw-fontsize-dropdown{width:40px;} /* 가로너비(글자크기설정) */
+#editor .rdw-link-dropdown{width:50px;}
+#editor .rdw-editor-main{height:350px; }  
+/* quill */
+#editor .custom-editor .ql-editor{min-height: 500px; font-size: 15px; padding: 20px;}
 
 
 /* article-detail , peed*/
 
-#article-detail .title-box{padding-left: 30px; border : 1px solid  var(--s-g1); height: 135px; display: flex; flex-direction: column; align-items: flex-start; }
-#article-detail .tag{position:relative;  top : -10px; background-color: var(--m-dg); color:white; border-radius: 0 0 15px 15px; font-size: 13px; width: 95px; height: 30px; text-align: center; line-height: 2.3em;}
-#article-detail .title{font-weight: bold; font-size: 17px; margin-top: 16px;}
-#article-detail .t-sub-box{display: flex; justify-content: space-between;flex-direction: row; width: 100%; align-items: center;margin-top: 15px;}
+#article-detail .title-box{padding-left: 30px; border : 1px solid  var(--s-g1);  display: flex; flex-direction: column; align-items: flex-start; padding-bottom: 12px;}
+#article-detail .tag{position:relative;  top : -10px; background-color: var(--m-dg); color:white; border-radius: 0 0 15px 15px; font-size: 13px; padding:0 17px 0 17px; height: 30px; text-align: center; line-height: 2.3em;}
+#article-detail .title{font-weight: bold; font-size: 17px; margin-top: 5px;padding-right: 20px; line-height: 1.2em;}
+#article-detail .t-sub-box{display: flex; justify-content: space-between;flex-direction: row; width: 100%; align-items: center;margin-top: 10px;}
 #article-detail .t-sub-box-1{display: flex;align-items: center;}
 #article-detail .img{width: 35px;height: 35px;background-color:var(--s-g1);border-radius: 50%;  margin-right: 10px;}
 #article-detail .sub-p{font-size: 13px; color: var(--s-g2); margin-right: 15px;} 
 #article-detail .icon{margin-right: 0;}  
-#article-detail .bookmark-icon{position:relative; right:20px;top:13px; font-size: 25px; color:var(--m-dg);}  
+#article-detail .bookmark-icon{position:relative; right:20px;top:5px; font-size: 25px; color:var(--m-dg);}  
 
-#article-detail .content-box{border : 1px solid  var(--s-g1); height: 400px; font-size: 14px; border-top: none; }
+#article-detail .content-box{border : 1px solid  var(--s-g1);line-height: 1.6em; letter-spacing: 0.01em; min-height: 300px; font-size: 16px; border-top: none; padding:30px;padding-bottom: 30%;}
 
 #article-detail .response-box{position:relative; display: flex; justify-content: center; top:-70px;}
 #article-detail .response{line-height: 2.6em; background-color: white; width:120px;height: 45px; border-radius: 7px; font-weight: bold; font-size: 17px; margin-left: 5px; margin-right: 5px;}
