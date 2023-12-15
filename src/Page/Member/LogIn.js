@@ -3,14 +3,13 @@ import { Link } from 'react-router-dom'
 import './Member.css'
 import axiosURL from '../../Utill/AxiosURL' 
 import { useNavigate } from 'react-router-dom'
-
+import { useLoginContext } from '../../Utill/LogInContext'
 const LogIn = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [availableEmail, setAvailable] = useState(false)
-  // const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-
+  const [password, setPassword] = useState('') 
+  const {setLogIn} = useLoginContext();
+  
   const tryLogIn = (e) => {
     e.preventDefault() 
     const emailPattern = /^[가-힣a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -22,12 +21,13 @@ const LogIn = () => {
       .then(res=>{
         const token = res.data
         localStorage.setItem("accessToken" ,token) 
-        navigate('/');  
+        setLogIn()
+        navigate(-1);  
         
       }).catch(err=>{
         e.preventDefault() 
         console.log(err)
-        alert(err.response.data)
+        alert("회원 정보가 일치하지 않습니다.")
       })
       
     } else { 
@@ -48,9 +48,9 @@ const LogIn = () => {
             <Link className='join-btn' to='/join'>회원가입</Link>
             <Link className='find-btn' to='/find'>비밀번호 재설정</Link>
           </div>
-          <div className='social' social>
+          {/* <div className='social' social> */}
             {/* 카카오 and 네이버 로그인 만들자! */}
-          </div>
+          {/* </div> */}
         </div>
       </form>
     </div>

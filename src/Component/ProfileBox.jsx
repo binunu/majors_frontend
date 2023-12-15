@@ -7,27 +7,30 @@ import BookmarksOutlinedIcon from '@mui/icons-material/BookmarksOutlined';
 import SmsOutlinedIcon from '@mui/icons-material/SmsOutlined';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import Alarm from './Alarm';  
-import axiosURL from '../Utill/AxiosURL';
+import axiosURL from '../Utill/AxiosURL';  
+import { useLoginContext } from '../Utill/LogInContext';
 
 const ProfileBox = ({dmIsLogIn,dmGraduate}) => {  
-  const [member,setMember] = useState(true)
+  const [member,setMember] = useState({})
   const [showAlarm,setShowAlarm]=useState(false); 
   const token = localStorage.getItem("accessToken") 
+  const {isLogIn, setLogOut} = useLoginContext();
+
   const activeAlarm=()=>{
     setShowAlarm(!showAlarm)
   }
-  useEffect(()=>{
-    if(token){
+  useEffect(()=>{ 
+    if(isLogIn&&token){
       axiosURL.get(`member/info`,{
         headers :{
           Authorization: `Bearer ${token}`,
         }
       }).then(res=>{
-        console.log(res.data)
-        setMember(res.data)
+        setMember(res.data) 
       }).catch(err=>{
-        console.log("유저 정보를 찾을 수 없습니다!!")
-        console.log(err)
+        localStorage.removeItem("accessToken")
+        setLogOut() 
+        console.log("자동로그아웃");
       })
     }else{
       setMember(null)
@@ -35,17 +38,17 @@ const ProfileBox = ({dmIsLogIn,dmGraduate}) => {
   },[])
   const logout=()=>{
     localStorage.removeItem("accessToken") 
-    window.location.reload()
+    setLogOut()
   }
   return (
-    <div id='right-content'>
-    {member!==null?
+    <div id='right-content'> 
+    {isLogIn?
     <div id='profile'>
       <div className='container1'>
         <div className='img-box'><img></img></div>
         <div className='txt-box'>
           <div className='t1-box'>
-            <p className='t1'>{member.major} 전공자</p>
+            <p className='t1'>{member.major}전공</p>
             <p className='t2' onClick={logout}>X 로그아웃</p>
           </div> 
           <div className='t3'>
@@ -88,7 +91,7 @@ const ProfileBox = ({dmIsLogIn,dmGraduate}) => {
       showAlarm &&
       <Alarm/>
     }
-    {member&&<Link to='/write' className='write-btn'><PostAddIcon/>&nbsp;글쓰기</Link>}
+    {isLogIn&&<Link to='/write' className='write-btn'><PostAddIcon/>&nbsp;글쓰기</Link>}
     </div>
    
 

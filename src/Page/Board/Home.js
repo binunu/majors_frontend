@@ -2,9 +2,11 @@ import React,{useEffect} from 'react'
 // import { useState } from 'react'
 import './Board.css'
 import { Link } from 'react-router-dom'
+import { useLoginContext } from '../../Utill/LogInContext'
 
-const Home = ({ setLogInPage, dmIsLogIn }) => {
+const Home = ({ dmIsLogIn }) => {
   const article = { title: '선배님들 질문있습니다선배님들 질문있습니다선배님들 질문있습니다선배님들 질문있습니다선배 님들 질문있습습니다선 배님들습 니다선배님들 니다선배님들 ......질문있습니다', major: '경제학' };
+  const {isLogIn} = useLoginContext();
   useEffect(()=>{
     // console.log('hello Home!')
   })
@@ -92,7 +94,7 @@ const Home = ({ setLogInPage, dmIsLogIn }) => {
       <div className='section'>
         <div className='board board2'>
           <p className='title'>🔥 우리 전공 핫한 게시글</p>
-          {dmIsLogIn ?
+          {isLogIn ?
             <>
               <div className='article'>
                 <a href='#' className='a a2'>{article.title}</a>
@@ -118,13 +120,13 @@ const Home = ({ setLogInPage, dmIsLogIn }) => {
             :
             <div className='login'>
               <p>로그인 후 바로 확인하세요!</p>
-              <Link to='/logIn' className='link' onClick={() => { setLogInPage(true) }}>로그인하기&gt;&gt;</Link>
+              <Link to='/logIn' className='link'>로그인하기&gt;&gt;</Link>
             </div>
           }
         </div>
         <div className='board board2'>
           <p className='title'>👑 우리 전공 최고의 아웃풋은?</p>
-          {dmIsLogIn ?
+          {isLogIn ?
             <>
               <div className='pf-box'>
                 <div className='pf'>
@@ -165,7 +167,7 @@ const Home = ({ setLogInPage, dmIsLogIn }) => {
             :
             <div className='login'>
               <p>로그인 후 바로 확인하세요!</p>
-              <Link to='/logIn' className='link' onClick={() => { setLogInPage(true) }}>로그인하기&gt;&gt;</Link>
+              <Link to='/logIn' className='link'>로그인하기&gt;&gt;</Link>
             </div>
           }
         </div>

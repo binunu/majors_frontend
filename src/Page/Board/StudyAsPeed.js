@@ -15,25 +15,19 @@ const StudyAsPeed = ({dmGraduate}) => {
   const [onGood, setOnGood] = useState(false);
   const [onBad, setOnBad] = useState(false);
   const [onModal, setOnModal] = useState(false);
-  const [type, setType] = useState('false')
-  const [dmReReply, setDmReReply] = useState('누구에게답장')
+  const [type, setType] = useState('false') 
   const [dmArticles, setArticles] = useState([
     { replyNum: 1, replyWriter: '무한도전포에버', replyContent: '이건 저도 궁금했던건데 궁금하네요 ㅠㅠ 시원하게 해결해주실분 구함! 스크랩 해둬야겠어요' },
     { replyNum: 2, replyWriter: '행복한 개발자', replyContent: '리액트 공부 중인데 너무 재밌어요!' },
     { replyNum: 3, replyWriter: '코딩은 즐거워', replyContent: '프로그래밍은 정말 재미있죠!' },
-    { replyNum: 4, replyWriter: '디자인러버', replyContent: '디자인에 대한 열정이 끊이질 않아요!' },
-    // { replyNum: 5, replyWriter: '코딩왕자', replyContent: '코딩하는 걸로 스트레스 푸는 중입니다!'},
-    // { replyNum: 6, replyWriter: '디벨롭러', replyContent: '개발에 대한 궁금증이 많아요!'},
-    // { replyNum: 7, replyWriter: '디자인마스터', replyContent: '디자인하는 것이 즐거워요!'},
-    // { replyNum: 8, replyWriter: '코딩러너', replyContent: '코딩은 제 취미입니다!'},
-    // { replyNum: 9, replyWriter: '프로그래밍전문가', replyContent: '프로그래밍으로 문제를 해결하는 것이 즐겁습니다!'},
-    // { replyNum: 10, replyWriter: '디자인하는개발자', replyContent: '디자인과 개발 둘 다 즐거워요!'},
+    { replyNum: 4, replyWriter: '디자인러버', replyContent: '디자인에 대한 열정이 끊이질 않아요!' }, 
   ]);
   const [commentsVisible, setCommentsVisible] = useState({}); 
   const [writerName, setWriterName] = useState({})
   const [dmSubject, setDmSubject] = useState('국어교육')
   const [areaData,setAreaData]= useState({})
-  const contentRef = useRef(null);
+  const contentRef = useRef(null); //댓글창 슬라이드로 내리기
+
   useEffect(()=>{
     const handleScroll = () => {
       console.log('hello')
@@ -102,7 +96,7 @@ const StudyAsPeed = ({dmGraduate}) => {
         <div className='mode'>
           <div>
             <PeedIcon className='icon cur' />
-            <Link to='/main/studyAsList'><ListIcon className='icon' /></Link>
+            <Link to='/studyAsList'><ListIcon className='icon' /></Link>
           </div>
         </div>
       </div>
@@ -145,9 +139,25 @@ const StudyAsPeed = ({dmGraduate}) => {
                    <p className='reply-cnt peed-visible-btn' onClick={() => { toggleComments(item.replyNum) }}>댓글(2)</p>
                 }
               </div>  
-                <div className={`peed-reply-box ${commentsVisible[item.replyNum] ? 'visible':''}`} style={{ maxHeight: commentsVisible[item.replyNum] ? contentRef.current.scrollHeight + 'px' : '0' }} ref={contentRef}> 
+                <div className={`peed-reply-box ${commentsVisible[item.replyNum] ? 'visible':''}`} style={{ maxHeight: commentsVisible[item.replyNum] ? contentRef.current.scrollHeight+10+ 'px' : '0' }} ref={contentRef}> 
                 
                   <div className='replyes-container'>
+                    <div className='reply'>
+                      <div className='sec-1'>
+                        <div className='sec-1-1'>
+                          <div className='img'><img src='' alt='' /></div>
+                          {
+            dmGraduate && <span>🎓</span>  }
+                          <p className='nickname'>{item.replyWriter}(해운경영학부)</p>
+                          <p className='upload-date'>2023-11-16</p>
+                        </div>
+                        <button className='edit-btn re-del-btn' onClick={() => { delAction('reply') }} >삭제</button>
+                      </div>
+                      <div className='sec-2'>{item.replyContent}</div>
+                      <div className='sec-3'>
+                        <button className='edit-btn re-reply' onClick={()=>{replyTo(item.replyNum,item.replyWriter)}}>답글작성</button><button className='sympathy'>공감 12</button>
+                      </div>
+                    </div>
                     <div className='reply'>
                       <div className='sec-1'>
                         <div className='sec-1-1'>

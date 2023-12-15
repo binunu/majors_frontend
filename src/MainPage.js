@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom';
 import Header from './Page/Header';
 import Footer from './Page/Footer';
@@ -18,12 +18,18 @@ import SearchResult from './Page/Board/SearchResult';
 import Mypage from './Page/Member/Mypage'; 
 import SearchResultPlus from './Page/Board/SearchResultPlus';
 import './App.css';
+import { useLoginContext } from './Utill/LogInContext';
+
 
 
 const MainPage = () => {
     const [chatRoom, setChatRoom] = useState(false) 
     const [dmIsLogIn, setDmIsLogIn] = useState(false)
     const [dmGraduate, setDmGraduate] = useState(false)
+    const {isLogIn}=useLoginContext();
+    useEffect(()=>{
+      console.log('여기는 App.js, 로그인 상태인가?',isLogIn)
+    },[])
     return (
         <>
         <DevelopMode setDmIsLogIn={setDmIsLogIn} setDmGraduate={setDmGraduate} />
@@ -39,7 +45,7 @@ const MainPage = () => {
                             <Route path="/studyAsList" element={<StudyAsList />} />
                             <Route path="/studyAsPeed" element={<StudyAsPeed dmGraduate={dmGraduate} />} />
                             <Route path="/write" element={<Write />} />
-                            <Route path="/articleDetail" element={<ArticleDetail dmGraduate={dmGraduate} />} />
+                            <Route path="/articleDetail/:id" element={<ArticleDetail dmGraduate={dmGraduate} />} />
                             <Route path="/searchResult/:word" element={<SearchResult />} />
                             <Route path="/searchResult/plus/:boardType/:word" element={<SearchResultPlus />} />
                             <Route path="/mypage/:menu" element={<Mypage dmGraduate={dmGraduate} />} />

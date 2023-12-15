@@ -57,6 +57,9 @@
 #login .submit-btn{font-size:17px;  height:50px; border:none; background-color: var(--m-g); color:white; border-radius: 3px; margin-top: 20px; font-weight: bold;}
 #login .etc-box{font-size: 14px; display: flex; flex-direction: row; justify-content: space-between;margin-top: 15px;}
 #login .join-btn{font-weight:bold ;}
+#login .input:focus{background-color: var(--s-g0); box-shadow: 0 0 1px 1px var(--m-g);}
+#login .input:hover{ box-shadow: 0 0 1px 1px var(--m-g);}
+
 
 /* join */
 #join .to-main{text-align: center; display: block; margin-top: 10px; font-size: 13px;}
