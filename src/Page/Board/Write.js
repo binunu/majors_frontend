@@ -69,7 +69,7 @@ const Write = () => {
       alert("게시글이 정상적으로 등록되었습니다!")
       navigate(`/articleDetail/${res.data}`) 
     }).catch(err=>{
-      alert("게시글을 저장에 실패했습니다. 다시 시도하세요")
+      alert("게시글 저장에 실패했습니다. 다시 시도하세요")
       console.log(err)
     })
   }

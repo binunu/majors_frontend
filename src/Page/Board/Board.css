@@ -59,6 +59,7 @@
 #article-detail .sub-p{font-size:13px;color:var(--s-g2);margin-right:15px}
 #article-detail .icon{margin-right:0}
 #article-detail .bookmark-icon{position:relative;right:20px;top:5px;font-size:25px;color:var(--m-dg)}
+#article-detail .bookmark-icon:hover{cursor: pointer;}
 #article-detail .content-box{border:1px solid var(--s-g1);line-height:1.6em;letter-spacing:.01em;min-height:300px;font-size:16px;border-top:none;padding:30px;padding-bottom:30%}
 #article-detail .response-box{position:relative;display:flex;justify-content:center;top:-70px}
 #article-detail .response{line-height:2.6em;background-color: #fff;width:120px;height:45px;border-radius:7px;font-weight:700;font-size:17px;margin-left:5px;margin-right:5px}
@@ -79,7 +80,8 @@
 #article-detail .sec-3.sub-reply-sec-3{justify-content:flex-end}
 #article-detail .re-reply{margin-bottom:-15px}
 #article-detail .nickname{font-size:15px}
-#article-detail .sympathy{color:red;border-radius:50px;border:1px solid red;background-color:transparent;padding:5px 15px 5px 15px;line-height:1.3em;font-size:13px;font-weight:700}
+#article-detail .sympathy{color:red;border-radius:50px;border:1px solid red;background-color:transparent;padding:5px 15px 5px 15px;line-height:1.3em;font-size:13px;font-weight:700;transition: 0.2s ease;}
+#article-detail .sympathy.on{color: #fff; background-color: red; transition: 0.3s ease;}
 #article-detail .upload-date{margin-left:10px;font-size:13px;color:var(--s-g2)}
 #article-detail .re-del-btn{text-decoration:none;margin-right:12px}
 #article-detail .re-reply-who{color:var(--m-g)}

@@ -86,8 +86,8 @@
 #join .submit-btn.no{cursor: default;}
 
 #join .last-login-btn{font-size:17px; border: none; background-color: var(--m-g); color: white; text-align: center; line-height: 3em; height:50px; border-radius: 3px; margin-top: 20px; font-weight: bold;}
-#join .last-login-btn:hover{ background-color: var(--m-lg); color:white; transition: 0.3s;}
-#join .h5{font-size: 18px; font-weight: bold; text-align: center; margin-top: 20px; margin-bottom: 25px;}
+#join .last-login-btn:hover{cursor: pointer; background-color: var(--m-lg); color:white; transition: 0.3s;}
+#join .h5{font-size: 18px; font-weight: bold; text-align: center; margin-top: 20px; margin-bottom: 25px; line-height: 1.5em;}
 
 /* find */     
 #find{height: 500px; padding-top: 120px;}
