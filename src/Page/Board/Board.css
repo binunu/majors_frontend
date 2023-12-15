@@ -71,7 +71,7 @@
 #article-detail .edit-btn:hover{text-decoration:underline}
 #article-detail .reply-cnt{font-weight:700;margin-top:-20px}
 #article-detail .replyes-container{width:90%;margin:0 auto;margin-top:20px}
-#article-detail .reply{padding-left:13px;padding-right:10px;border-bottom:1px solid var(--s-g1);padding-bottom:15px}
+#article-detail .reply{padding-left:13px;padding-right:10px;border-bottom:1px solid var(--s-g1);padding-bottom:15px;}
 #article-detail .sec-1{padding-top:10px;display:flex;justify-content:space-between}
 #article-detail .sec-1-1{display:flex;align-items:center}
 #article-detail .sec-2{font-size:15px;margin-top:10px;line-height:1.4em}
@@ -93,9 +93,13 @@
 #article-detail .write-reply-box.sub{margin-top:0;background-color: #fff;border-radius:0 15px 0 15px}
 #article-detail .wr-btn.sub{border-radius:0 15px 0 15px;color: #fff;background-color:var(--m-dg)}
 #article-detail .reply-empty{text-align: center; margin-top: 10%; margin-bottom: 15%;}
+#article-detail .reply-show-box{visibility: hidden;transition:max-height 0.3s ease; }
+#article-detail .reply-show-box.visible{visibility: visible; }
+/* #article-detail .reply-show-box{display: none; transition:max-height 0.3s ease;}
+#article-detail .reply-show-box.visible{display: block; } */
 
-#article-detail .peed-reply-box{overflow:hidden;transition:max-height 0.3s ease;margin-bottom:50px}
-#article-detail .peed-eply-box.visible{transition:max-height 0.3s ease}
+#article-detail .peed-reply-box{overflow:hidden;transition:max-height 0.3s ease;margin-bottom:50px;}
+#article-detail .peed-eply-box.visible{transition:max-height 0.3s ease;}
 #article-detail .peed-article{margin-bottom:100px}
 #article-detail .peed-visible-btn:hover{cursor:pointer}
 

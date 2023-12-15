@@ -61,7 +61,7 @@ const Write = () => {
       middleMajor:middleMajor,
       subject:subject, 
     }
-    axiosURL.post('/board/article/write', article, {
+    axiosURL.post('/board/write/article', article, {
       headers:{
       Authorization: `Bearer ${token}`,
       }
