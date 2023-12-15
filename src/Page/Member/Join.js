@@ -35,10 +35,14 @@ const Join = () => {
 
 
   useEffect(() => {
+    const dateString = '2023-12-15T01:59:36.274+00:00';
+const dateObject = new Date(dateString);
+console.log(dateObject.toLocaleString());
     //대분류가져오기
     axiosURL.get('/contents/major-list/large')
       .then(res => {
         setLargeList(res.data);
+        console.log(res.data)
       })
       .catch(error => {
         console.error(error);

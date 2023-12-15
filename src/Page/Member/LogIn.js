@@ -22,7 +22,7 @@ const LogIn = () => {
         const token = res.data
         localStorage.setItem("accessToken" ,token) 
         setLogIn()
-        navigate('/');  
+        navigate(-1);  
         
       }).catch(err=>{
         e.preventDefault() 
