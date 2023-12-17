@@ -80,8 +80,8 @@
 #article-detail .sec-3.sub-reply-sec-3{justify-content:flex-end}
 #article-detail .re-reply{margin-bottom:-15px}
 #article-detail .nickname{font-size:15px}
-#article-detail .sympathy{color:red;border-radius:50px;border:1px solid red;background-color:transparent;padding:5px 15px 5px 15px;line-height:1.3em;font-size:13px;font-weight:700;transition: 0.2s ease;}
-#article-detail .sympathy.on{color: #fff; background-color: red; transition: 0.3s ease;}
+#article-detail .sympathy{color:red;border-radius:50px;border:1px solid red;background-color:transparent;padding:5px 15px 5px 15px;line-height:1.3em;font-size:13px;font-weight:700; }
+#article-detail .sympathy.on{color: #fff; background-color: red;}
 #article-detail .upload-date{margin-left:10px;font-size:13px;color:var(--s-g2)}
 #article-detail .re-del-btn{text-decoration:none;margin-right:12px}
 #article-detail .re-reply-who{color:var(--m-g)}
@@ -90,13 +90,16 @@
 #article-detail .txtarea{line-height:1.4em;margin-bottom:5px;font-size:15px;border:none;display:block;width:100%;min-height:50px;resize:none}
 #article-detail .write-reply-btn{display:flex;justify-content:flex-end}
 #article-detail .wr-btn{width:90px;height:35px;border-radius:15px 0 15px 0;border:none;color: #fff;background-color:var(--m-lg)}
+#article-detail .wr-btn.sub.no{color: #fff;background-color:var(--s-g1);}
+#article-detail .wr-btn.no{color: #fff;background-color:var(--s-g1);}
+#article-detail .wr-btn.no:hover{cursor: default;}
 #article-detail .sub-reply{background-color:var(--s-g0-0)}
 #article-detail .write-sub-reply-box{padding-top:20px;background-color:var(--s-g0-0)}
 #article-detail .write-reply-box.sub{margin-top:0;background-color: #fff;border-radius:0 15px 0 15px}
 #article-detail .wr-btn.sub{border-radius:0 15px 0 15px;color: #fff;background-color:var(--m-dg)}
 #article-detail .reply-empty{text-align: center; margin-top: 10%; margin-bottom: 15%;}
-#article-detail .reply-show-box{visibility: hidden;transition:max-height 0.3s ease; }
-#article-detail .reply-show-box.visible{visibility: visible; }
+#article-detail .reply-show-box{visibility: hidden;transition:max-height 0.4s ease; }
+#article-detail .reply-show-box.visible{visibility: visible;transition:max-height 0.4s ease;  }
 /* #article-detail .reply-show-box{display: none; transition:max-height 0.3s ease;}
 #article-detail .reply-show-box.visible{display: block; } */
 

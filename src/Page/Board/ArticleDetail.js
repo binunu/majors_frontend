@@ -44,15 +44,43 @@ const ArticleDetail = ({ dmGraduate }) => {
         // navigate('/studyAsPeed')
       })
   }, [])
+  // const stamp = (e) => {
+  //   const type = e.target.value
+  //   if (type === 'good') {
+  //     setOnGood(!onGood)
+  //     setOnBad(false)
+  //   } else {
+  //     setOnBad(!onBad)
+  //     setOnGood(false)
+  //   }
+  // }
   const stamp = (e) => {
-    const type = e.target.value
-    if (type === 'good') {
-      setOnGood(!onGood)
-      setOnBad(false)
-    } else {
-      setOnBad(!onBad)
-      setOnGood(false)
-    }
+    if (!isLogIn) {
+      alert("로그인 후에 가능합니다.")
+    }else{ 
+      const reactionType = e.target.value
+      axiosURL.put(`/contents/reaction/${id}`,{ reactionType:reactionType},{
+        headers: {
+          Authorization: `Bearer ${token}`,
+        } }).then(res=>{
+          setArticle({ 
+            ...article, 
+            goods:res.data.goods,
+            bads:res.data.bads, 
+          })
+          if(res.data.state==="T"){
+            setOnGood(true)
+            setOnBad(false)
+          }else if(res.data.state==="F"){
+            setOnBad(true)
+            setOnGood(false)
+          }else{
+            setOnGood(false)
+            setOnBad(false)
+          }
+          console.log(res.data.state)
+        }).catch(err=>console.log(err))
+      }
   }
   const delAction = (text) => {
     setOnModal(true)
@@ -74,11 +102,10 @@ const ArticleDetail = ({ dmGraduate }) => {
   const createReply = (commentId) => {
     if (!isLogIn) {
       alert("로그인 후에 가능합니다.")
-    } else {
-      console.log(commentId)
+    } else {  
       const reply = {
         articleId: id,
-        replyId: commentId,
+        commentId: commentId,
         content: replyText[commentId],
       }
       axiosURL.post('/board/write/reply', reply, {
@@ -86,8 +113,7 @@ const ArticleDetail = ({ dmGraduate }) => {
           Authorization: `Bearer ${token}`,
         }
       }).then(res => {
-        setArticle(res.data)
-        console.log(res.data)
+        setArticle(res.data) 
         setReplyText({
           ...replyText,
           [commentId]:'',
@@ -190,8 +216,8 @@ const ArticleDetail = ({ dmGraduate }) => {
             <div className='content-box' dangerouslySetInnerHTML={{ __html: article.content }} >
             </div>
             <div className='response-box'>
-              <button className={`response good ${onGood ? 'on' : ''}`} value='good' onClick={stamp}>👍 {article.goods && article.goods.length}</button>
-              <button className={`response bad ${onBad ? 'on' : ''}`} value='bad' onClick={stamp}>👎 {article.bads && article.bads.length}</button>
+              <button className={`response good ${onGood ? 'on' : ''}`} value='T' onClick={stamp}>👍 {article.goods}</button>
+              <button className={`response bad ${onBad ? 'on' : ''}`} value='F' onClick={stamp}>👎 {article.bads}</button>
               {
                 curAuthEmail === article.writer.email &&
                 <div className='edit-box'>
@@ -201,14 +227,14 @@ const ArticleDetail = ({ dmGraduate }) => {
             </div>
 
           </div>
-          <div className='reply-box'>
+          <div className='reply-box' ref={commentRef}>
             <p className='reply-cnt'>댓글 {article.comments.length}개</p>
-            <div className='replyes-container' ref={commentRef}>
+            <div className='replyes-container' >
               {
                 article.comments.length === 0 ? <p className='reply-empty'>작성된 댓글이 존재하지 않습니다!!</p> :
                   article.comments.map((item, index) => (
                     <div key={index}>
-                      <div className='reply'>
+                      <div className='reply' >
                         <div className='sec-1'>
                           <div className='sec-1-1'>
                             <div className='img'><img src='' alt='' /></div>
@@ -224,7 +250,7 @@ const ArticleDetail = ({ dmGraduate }) => {
                         </div>
                         <div className='sec-2'>{item.content}</div>
                         <div className='sec-3'>
-                          <button className='edit-btn re-reply' onClick={() => { toggleReply(index) }}>답글({item.replies ? item.replies.length : 0})</button>
+                          <button className='edit-btn re-reply' onClick={() => { toggleReply(index) }} >답글({item.replies ? item.replies.length : 0})</button>
                           <button className={`sympathy ${item.sympathy && item.sympathy.includes(curAuthEmail) ? 'on' : ''}`} onClick={()=>commentSympthy(item.id)}>공감 {item.sympathy ? item.sympathy.length : 0}</button>
                         </div>
                       </div>
@@ -257,7 +283,14 @@ const ArticleDetail = ({ dmGraduate }) => {
                           <div className='write-reply-box sub'>
                             <textarea id='reply' value={replyText[item.id]} className='txtarea' maxLength={300} onChange={(e) => areaChange(e, item.id)} placeholder='내용을 입력해주세요'>
                             </textarea>
-                            <div className='write-reply-btn'><button className='wr-btn sub' type='button' onClick={() => { createReply(item.id) }}>답글작성</button></div>
+                            <div className='write-reply-btn'>
+                              { 
+                              replyText[item.id] === '' ? 
+                              <button className='wr-btn sub no' type='button'>답글작성</button>
+                              :
+                              <button className='wr-btn sub' type='button' onClick={() => { createReply(item.id) }}>답글작성</button>
+                              }
+                              </div>
                           </div>
                         </div>
                       </div>
@@ -273,7 +306,15 @@ const ArticleDetail = ({ dmGraduate }) => {
             <div className='write-reply-box'>
               <textarea id='comment' className='txtarea' value={commentText} maxLength={300} onChange={areaChange} placeholder='내용을 입력해주세요'>
               </textarea>
-              <div className='write-reply-btn'><button className='wr-btn' type='button' onClick={createComment}>댓글작성</button></div>
+              <div className='write-reply-btn'>
+                {
+                  commentText===''?
+                  <button className='wr-btn no' type='button' >댓글작성</button>
+                  :
+                  <button className='wr-btn' type='button' onClick={createComment}>댓글작성</button>
+                  
+                }
+                </div>
             </div>
           </div>
           {onModal && <CustomModal type={type} setOnModal={setOnModal} />}
