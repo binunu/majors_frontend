@@ -64,7 +64,7 @@ const ArticleDetail = ({ dmGraduate }) => {
           Authorization: `Bearer ${token}`,
         } }).then(res=>{
           setArticle({ 
-            ...article,
+            ...article, 
             goods:res.data.goods,
             bads:res.data.bads, 
           })
