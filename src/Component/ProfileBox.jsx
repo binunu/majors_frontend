@@ -30,11 +30,7 @@ const ProfileBox = ({dmIsLogIn,dmGraduate}) => {
       }).catch(err=>{
         localStorage.removeItem("accessToken")
         setLogOut() 
-        if(err.response.status===403){
-          alert("토큰이 만료되었습니다. 다시 로그인해주세요") 
-        }else{
-          console.log(err) 
-        } 
+        console.log("자동로그아웃");
       })
     }else{
       setMember(null)

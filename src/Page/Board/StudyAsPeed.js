@@ -139,9 +139,25 @@ const StudyAsPeed = ({dmGraduate}) => {
                    <p className='reply-cnt peed-visible-btn' onClick={() => { toggleComments(item.replyNum) }}>댓글(2)</p>
                 }
               </div>  
-                <div className={`peed-reply-box ${commentsVisible[item.replyNum] ? 'visible':''}`} style={{ maxHeight: commentsVisible[item.replyNum] ? contentRef.current.scrollHeight + 'px' : '0' }} ref={contentRef}> 
+                <div className={`peed-reply-box ${commentsVisible[item.replyNum] ? 'visible':''}`} style={{ maxHeight: commentsVisible[item.replyNum] ? contentRef.current.scrollHeight+10+ 'px' : '0' }} ref={contentRef}> 
                 
                   <div className='replyes-container'>
+                    <div className='reply'>
+                      <div className='sec-1'>
+                        <div className='sec-1-1'>
+                          <div className='img'><img src='' alt='' /></div>
+                          {
+            dmGraduate && <span>🎓</span>  }
+                          <p className='nickname'>{item.replyWriter}(해운경영학부)</p>
+                          <p className='upload-date'>2023-11-16</p>
+                        </div>
+                        <button className='edit-btn re-del-btn' onClick={() => { delAction('reply') }} >삭제</button>
+                      </div>
+                      <div className='sec-2'>{item.replyContent}</div>
+                      <div className='sec-3'>
+                        <button className='edit-btn re-reply' onClick={()=>{replyTo(item.replyNum,item.replyWriter)}}>답글작성</button><button className='sympathy'>공감 12</button>
+                      </div>
+                    </div>
                     <div className='reply'>
                       <div className='sec-1'>
                         <div className='sec-1-1'>

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link,useNavigate } from 'react-router-dom'
 import axiosURL from '../../Utill/AxiosURL'
 
 const Join = () => { 
+  const navigate = useNavigate();
   const [state, setState] = useState('A')
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -35,10 +36,14 @@ const Join = () => {
 
 
   useEffect(() => {
+    const dateString = '2023-12-15T01:59:36.274+00:00';
+const dateObject = new Date(dateString);
+console.log(dateObject.toLocaleString());
     //대분류가져오기
     axiosURL.get('/contents/major-list/large')
       .then(res => {
         setLargeList(res.data);
+        console.log(res.data)
       })
       .catch(error => {
         console.error(error);
@@ -217,6 +222,9 @@ const Join = () => {
       console.log(err)
     }) 
   }
+  const gologIn=()=>{
+    navigate("/login", {state:{from:"/join"}});
+  }
   return (
     <div id='join' className='member-basic'>
       <form>
@@ -361,7 +369,7 @@ const Join = () => {
         <div className='container'>
           <p className='h1'>회원가입이 완료되었습니다</p>
           <p className='h5'>다양한 {major}의 전공자들을 만나보세요!</p>
-          <Link to='/login' className='last-login-btn'>로그인</Link>
+          <span className='last-login-btn' onClick={gologIn} >로그인</span>
           <Link to='/' className='main-btn'>메인으로</Link>
         </div>
       }

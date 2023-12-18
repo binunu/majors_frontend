@@ -2,10 +2,11 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import './Member.css'
 import axiosURL from '../../Utill/AxiosURL' 
-import { useNavigate } from 'react-router-dom'
+import { useNavigate,useLocation } from 'react-router-dom'
 import { useLoginContext } from '../../Utill/LogInContext'
 const LogIn = () => {
   const navigate = useNavigate();
+  const {state} = useLocation();
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('') 
   const {setLogIn} = useLoginContext();
@@ -21,8 +22,12 @@ const LogIn = () => {
       .then(res=>{
         const token = res.data
         localStorage.setItem("accessToken" ,token) 
-        setLogIn()
-        navigate('/');  
+        setLogIn()  
+        if(state&&state.from==='/join'){
+          navigate('/')
+        }else{
+          navigate(-1)
+        };  
         
       }).catch(err=>{
         e.preventDefault() 
