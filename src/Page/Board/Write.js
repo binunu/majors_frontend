@@ -13,7 +13,7 @@ const Write = () => {
   const [needSubject, setNeedSubject] = useState(true);
   const [title, setTitle] = useState('');
   const [subject, setSubject] = useState('');
-  const [boardType, setBoardType] = useState('공부궁물');
+  const [boardType, setBoardType] = useState('study');
   const [middleMajor, setMiddleMajor] = useState('');
   const [middleMajorList, setMiddleMajorList] = useState([]);
   const [content,setContent] = useState('')
@@ -43,16 +43,16 @@ const Write = () => {
 
   }, [])
   const isSubject = (e) => {  
-    setBoardType(e.target.value) 
+    setBoardType(e.target.value)  
     setSubject(null);
-    if (e.target.value === '공부궁물') {
+    if (e.target.value === 'study') {
       setNeedSubject(true)
     } else {
       setNeedSubject(false)
     }
   }
 
-  const submitBtn=(e)=>{ 
+  const submitBtn=(e)=>{  
     e.preventDefault()
     const article = {
       title:title,
@@ -65,7 +65,7 @@ const Write = () => {
       headers:{
       Authorization: `Bearer ${token}`,
       }
-    }).then(res=>{
+    }).then(res=>{ 
       alert("게시글이 정상적으로 등록되었습니다!")
       navigate(`/articleDetail/${res.data}`) 
     }).catch(err=>{
@@ -101,9 +101,9 @@ const Write = () => {
               <div className='sub-t-box'>
                 <p className='t-tit'>게시판</p>
                 <select className='s-box' onChange={isSubject} value={boardType}>
-                  <option className='opt' value='공부궁물' >공부궁물</option>
-                  <option className='opt' value='진로궁물'>진로궁물</option>
-                  <option className='opt' value='자유게시판' >자유게시판</option>
+                  <option className='opt' value='study' >공부궁물</option>
+                  <option className='opt' value='job'>진로궁물</option>
+                  <option className='opt' value='community' >자유게시판</option>
                 </select>
               </div>
 

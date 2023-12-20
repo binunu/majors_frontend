@@ -80,3 +80,14 @@
 #custom-modal .btn-box{margin-bottom: -18px;}
 #custom-modal .btn{font-size: 16px; width: 150px; height: 45px; border:none; background-color: var(--s-g0-1); margin-left: 12px; margin-right: 12px;} 
 #custom-modal .btn.yes{background-color: var(--m-g); color: white;} 
+
+/* pagination */
+#pagination{width: 100%; display: flex; justify-content: center; }
+#pagination button{font-weight: bold; background-color:white; border: none; border-radius: 50px; width: 37px; height: 37px; font-size: 18px; margin: 0 5px 0 5px; color:var(--s-g1); }
+#pagination .f1{color: black;  border:1px solid var(--s-g1); width: 41px; height: 41px; }
+#pagination .f1:hover{background-color: var(--s-b1); color:white; border: none;}
+#pagination .f2{ color: var(--s-g2); }
+#pagination .f2:hover{ border:1px solid var(--s-g1); background-color: white;}
+#pagination .curpage{color: white; background-color: var(--m-lg); cursor: default;}
+#pagination .btn:hover {color:black; background-color: var(--s-g0-1);}
+/* #pagination .btn:hover{color:white; background-color: var(--s-g0-1);} */

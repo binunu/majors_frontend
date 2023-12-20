@@ -1,53 +1,75 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import ListIcon from '@mui/icons-material/FormatListBulletedOutlined';
 import PeedIcon from '@mui/icons-material/DashboardOutlined';
-import { useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link,useParams,useNavigate } from 'react-router-dom';
 import MajorSelect from '../../Component/MajorSelect'
 import GoodIcon from '@mui/icons-material/ThumbUpOffAltOutlined';
 import ReplyIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
-
-
+import axiosURL from '../../Utill/AxiosURL';
+import { useLoginContext } from '../../Utill/LogInContext';
+import Pagination from '../../Component/Pagination';
 const StudyAsList = () => {
-  const [dmSubject, setDmSubject] = useState('국어교육')
-  const [articles, setArticles] = useState([
-    { subject: '경제학', title: '공부하는데 미시경제 거시경제 차이가 헷갈려요 ㅠ ', replyCnt: 14, goodCnt: 30 },
-    { subject: '인적자원관리', title: '인적자원관리 토론 합시다', replyCnt: 10, goodCnt: 20 },
-    { subject: '경영학', title: '보이지 않는 손은 누구의 손인가요', replyCnt: 14, goodCnt: 30 },
-    { subject: '마케팅', title: '선배님들 마케팅 과목 어떤 과제들을 주로 하셨나요?', replyCnt: 14, goodCnt: 30 },
-    { subject: '마케팅', title: '4p에 대해서 알려주실 분', replyCnt: 14, goodCnt: 30 },
-    { subject: '회계원리', title: '회계자격증 공부 질문있습니다', replyCnt: 14, goodCnt: 30 },
-    { subject: '국제경영학', title: '국제경영학 수업내용 중 이런게 나왔는데 잘 모르겠습니다 친절하게 알려주실 천사분 계신가요ㅜㅜ', replyCnt: 14, goodCnt: 30 },
-    
-  ])
+  const navigate = useNavigate()
+  const {major,pageNum} = useParams();
+  const [articles, setArticles] = useState([])
+  const [render, setRender] = useState(false) 
+  const [pageInfo,setPageInfo] = useState({});  
+
+  useEffect(() => {   
+    getArticles(major,pageNum) 
+  }, [major,pageNum])
+
+  const getArticles=(category,page)=>{ 
+    // setCateInit(category)
+    console.log(category,page)
+    axiosURL.get(`/board/article/list/study/${category}/${page}`)
+      .then(res => {  
+        // console.log(res.data.list)
+        setArticles(res.data.list)
+        setPageInfo(res.data.pageInfo)
+        setRender(true) 
+      })
+      .catch(err => console.log(err))
+  } 
+  const changePage=(page)=>{
+    navigate(`/studyAsList/${major}/${page}`)
+  }
+  const changeMajor=(pmajor)=>{
+    navigate(`/studyAsList/${pmajor}/1`)
+  }
   return (
     <div id='study-as-list' className='main-board'>
-      <MajorSelect dmSubject={dmSubject} setDmSubject={setDmSubject} />
-      <div className='mode'>
-        <div>
-          <Link to='/studyAsPeed'><PeedIcon className='icon' /></Link>
-          <ListIcon className='icon cur' />
-        </div>
-      </div>
-      <div className='article-list'>
-        {
-          articles.map((item,index)=>(
-            <Link to='/articleDetail' className='article' key={index}>
-            <div className='a-title'><b>[{item.subject}]</b> {item.title}</div>
-            <div className='a-tail'>
-              <GoodIcon className='icon'/>&nbsp;{item.replyCnt}&nbsp;&nbsp;
-              <ReplyIcon className='icon'/>&nbsp;{item.goodCnt}
+      {render &&
+        <> 
+          <MajorSelect type={"공부궁물"} cateInit={major} changeMajor={changeMajor} />
+          <div className='mode'>
+            <div>
+              <Link to={`/boardAsPeed/study/${major}/1`}><PeedIcon className='icon' /></Link>
+              <ListIcon className='icon cur' />
             </div>
-          </Link>
-          ))  
-        }
- 
-       
-      </div>
-      <div className='pagenation'>
-        0 1 2 3 4 5 6 7 8 9
-      </div>
+          </div>
+          <div className='article-list'>
+            {articles.length>0?
+              articles.map((item, index) => (
+                <Link to={`/articleDetail/${item.id}`} className='article' key={index}>
+                  <div className='a-title'><b>[{item.subject?item.subject:item.middleMajor}]</b> {item.title}</div>
+                  <div className='a-tail'>
+                    <GoodIcon className='icon' />&nbsp;{item.goods}&nbsp;&nbsp;
+                    <ReplyIcon className='icon' />&nbsp;{item.commentCnt}
+                  </div>
+                </Link>
+              ))
+              :
+              <p className='empty-p'>등록된 게시글이 없습니다!!</p>
+            }
 
+
+          </div>
+          <div className='pagenation'>
+           <Pagination pageInfo={pageInfo} changePage={changePage}/>
+          </div>
+        </>
+      }
     </div>
   )
 }
