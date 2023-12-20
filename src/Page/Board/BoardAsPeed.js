@@ -38,7 +38,8 @@ const BoardAsPeed = () => {
 
   const [boardTypeText, setBoardTypeText] = useState("")
   const [pageInfo, setPageInfo] = useState({})
-
+  
+  const [removeItem,setRemoveItem]=useState({})
   useEffect(() => {
     switch (boardType) {
       case 'study':
@@ -99,6 +100,7 @@ const BoardAsPeed = () => {
       setPageInfo(res.data.pageInfo)
     }).catch(err => console.log(err)) 
   }
+  
   // ============================ article detail ============================
   const stamp = (e, id) => {
     if (!isLogIn) {
@@ -129,11 +131,7 @@ const BoardAsPeed = () => {
       }).catch(err => console.log(err));
     }
   };
-  
-  const delAction = (text) => {
-    setOnModal(true)
-    setType(text)
-  }
+   
   const areaChange = (e, articleId, commentId) => {
     e.target.style.height = 'auto';
     e.target.style.height = e.target.scrollHeight + 'px';
@@ -266,6 +264,75 @@ const BoardAsPeed = () => {
       ))
         .catch(err => console.log(err))
     }
+  } 
+  // =============================== 삭제관련 ======================================
+
+  
+  const removeSubmit = () => { 
+    console.log(removeItem)
+    switch(removeItem.type){
+      case 'write':
+        removeArticle(removeItem.articleId) 
+        break;
+      case 'comment':
+        removeComment(removeItem.articleId, removeItem.commentId)
+        break;
+      case 'reply':
+        removeReply(removeItem.articleId, removeItem.commentId,removeItem.replyId)
+        break;
+    }
+  } 
+ 
+  const delAction = (item, articleId, commentId, replyId) => {
+    switch (item) {
+      case 'write':
+        setRemoveItem({ type: item, articleId: articleId }) 
+        break;
+      case 'comment':
+        setRemoveItem({ type: item, articleId: articleId, commentId: commentId }) 
+        break;
+      case 'reply':
+        setRemoveItem({ type: item, articleId: articleId,commentId: commentId, replyId: replyId })
+        break;
+    } 
+    setOnModal(true) 
+    setType(item)
+  }
+  const removeArticle=(articleId)=>{ 
+    axiosURL.delete(`/board/delete/article/${articleId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then(res => {
+      alert("게시글이 삭제되었습니다!")
+      const newArr = articles.filter(item=>item.id !== articleId)
+      setArticles(newArr)
+    }).catch(err => console.log(err))
+  }
+  const removeComment=(articleId,commentId)=>{
+    axiosURL.delete(`/board/delete/comment/${articleId}/${commentId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then(res => {
+      alert("댓글이 삭제되었습니다!")
+      setArticles(prev =>
+        prev.map(item => (
+          item.id === articleId ? res.data : item)))
+    }).catch(err => console.log(err))
+  }
+  const removeReply=(articleId,commentId,replyId)=>{
+    console.log(removeItem)
+    axiosURL.delete(`/board/delete/reply/${articleId}/${commentId}/${replyId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then(res => {
+      alert("답글이 삭제되었습니다!")
+      setArticles(prev =>
+        prev.map(item => (
+          item.id === articleId ? res.data : item)))
+    }).catch(err => console.log(err))
   }
  
 
@@ -276,7 +343,7 @@ const BoardAsPeed = () => {
         <div className='mode'>
           <div>
             <PeedIcon className='icon cur' />
-            <Link to='/studyAsList'><ListIcon className='icon' /></Link>
+            <Link to={`/${boardType==='community'?boardType:boardType+'AsList'}/${middleMajor}/1`}><ListIcon className='icon' /></Link>
           </div>
         </div>
       </div>
@@ -313,7 +380,7 @@ const BoardAsPeed = () => {
                   {
                     curMember && curMember.email === article.writer.email &&
                     <div className='edit-box'>
-                      <Link tso='#' className='edit-btn'>수정</Link>&nbsp;&nbsp;<button className='edit-btn' onClick={() => { delAction('write') }}>삭제</button>
+                      <Link tso='#' className='edit-btn'>수정</Link>&nbsp;&nbsp;<button className='edit-btn' onClick={() => { delAction('write',article.id) }}>삭제</button>
                     </div>
                   }
                 </div>
@@ -339,7 +406,7 @@ const BoardAsPeed = () => {
                                 </div>
                                 {
                                   curMember && curMember.email === item.from.email &&
-                                  <button className='edit-btn re-del-btn' onClick={() => { delAction('reply') }} >삭제</button>
+                                  <button className='edit-btn re-del-btn' onClick={() => { delAction('comment',article.id,item.id) }} >삭제</button>
                                 }
                               </div>
                               <div className='sec-2'>{item.content}</div>
@@ -362,7 +429,7 @@ const BoardAsPeed = () => {
                                         <p className='upload-date'>{rItem.createdAt}</p>
                                       </div>
                                       {curMember && curMember.email === rItem.from.email &&
-                                        <button className='edit-btn re-del-btn' onClick={() => { delAction('reply') }}>삭제</button>
+                                        <button className='edit-btn re-del-btn' onClick={() => { delAction('reply',article.id,item.id,rItem.id)}}>삭제</button>
                                       }
 
                                     </div>
@@ -420,7 +487,7 @@ const BoardAsPeed = () => {
          <button className='plus' onClick={()=>plusArticles(pageInfo.curPage+1)}>더보기</button>
         }
 
-        {onModal && <CustomModal type={type} setOnModal={setOnModal} />}
+        {onModal && <CustomModal type={type} setOnModal={setOnModal} removeSubmit={removeSubmit}/>}
       </div>
       {
         showScrollButton &&
