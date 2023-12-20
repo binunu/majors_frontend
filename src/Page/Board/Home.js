@@ -4,7 +4,7 @@ import './Board.css'
 import { Link } from 'react-router-dom'
 import { useLoginContext } from '../../Utill/LogInContext'
 
-const Home = ({ dmIsLogIn }) => {
+const Home = () => {
   const article = { title: '선배님들 질문있습니다선배님들 질문있습니다선배님들 질문있습니다선배님들 질문있습니다선배 님들 질문있습습니다선 배님들습 니다선배님들 니다선배님들 ......질문있습니다', major: '경제학' };
   const {isLogIn} = useLoginContext();
   useEffect(()=>{

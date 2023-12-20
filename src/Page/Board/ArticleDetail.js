@@ -8,9 +8,9 @@ import BookmarkAddedRoundedIcon from '@mui/icons-material/BookmarkAddedRounded';
 import axiosURL from '../../Utill/AxiosURL';
 import { useLoginContext } from '../../Utill/LogInContext';
 
-const ArticleDetail = ({ dmGraduate }) => {
+const ArticleDetail = () => {
   const token = localStorage.getItem('accessToken');
-  const [curAuthEmail, setCurAuthEmail] = useState();
+  const [curMember, setCurMember] = useState();
   const [render, setRender] = useState(false);
   const [onGood, setOnGood] = useState(false);
   const [onBad, setOnBad] = useState(false);
@@ -19,19 +19,19 @@ const ArticleDetail = ({ dmGraduate }) => {
   const { id } = useParams()
   const [article, setArticle] = useState({});
   const [commentText, setCommentText] = useState('');
-  const [replyText, setReplyText] = useState([])
+  const [replyText, setReplyText] = useState({})
   const { isLogIn } = useLoginContext();
   //답글관련
   const commentRef = useRef(null);
-  const [replyVisible, setReplyVisible] = useState([]);
+  const [replyVisible, setReplyVisible] = useState({});
 
   useEffect(() => {
     if (isLogIn) {
-      axiosURL.get('/member/info/email', {
+      axiosURL.get('/member/info/simple', {
         headers: {
           Authorization: `Bearer ${token}`,
         }
-      }).then(res => setCurAuthEmail(res.data)).
+      }).then(res => setCurMember(res.data)).
         catch(err => console.log(err))//로그인되어있으면 유저정보받아오기
     }
     axiosURL.get(`/board/article/detail/${id}`) //
@@ -77,8 +77,7 @@ const ArticleDetail = ({ dmGraduate }) => {
           }else{
             setOnGood(false)
             setOnBad(false)
-          }
-          console.log(res.data.state)
+          } 
         }).catch(err=>console.log(err))
       }
   }
@@ -205,7 +204,7 @@ const ArticleDetail = ({ dmGraduate }) => {
                 </div>
                 <div>
                   {
-                    article.scraps.includes(curAuthEmail) ?
+                    article.scraps.includes(curMember&&curMember.email) ?
                       <BookmarkAddedRoundedIcon className='bookmark-icon' onClick={bookmark} />
                       :
                       <BookmarkAddOutlinedIcon className='bookmark-icon' onClick={bookmark} />
@@ -219,7 +218,7 @@ const ArticleDetail = ({ dmGraduate }) => {
               <button className={`response good ${onGood ? 'on' : ''}`} value='T' onClick={stamp}>👍 {article.goods}</button>
               <button className={`response bad ${onBad ? 'on' : ''}`} value='F' onClick={stamp}>👎 {article.bads}</button>
               {
-                curAuthEmail === article.writer.email &&
+                curMember&&curMember.email === article.writer.email &&
                 <div className='edit-box'>
                   <Link tso='#' className='edit-btn'>수정</Link>&nbsp;&nbsp;<button className='edit-btn' onClick={() => { delAction('write') }}>삭제</button>
                 </div>
@@ -244,14 +243,14 @@ const ArticleDetail = ({ dmGraduate }) => {
                             <p className='upload-date'>{item.createdAt}</p>
                           </div>
                           {
-                            curAuthEmail === item.from.email &&
+                            curMember&&curMember.email === item.from.email &&
                             <button className='edit-btn re-del-btn' onClick={() => { delAction('reply') }} >삭제</button>
                           }
                         </div>
                         <div className='sec-2'>{item.content}</div>
                         <div className='sec-3'>
                           <button className='edit-btn re-reply' onClick={() => { toggleReply(index) }} >답글({item.replies ? item.replies.length : 0})</button>
-                          <button className={`sympathy ${item.sympathy && item.sympathy.includes(curAuthEmail) ? 'on' : ''}`} onClick={()=>commentSympthy(item.id)}>공감 {item.sympathy ? item.sympathy.length : 0}</button>
+                          <button className={`sympathy ${item.sympathy && item.sympathy.includes(curMember&&curMember.email) ? 'on' : ''}`} onClick={()=>commentSympthy(item.id)}>공감 {item.sympathy ? item.sympathy.length : 0}</button>
                         </div>
                       </div>
                       <div className={`reply-show-box ${replyVisible[index] ? 'visible' : ''}`} style={{ maxHeight: replyVisible[index] ? commentRef.current.scrollHeight + 'px' : '0' }} >
@@ -267,14 +266,14 @@ const ArticleDetail = ({ dmGraduate }) => {
                                   <p className='nickname'>{rItem.from.nickname}({rItem.from.major})</p>
                                   <p className='upload-date'>{rItem.createdAt}</p>
                                 </div>
-                                {curAuthEmail === rItem.from.email &&
+                                {curMember&&curMember.email === rItem.from.email &&
                                   <button className='edit-btn re-del-btn' onClick={() => { delAction('reply') }}>삭제</button>
                                 }
 
                               </div>
                               <div className='sec-2'>{rItem.content}</div>
                               <div className='sec-3 sub-reply-sec-3'>
-                                <button className={`sympathy ${rItem.sympathy && rItem.sympathy.includes(curAuthEmail) ? 'on' : ''}`} onClick={() => replySympthy(item.id, rItem.id)}>공감 {rItem.sympathy ? rItem.sympathy.length : 0}</button>
+                                <button className={`sympathy ${rItem.sympathy && rItem.sympathy.includes(curMember&&curMember.email) ? 'on' : ''}`} onClick={() => replySympthy(item.id, rItem.id)}>공감 {rItem.sympathy ? rItem.sympathy.length : 0}</button>
                               </div>
                             </div>
                           ))
@@ -285,7 +284,7 @@ const ArticleDetail = ({ dmGraduate }) => {
                             </textarea>
                             <div className='write-reply-btn'>
                               { 
-                              replyText[item.id] === '' ? 
+                               !replyText[item.id] ||replyText[item.id] === '' ? 
                               <button className='wr-btn sub no' type='button'>답글작성</button>
                               :
                               <button className='wr-btn sub' type='button' onClick={() => { createReply(item.id) }}>답글작성</button>

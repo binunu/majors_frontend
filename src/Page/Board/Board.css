@@ -21,6 +21,7 @@
 #study-as-list .a-title{width:550px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
 #study-as-list .a-tail{color:var(--s-g2);display:flex;align-items:center;font-size:14px}
 #study-as-list .a-tail .icon{color:var(--s-g2);font-size:15px}
+#study-as-list .empty-p{text-align: center; margin-top: 50px;}
 #study-as-list .pagenation{display:flex;justify-content:center;margin-top:60px}.search-result .h1{font-size:22px;padding-bottom:50px;font-size:20px;font-weight:700}.search-result .h2{font-size:16px;padding-bottom:25px;margin-bottom:35px;border-bottom:2px solid var(--s-g2)}.search-result .container{min-height:300px;margin-bottom:15%}.search-result .article{display:block;color: #000;margin-bottom:30px}.search-result .title{font-size:16px;width:550px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}.search-result .row1{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}.search-result .icon-box{display:flex;align-items:center;font-size:12px}.search-result .icon{font-size:13px;color:var(--s-g2)}.search-result .row2{font-size:14px;width:550px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}.search-result .plus{display:block;margin:0 auto;text-align:center;background-color:var(--s-g0);border:1px solid var(--s-g1);padding:13px;font-size:14px;color:var(--s-g2);margin-top:50px}.search-result .plus:hover{cursor:pointer;color: #000;border-color:var(--s-g2)}.search-result .empty{height:100px;text-align:center;padding-top:50px}.search-result .highlight{color:var(--h)}.search-result .pagenation{display:flex;justify-content:center;margin-top:60px}
 
 #write .bar{height:45px;border:none;background-color:var(--m-lg);color: #fff;font-weight:700;font-size:15px;padding-left:20px;line-height:3em}
@@ -71,7 +72,7 @@
 #article-detail .edit-btn{font-size:13px;color:var(--s-g2);border:none;background-color:transparent}
 #article-detail .edit-btn:hover{text-decoration:underline}
 #article-detail .reply-cnt{font-weight:700;margin-top:-20px}
-#article-detail .replyes-container{width:90%;margin:0 auto;margin-top:20px}
+#article-detail .replyes-container{width:90%;margin:0 auto;margin-top:20px} 
 #article-detail .reply{padding-left:13px;padding-right:10px;border-bottom:1px solid var(--s-g1);padding-bottom:15px;}
 #article-detail .sec-1{padding-top:10px;display:flex;justify-content:space-between}
 #article-detail .sec-1-1{display:flex;align-items:center}
@@ -105,9 +106,14 @@
 
 #article-detail .peed-reply-box{overflow:hidden;transition:max-height 0.3s ease;margin-bottom:50px;}
 #article-detail .peed-eply-box.visible{transition:max-height 0.3s ease;}
-#article-detail .peed-article{margin-bottom:100px}
+#article-detail .peed-article{margin-bottom:80px;}
 #article-detail .peed-visible-btn:hover{cursor:pointer}
 
 
 #study-as-peed .scroll-button{cursor:pointer;position:fixed;right:60px;bottom:185px;font-size:50px;font-weight:lighter;box-shadow:0 0 2px 2px var(--s-g2);border-radius:50%;padding:5px;color:var(--s-g2)}
 #study-as-peed .scroll-button:hover{box-shadow:0 0 2px 2px var(--s-b1);color:var(--s-b1)}
+/* #study-as-peed .plus-box{width: 100%; border:1px solid var(--s-g0-1);} */
+#study-as-peed .plus{width: 100%; transition: 0.2s all; height: 45px; display: block; margin: 0 auto; border:none; background-color: var(--s-b1); color:white;  font-size: 15px; letter-spacing: 1em; border-radius: 5px;}
+#study-as-peed .plus:hover{border:none; background-color: var(--m-y); color: #fff; font-weight: bold;}
+/* #study-as-peed .plus{width:50%; transition: 0.3s all; height: 45px; display: block; margin: 0 auto; background-color: #fff; color: var(--s-g2); border:none; font-size: 15px; letter-spacing: 1em; border-radius: 5px;}
+#study-as-peed .plus:hover{border:none; width: 100%; background-color: var(--m-y); color: #fff; font-weight: bold;} */

@@ -2,13 +2,11 @@ import React, { useState,useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom';
 import Header from './Page/Header';
 import Footer from './Page/Footer';
-import DevelopMode from './Page/DevelopMode';
 import Home from './Page/Board/Home';
 import Community from './Page/Board/Community';
 import JobAsList from './Page/Board/JobAsList';
-import JobAsPeed from './Page/Board/JobAsPeed';
 import StudyAsList from './Page/Board/StudyAsList';
-import StudyAsPeed from './Page/Board/StudyAsPeed';
+import BoardAsPeed from './Page/Board/BoardAsPeed';
 import ProfileBox from './Component/ProfileBox';
 import OpenChat from './Component/OpenChat';
 import ChatIcon from '@mui/icons-material/Chat';
@@ -23,35 +21,31 @@ import { useLoginContext } from './Utill/LogInContext';
 
 
 const MainPage = () => {
-    const [chatRoom, setChatRoom] = useState(false) 
-    const [dmIsLogIn, setDmIsLogIn] = useState(false)
-    const [dmGraduate, setDmGraduate] = useState(false)
+    const [chatRoom, setChatRoom] = useState(false)  
     const {isLogIn}=useLoginContext();
     useEffect(()=>{
       console.log('여기는 App.js, 로그인 상태인가?',isLogIn)
     },[])
     return (
-        <>
-        <DevelopMode setDmIsLogIn={setDmIsLogIn} setDmGraduate={setDmGraduate} />
+        <> 
         <Header/>
             <div className='content'>
                 <div id='main' className='wrap'>
                     <div className='content'>
                         <Routes >
-                            <Route exact path="/" element={<Home dmIsLogIn={dmIsLogIn} />} />
-                            <Route path="/community" element={<Community />} />
-                            <Route path="/jobAsList" element={<JobAsList />} />
-                            <Route path="/jobAsPeed" element={<JobAsPeed />} />
-                            <Route path="/studyAsList" element={<StudyAsList />} />
-                            <Route path="/studyAsPeed" element={<StudyAsPeed dmGraduate={dmGraduate} />} />
+                            <Route exact path="/" element={<Home/>} />
+                            <Route path="/community/:major/:pageNum" element={<Community />} />
+                            <Route path="/jobAsList/:major/:pageNum" element={<JobAsList />} /> 
+                            <Route path="/studyAsList/:major/:pageNum" element={<StudyAsList />} /> 
+                            <Route path='/boardAsPeed/:boardType/:middleMajor/:pageNum' element={<BoardAsPeed/>}/>
                             <Route path="/write" element={<Write />} />
-                            <Route path="/articleDetail/:id" element={<ArticleDetail dmGraduate={dmGraduate} />} />
+                            <Route path="/articleDetail/:id" element={<ArticleDetail/>} />
                             <Route path="/searchResult/:word" element={<SearchResult />} />
                             <Route path="/searchResult/plus/:boardType/:word" element={<SearchResultPlus />} />
-                            <Route path="/mypage/:menu" element={<Mypage dmGraduate={dmGraduate} />} />
+                            <Route path="/mypage/:menu" element={<Mypage/>} />
                         </Routes>
                     </div>
-                    <ProfileBox dmIsLogIn={dmIsLogIn} dmGraduate={dmGraduate} />
+                    <ProfileBox/>
                 </div>
             </div>
             <div id='open-chat' onClick={() => setChatRoom(!chatRoom)}>
