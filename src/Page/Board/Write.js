@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import './Board.css'
 import { useLoginContext } from '../../Utill/LogInContext'
 import { useNavigate } from 'react-router'
@@ -8,8 +8,7 @@ import 'react-quill/dist/quill.snow.css';
 
 const Write = () => {
   const { isLogIn } = useLoginContext();
-  const navigate = useNavigate();
-  const [member, setMember] = useState({});
+  const navigate = useNavigate(); 
   const [needSubject, setNeedSubject] = useState(true);
   const [title, setTitle] = useState('');
   const [subject, setSubject] = useState('');
@@ -34,8 +33,7 @@ const Write = () => {
       headers: {
         Authorization: `Bearer ${token}`,
       }
-    }).then(res => {
-      setMember(res.data)
+    }).then(res => { 
       setMiddleMajor(res.data.middleMajor)
     }).catch(err => {
       console.log(err)

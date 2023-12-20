@@ -53,7 +53,7 @@ const ProfileBox = ({dmIsLogIn,dmGraduate}) => {
           </div> 
           <div className='t3'>
           {
-            dmGraduate && <span>🎓</span>  }
+            member.graduate && <span>🎓</span>  }
           <p>{member.nickname}</p> 
           </div>  
           <Link to='/mypage/write' className='t4'>개인정보수정</Link>

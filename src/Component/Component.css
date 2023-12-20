@@ -72,13 +72,13 @@
 
 /* custom-modal */
 #custom-modal { width: 100vw; height: 100vw; position:fixed; top: 0; left: 0; right: 0;  background-color: transparent;  color:black; bottom: 0; margin:auto;  z-index: 1002; display:flex;align-items: center; justify-content: center; }
-#custom-modal .modal-background{ width:460px; height: 210px; background-color: #fff;  display: flex;align-items: center; justify-content: center;border:1px solid var(--s-g2); }
+#custom-modal .modal-background{ width:460px; height: 210px; background-color: #fff;  display: flex;align-items: center; justify-content: center; border:1px solid var(--s-g1); border-radius: 5px; box-shadow: 0 0 1px 1px var(--s-g0-1);}
 #custom-modal .modal-box{width:80%; height: 80%; display: flex; flex-direction: column; align-items: center; justify-content: space-evenly;}
 #custom-modal .question{font-size: 20px; font-weight: bold;}
 #custom-modal .warnning{color: red; font-weight: bold; font-size: 15px; margin-top: 10px; }
 #custom-modal .q-box{text-align: center; } 
 #custom-modal .btn-box{margin-bottom: -18px;}
-#custom-modal .btn{font-size: 16px; width: 150px; height: 45px; border:none; background-color: var(--s-g0-1); margin-left: 12px; margin-right: 12px;} 
+#custom-modal .btn{font-size: 16px; border-radius: 2px; width: 150px; height: 45px; border:none; background-color: var(--s-g0-1); margin-left: 12px; margin-right: 12px;} 
 #custom-modal .btn.yes{background-color: var(--m-g); color: white;} 
 
 /* pagination */
