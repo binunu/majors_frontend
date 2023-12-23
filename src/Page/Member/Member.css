@@ -3,7 +3,7 @@
 #mypage .info{width:280px; display: flex;justify-content: flex-start; align-items: center; flex-direction: column;}
 #mypage .update{width:360px;display: flex;flex-direction: column; justify-content: space-evenly;}
 #mypage .content1{height:270px; display: flex;justify-content: space-around; margin-bottom: 10px;}
-#mypage .content2{display: flex; flex-direction: row; justify-content: flex-start; align-items: center;} 
+#mypage .content2{display: flex; flex-direction: row; justify-content: flex-start;  height:320px;} 
 
 /* mypage - 개인정보 */
 #mypage .img{background-color: pink; width:95px; height:95px;border-radius: 50%; margin-bottom: 20px;} 
@@ -37,13 +37,24 @@
 #mypage .li{ margin-bottom: 30px; font-size: 15px; cursor: pointer;} 
 #mypage .li.on{font-weight: bold;color: black;} 
 #mypage .p{font-size: 14px; margin-bottom: 20px;}
-#mypage .log-list{ width:545px; padding-top: 20px;}
-#mypage .article{color: black; margin-bottom: 20px; display: flex;  align-items: center;justify-content: space-between;}
-#mypage .title{font-size:14px; width:70%; overflow: hidden;white-space: nowrap;text-overflow: ellipsis; }
+#mypage .log-list{ width:545px;  display: flex; flex-direction: column; justify-content: space-between; }
+#mypage .comment-box{margin-bottom: 12px;  padding: 10px;  border: 1px solid var(--s-g0-1); border-left: 3px solid var(--s-g1); }
+/* #mypage .comment-box{margin-bottom: 12px;  padding: 10px;  box-shadow: 0 0 1px 1px var(--s-g1) ;} */
+#mypage .article{color: black; margin-bottom: 20px; display: flex;  align-items: center;justify-content: space-between; }
+#mypage .article.c{margin-bottom: 10px; align-items: flex-start; border: none;}
+#mypage .c-content{font-size: 14px;  width: 80%; overflow: hidden; line-height: 1.3em; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2;  -webkit-box-orient: vertical;}
+#mypage .title{font-size:14px; overflow: hidden;white-space: nowrap;text-overflow: ellipsis; }
+#mypage .title.c{margin-bottom: 0; font-size:13px; display: block; width: 80%; color: var(--s-g2);}
+#mypage .title.c:hover{color: black;}
 #mypage .icon-box{display:flex; align-items: center; font-size:12px;}
+#mypage .icon-box.c{font-size:10px;}
+#mypage .title .icon{padding-right: 10px; color:var(--s-b1);}
 #mypage .icon{font-size: 13px; color: var(--s-g2);}
-#mypage .pagenation{text-align: center;margin-top: 40px; }
+#mypage .icon.c{font-size: 10px;}
+/* #mypage .pagenation{text-align: center;} */
 #mypage .del-icon{cursor:pointer;}
+#mypage .empty{text-align: center; margin-top: 100px;} 
+
 
 
 /* login */

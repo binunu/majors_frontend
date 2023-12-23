@@ -27,10 +27,10 @@ const ProfileBox = ({dmIsLogIn,dmGraduate}) => {
         }
       }).then(res=>{
         setMember(res.data) 
+        console.log(res.data)
       }).catch(err=>{
         localStorage.removeItem("accessToken")
-        setLogOut() 
-        console.log("자동로그아웃");
+        setLogOut()  
       })
     }else{
       setMember(null)
@@ -66,15 +66,15 @@ const ProfileBox = ({dmIsLogIn,dmGraduate}) => {
         </div>
         <Link to='/mypage/write' className='m m2'>
           <p><ArticleOutlinedIcon className='icon'/>&nbsp;게시글</p>
-          <p className='cnt'>0</p>
+          <p className='cnt'>{member.articles?member.articles.length:0}</p>
         </Link>
-        <Link to='/mypage/reply' className='m m3'>
+        <Link to='/mypage/comment' className='m m3'>
           <p><SmsOutlinedIcon className='icon'/>&nbsp;댓글</p>
-          <p className='cnt'>0</p>
+          <p className='cnt'>{member.comments?member.comments.length:0}</p>
         </Link>
         <Link to='/mypage/scrap' className='m m4'>
           <p><BookmarksOutlinedIcon className='icon'/>&nbsp;스크랩</p>
-          <p className='cnt'>0</p>
+          <p className='cnt'>{member.scraps?member.scraps.length:0}</p>
         </Link>
       </div>
     </div> 

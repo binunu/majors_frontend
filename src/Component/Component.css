@@ -91,3 +91,8 @@
 #pagination .curpage{color: white; background-color: var(--m-lg); cursor: default;}
 #pagination .btn:hover {color:black; background-color: var(--s-g0-1);}
 /* #pagination .btn:hover{color:white; background-color: var(--s-g0-1);} */
+
+/* pagination - mypage */
+#pagination{width: 100%; display: flex; justify-content: center;align-items: center; }
+#pagination button{font-weight: bold; background-color:white; border: none; border-radius: 50px; width: 27px; height: 27px; font-size: 13px; margin: 0 5px 0 5px; color:var(--s-g1); }
+#pagination .f1{color: black;  border:1px solid var(--s-g1); width: 30px; height: 30px; }

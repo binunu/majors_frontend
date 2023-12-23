@@ -269,7 +269,6 @@ const BoardAsPeed = () => {
 
   
   const removeSubmit = () => { 
-    console.log(removeItem)
     switch(removeItem.type){
       case 'write':
         removeArticle(removeItem.articleId) 
@@ -322,7 +321,6 @@ const BoardAsPeed = () => {
     }).catch(err => console.log(err))
   }
   const removeReply=(articleId,commentId,replyId)=>{
-    console.log(removeItem)
     axiosURL.delete(`/board/delete/reply/${articleId}/${commentId}/${replyId}`, {
       headers: {
         Authorization: `Bearer ${token}`

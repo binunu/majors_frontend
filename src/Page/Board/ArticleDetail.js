@@ -44,11 +44,13 @@ const ArticleDetail = () => {
       .then(res => {
         setArticle(res.data)
         setRender(true)
+        // reaction()
+        //좋아요 및 싫어요 초기세팅 
       }).catch(err => {
         console.log(err)
         alert("존재하지 않는 게시물입니다.")
       })
-  }, [])
+  }, []) 
   const stamp = (e) => {
     if (!isLogIn) {
       alert("로그인 후에 가능합니다.")
@@ -142,19 +144,18 @@ const ArticleDetail = () => {
       [index]: !replyVisible[index] ?? false,
     })
   }
-  const bookmark = () => {
-    console.log(removeItem)
-    // if (!isLogIn) {
-    //   alert("로그인 후에 가능합니다.")
-    // } else {
+  const bookmark = () => { 
+    if (!isLogIn) {
+      alert("로그인 후에 가능합니다.")
+    } else {
 
-    //   axiosURL.get(`/contents/bookmark/${id}`, {
-    //     headers: {
-    //       Authorization: `Bearer ${token}`,
-    //     }
-    //   }).then(res => setArticle(res.data))
-    //     .catch(err => console.log(err))
-    // }
+      axiosURL.get(`/contents/bookmark/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
+      }).then(res => setArticle(res.data))
+        .catch(err => console.log(err))
+    }
   }
   const commentSympthy = (commentId) => {
     if (!isLogIn) {

@@ -1,20 +1,18 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import './Member.css'
 import GoodIcon from '@mui/icons-material/ThumbUpOffAltOutlined';
 import ReplyIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
-import { Link,useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import DelIcon from '@mui/icons-material/ClearOutlined';
+import ReReplyIcon from '@mui/icons-material/SubdirectoryArrowRightOutlined';
 import CustomModal from '../../Component/CustomModal';
+import axiosURL from '../../Utill/AxiosURL';
+import Pagination from '../../Component/Pagination';
 
-const Mypage = ({ dmGraduate }) => { 
+const Mypage = ({ dmGraduate }) => {
   const { menu } = useParams()
-  const [board, setboard] = useState([{ boardType: '자유게시판', title: '시간 복잡도와 공간 복잡도의 차이', replyCnt: 10, goodCnt: 20, content: '알고리즘에서 시간 복잡도와 공간 복잡도의 차이점에 대해 궁금합니다.' },
-  { boardType: '공부궁물', title: 'TCP와 UDP의 차이점', replyCnt: 15, goodCnt: 25, content: '네트워크에서 TCP와 UDP의 특징과 각각의 용도에 대해 알고 싶습니다.' },
-  { boardType: '진로궁물', title: '머신러닝과 딥러닝의 차이', replyCnt: 12, goodCnt: 22, content: '인공지능 분야에서 머신러닝과 딥러닝의 차이와 활용 방법에 대해 알고 싶어요.' },
-  { boardType: '공부궁물', title: 'SPA와 MPA의 장단점', replyCnt: 8, goodCnt: 18, content: '웹 개발에서 SPA와 MPA의 장단점과 적합한 상황에 대해 알려주세요.' },
-  { boardType: '자유게시판', title: '암호화 기술의 종류와 원리', replyCnt: 20, goodCnt: 30, content: '보안 분야에서 사용되는 암호화 기술의 종류와 작동 원리를 알고 싶습니다.' },
-  ]);
- 
+  const [board, setboard] = useState([])
+  const [cBoard, setCboard] = useState([])
   //닉네임수정관련 
   const [nickCheckMessage, setNickCheckMessage] = useState('')
   const [nickCheckBtn, setNickCheckBtn] = useState(false)
@@ -22,17 +20,36 @@ const Mypage = ({ dmGraduate }) => {
   //졸업여부수정관련
   const [isGraduate, setIsGraduate] = useState('yes-btn')
   //수정하기버튼
-  const [activeUpdateBtn, setActiveUpdateBtn] = useState(false) 
+  const [activeUpdateBtn, setActiveUpdateBtn] = useState(false)
   //내활동 메뉴선택
-  const [selectMenu, setSelectMenu] = useState('') // write/ reply/ scrap / good/ bad
+  const [selectMenu, setSelectMenu] = useState(menu) // write/ reply/ scrap / goods/ bads
   //모달타입, 모달 on/off
   const [onModal, setOnModal] = useState(false)
-  const [modalType,setModalType] = useState('') 
+  const [modalType, setModalType] = useState('')
 
-  useEffect(()=>{  
-      setSelectMenu(menu)   
-  },[menu])
+  const token = localStorage.getItem('accessToken')
+  const [pageInfo, setPageInfo] = useState({})
+  const [page, setPage] = useState(1)
 
+  const [removeItem,setRemoveItem] = useState({})
+  useEffect(() => {
+    getArticles() 
+  }, [menu, selectMenu, page])
+  const getArticles = () => {
+    axiosURL.get(`/member/log/${selectMenu}/${page}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then(res => {
+      if (selectMenu === 'comment') {
+        setCboard(res.data.list) 
+      } else {
+        setboard(res.data.list) 
+      }
+      console.log(res.data.pageInfo)
+      setPageInfo(res.data.pageInfo)
+    })
+  }
   //졸업생여부관련
   const onNickBtn = (e) => {
     setNickCheckBtn(true)
@@ -56,39 +73,143 @@ const Mypage = ({ dmGraduate }) => {
   }
   const update = () => {
     //수정점있는지확인 후 수정하기
+  } 
+
+  //메뉴변경
+  const changeArticle = (menu) => {
+    setSelectMenu(menu) 
+    setPage(1)
+    // getArticles() 
   }
 
-  const changeArticle=(menu)=>{
-    setSelectMenu(menu)
-    // 받아온 articles로 초기화하기
-  } 
+  //페이지변경
+  const changePage = (pPage) => {
+    // navigate(`/mypage/${menu}/${pPage}`)
+    setPage(pPage)
+    // getArticles()
+  }
+
+  const categoryToText = (menu) => {
+    switch (menu) {
+      case 'study':
+        return '공부궁물'
+      case 'job':
+        return '진로궁물'
+      case 'community':
+        return '자유게시판'
+    }
+  }
+// ========================== 삭제관련 ===============================
  
   //모달띄우기
-  const onDelModal=(type)=>{
+  const onDelModal = (type,item,articleId,commentId,replyId) => { 
+    switch (type) {
+      case 'write':
+        setRemoveItem({ type: type, articleId: articleId }) 
+        break;
+      case 'comment':
+        if(item==='comment'){
+          setRemoveItem({ type: item, articleId: articleId, commentId:commentId }) 
+        }else if(item==='reply'){
+          setRemoveItem({ type: item, articleId: articleId,commentId:commentId,replyId:replyId}) 
+        }
+      break; 
+      case 'good':
+        setRemoveItem({ type: type, articleId: articleId }) 
+        break;
+      case 'bad':
+        setRemoveItem({ type: type, articleId: articleId }) 
+        break;
+    } 
     setModalType(type)
-    setOnModal(true)  
+    setOnModal(true) 
   }
-
+  //삭제
+  const removeSubmit=()=>{
+    switch(removeItem.type){
+      case 'write':
+        removeArticle(removeItem.articleId)
+        break;
+      case 'comment': 
+        removeComment(removeItem.articleId,removeItem.commentId)
+      break; 
+      case 'reply':
+        removeReply(removeItem.articleId,removeItem.commentId,removeItem.replyId) 
+        break;
+      case 'good':
+        removeGood(removeItem.articleId)
+        break;
+      case 'bad':
+        removeBad(removeItem.articleId)
+        break;
+    }
+  }
+  const removeArticle=(articleId)=>{ 
+    axiosURL.delete(`/board/delete/article/${articleId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then(res => {
+      alert("게시글이 삭제되었습니다!") 
+    }).catch(err => console.log(err))
+  }
+  const removeComment=(articleId,commentId)=>{
+    axiosURL.delete(`/board/delete/comment/${articleId}/${commentId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then(res => {
+      alert("댓글이 삭제되었습니다!") 
+    }).catch(err => console.log(err))
+  }
+  const removeReply=(articleId,commentId,replyId)=>{
+    console.log(removeItem)
+    axiosURL.delete(`/board/delete/reply/${articleId}/${commentId}/${replyId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then(res => {
+      alert("답글이 삭제되었습니다!") 
+    }).catch(err => console.log(err))
+  }
+  const removeGood=(articleId)=>{
+    // axiosURL.delete(`/board/delete/reply/${articleId}/${commentId}/${replyId}`, {
+    //   headers: {
+    //     Authorization: `Bearer ${token}`
+    //   }
+    // }).then(res => {
+    //   alert("답글이 삭제되었습니다!") 
+    // }).catch(err => console.log(err))
+  }
+  const removeBad=(articleId)=>{
+    // axiosURL.delete(`/board/delete/reply/${articleId}/${commentId}/${replyId}`, {
+    //   headers: {
+    //     Authorization: `Bearer ${token}`
+    //   }
+    // }).then(res => {
+    //   alert("답글이 삭제되었습니다!") 
+    // }).catch(err => console.log(err))
+  }
 
   return (
     <div id='mypage'>
       <div className='container'>
         <div className='top'>내 정보</div>
         <div className='content1'>
-          <div className='info'> 
-              <div className='img'><img src='' alt='프로필사진'></img></div>
+          <div className='info'>
+            <div className='img'><img src='' alt='프로필사진'></img></div>
 
-              <div className='info-icon'>
-                {
-                  dmGraduate && <span>🎓</span>}
-                <p className='info-p1'>병아리는삐약삐약</p>
-              </div>
+            <div className='info-icon'>
+              {
+                dmGraduate && <span>🎓</span>}
+              <p className='info-p1'>병아리는삐약삐약</p>
+            </div>
 
-              <p className='info-p'>홍길동</p>
-              <p className='info-p'>llsbdm@naver.com</p>
-              <p className='info-p'>가입일&nbsp;&nbsp;2023-07-11</p>
-              <div><Link to='/find' className='info-p3'>비밀번호 변경</Link><input type='button' className='info-p3 input' value='회원탈퇴' onClick={()=>{onDelModal('leave')}} /> </div>
-            
+            <p className='info-p'>홍길동</p>
+            <p className='info-p'>llsbdm@naver.com</p>
+            <p className='info-p'>가입일&nbsp;&nbsp;2023-07-11</p>
+            <div><Link to='/find' className='info-p3'>비밀번호 변경</Link><input type='button' className='info-p3 input' value='회원탈퇴' onClick={() => { onDelModal('leave') }} /> </div>
+
           </div>
           <div className='update'>
             <div className='row1'>
@@ -121,37 +242,81 @@ const Mypage = ({ dmGraduate }) => {
         <div id='my-activity' className='top'>내 활동</div>
         <div className='content2'>
           <ul className='menu-box'>
-            <li className={`li ${selectMenu==='write'?'on':''}`}  onClick={()=>{changeArticle('write')}}>내가 쓴 글</li>
-            <li className={`li ${selectMenu==='reply'?'on':''}`} onClick={()=>{changeArticle('reply')}}>내가 남긴 댓글</li>
-            <li className={`li ${selectMenu==='scrap'?'on':''}`} onClick={()=>{changeArticle('scrap')}}>스크랩</li>
-            <li className={`li ${selectMenu==='good'?'on':''}`} onClick={()=>{changeArticle('good')}}>좋아요한 글</li>
-            <li className={`li ${selectMenu==='bad'?'on':''}`} onClick={()=>{changeArticle('bad')}}>싫어요한 글</li>
+            <li className={`li ${selectMenu === 'write' ? 'on' : ''}`} onClick={() => { changeArticle('write') }}>내가 쓴 글</li>
+            <li className={`li ${selectMenu === 'comment' ? 'on' : ''}`} onClick={() => { changeArticle('comment') }}>내가 남긴 댓글</li>
+            <li className={`li ${selectMenu === 'scrap' ? 'on' : ''}`} onClick={() => { changeArticle('scrap') }}>스크랩</li>
+            <li className={`li ${selectMenu === 'good' ? 'on' : ''}`} onClick={() => { changeArticle('good') }}>좋아요한 글</li>
+            <li className={`li ${selectMenu === 'bad' ? 'on' : ''}`} onClick={() => { changeArticle('bad') }}>싫어요한 글</li>
           </ul>
           <div className='log-list'>
-            <p className='p'><b>총 5개의 글 작성</b></p>
+            <div>
+
+              <p className='p'><b>총 {pageInfo.total}건의 활동</b></p>
+              {
+                selectMenu === 'comment' ?
+                  <>
+                    {cBoard.length > 0 ?
+                      cBoard.map((item, index) => (
+                        <>
+                          {
+                            item.type === 'comment' ?
+                              <div className='comment-box' key={index}>
+                                <div className='article c'>
+                                  <div className='c-content'>{item.content}</div>
+                                  <div className='icon-box c'>
+                                    <ReplyIcon className='icon' />&nbsp;{item.replyCnt}&nbsp;&nbsp;
+                                    <GoodIcon className='icon c' />&nbsp;{item.sympathyCnt}&nbsp;&nbsp;
+                                    <span className='icon c del-icon' onClick={() => { onDelModal(selectMenu,'comment',item.articleId,item.commentId) }}>삭제</span>
+                                  </div>
+                                </div>
+                                <Link to={`/articleDetail/${item.articleId}`} className='title c'><ReReplyIcon className='icon'/><b>[{categoryToText(item.articleBoardType)}]</b>&nbsp;{item.articleTitle}</Link>
+                              </div>
+                              :
+                              <div className='comment-box' key={index}>
+                                <div className='article c'>
+                                  <div className='c-content'>{item.content}</div>
+                                  <div className='icon-box c'>
+                                    <GoodIcon className='icon c' />&nbsp;{item.sympathyCnt}&nbsp;&nbsp; 
+                                    <span className='icon c del-icon' onClick={() => { onDelModal(selectMenu,'reply',item.articleId,item.commentId,item.ReplyId) }}>삭제</span>
+                                  </div>
+                                </div>
+                                <Link to={`/articleDetail/${item.articleId}`} className='title c'><ReReplyIcon className='icon'/><b>[{categoryToText(item.articleBoardType)}]</b>&nbsp;{item.articleTitle}</Link>
+                              </div>
+                          }
+                        </>
+                      )) 
+                      :
+                      <div className='empty' key="empty-comment">"작성하신 댓글이 존재하지 않습니다!"</div>
+                    }
+                  </>
+                  :
+                  <>
+                    {board.length > 0 ?
+                      board.map((item, index) => (
+                        <div className='article' key={index}>
+                          <Link to={`/articleDetail/${item.id}`} className='title'><b>[{categoryToText(item.boardType)}]</b>&nbsp;{item.title}</Link>
+                          <div className='icon-box'>
+                            <GoodIcon className='icon' />&nbsp;{item.goods}&nbsp;&nbsp;
+                            <ReplyIcon className='icon' />&nbsp;{item.commentCnt}&nbsp;&nbsp;
+                            {/* <DelIcon className='icon c del-icon' onClick={()=>{onDelModal(selectMenu)}}/> */}
+                            <span className='icon del-icon' onClick={() => { onDelModal(selectMenu,'article',item.id) }}>삭제</span>
+                          </div>
+                        </div>
+                      ))
+                      :
+                      <div className='empty' key="empty-article">"활동이 존재하지 않습니다!"</div>
+                    }
+                  </>
+              }
+
+            </div>
             {
-              board.length ? 
-                board.map((item, index) => (
-                  <div className='article' key={index}>
-                    <Link to='/articleDetail' className='title'><b>[{item.boardType}]</b>&nbsp;{item.title}</Link>
-                    <div className='icon-box'>
-                      <GoodIcon className='icon' />&nbsp;{item.goodCnt}&nbsp;&nbsp;
-                      <ReplyIcon className='icon' />&nbsp;{item.replyCnt}&nbsp;&nbsp;
-                      <DelIcon className='icon del-icon' onClick={()=>{onDelModal(selectMenu)}}/>
-                    </div> 
-                  </div> 
-                )) 
-                :
-                <div className='empty'>"활동이 존재하지 않습니다!"</div>
+              <div className='pagenation mypage'><Pagination pageInfo={pageInfo} changePage={changePage}></Pagination> </div>
             }
-            {
-               board.length &&
-               <div className='pagenation'>0 1 2 3 4 5 6 7 8 9</div>
-            }
-          </div> 
+          </div>
         </div>
       </div>
-      {onModal&&<CustomModal type={modalType} setOnModal={setOnModal}/>}
+      {onModal && <CustomModal type={modalType} setOnModal={setOnModal} removeSubmit={removeSubmit} />}
     </div>
   )
 }
