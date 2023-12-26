@@ -109,6 +109,10 @@
 #article-detail .peed-article{margin-bottom:80px;}
 #article-detail .peed-visible-btn:hover{cursor:pointer}
 
+#article-detail .is-del{margin-top: 4%;}
+#article-detail .sympathy.del{cursor: default;}
+
+
 
 #study-as-peed .scroll-button{cursor:pointer;position:fixed;right:60px;bottom:185px;font-size:50px;font-weight:lighter;box-shadow:0 0 2px 2px var(--s-g2);border-radius:50%;padding:5px;color:var(--s-g2)}
 #study-as-peed .scroll-button:hover{box-shadow:0 0 2px 2px var(--s-b1);color:var(--s-b1)}

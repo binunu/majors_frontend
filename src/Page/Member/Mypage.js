@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import './Member.css'
 import GoodIcon from '@mui/icons-material/ThumbUpOffAltOutlined';
 import ReplyIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams,useNavigate } from 'react-router-dom';
 import DelIcon from '@mui/icons-material/ClearOutlined';
 import ReReplyIcon from '@mui/icons-material/SubdirectoryArrowRightOutlined';
 import CustomModal from '../../Component/CustomModal';
@@ -13,6 +13,7 @@ const Mypage = ({ dmGraduate }) => {
   const { menu } = useParams()
   const [board, setboard] = useState([])
   const [cBoard, setCboard] = useState([])
+  const navigate = useNavigate()
   //닉네임수정관련 
   const [nickCheckMessage, setNickCheckMessage] = useState('')
   const [nickCheckBtn, setNickCheckBtn] = useState(false)
@@ -78,15 +79,12 @@ const Mypage = ({ dmGraduate }) => {
   //메뉴변경
   const changeArticle = (menu) => {
     setSelectMenu(menu) 
-    setPage(1)
-    // getArticles() 
+    setPage(1) 
   }
 
   //페이지변경
   const changePage = (pPage) => {
-    // navigate(`/mypage/${menu}/${pPage}`)
     setPage(pPage)
-    // getArticles()
   }
 
   const categoryToText = (menu) => {
@@ -114,6 +112,9 @@ const Mypage = ({ dmGraduate }) => {
           setRemoveItem({ type: item, articleId: articleId,commentId:commentId,replyId:replyId}) 
         }
       break; 
+      case 'scrap':
+        setRemoveItem({ type: type, articleId: articleId }) 
+        break;
       case 'good':
         setRemoveItem({ type: type, articleId: articleId }) 
         break;
@@ -133,8 +134,11 @@ const Mypage = ({ dmGraduate }) => {
       case 'comment': 
         removeComment(removeItem.articleId,removeItem.commentId)
       break; 
-      case 'reply':
+      case 'reply': 
         removeReply(removeItem.articleId,removeItem.commentId,removeItem.replyId) 
+        break;
+      case 'scrap':
+        removeScrap(removeItem.articleId)
         break;
       case 'good':
         removeGood(removeItem.articleId)
@@ -150,7 +154,7 @@ const Mypage = ({ dmGraduate }) => {
         Authorization: `Bearer ${token}`
       }
     }).then(res => {
-      alert("게시글이 삭제되었습니다!") 
+      alert("게시글이 삭제되었습니다!")  
     }).catch(err => console.log(err))
   }
   const removeComment=(articleId,commentId)=>{
@@ -163,7 +167,6 @@ const Mypage = ({ dmGraduate }) => {
     }).catch(err => console.log(err))
   }
   const removeReply=(articleId,commentId,replyId)=>{
-    console.log(removeItem)
     axiosURL.delete(`/board/delete/reply/${articleId}/${commentId}/${replyId}`, {
       headers: {
         Authorization: `Bearer ${token}`
@@ -172,23 +175,32 @@ const Mypage = ({ dmGraduate }) => {
       alert("답글이 삭제되었습니다!") 
     }).catch(err => console.log(err))
   }
+  const removeScrap=(articleId)=>{
+    axiosURL.post(`/contents/bookmark/${articleId}`,{}, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then(res => {
+      alert("스크랩이 제거되었습니다!") 
+    }).catch(err => console.log(err))
+  }
   const removeGood=(articleId)=>{
-    // axiosURL.delete(`/board/delete/reply/${articleId}/${commentId}/${replyId}`, {
-    //   headers: {
-    //     Authorization: `Bearer ${token}`
-    //   }
-    // }).then(res => {
-    //   alert("답글이 삭제되었습니다!") 
-    // }).catch(err => console.log(err))
+    axiosURL.put(`/contents/reaction/${articleId}`,{reactionType:"T"}, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then(res => {
+      alert("좋아요가 취소되었습니다!") 
+    }).catch(err => console.log(err))
   }
   const removeBad=(articleId)=>{
-    // axiosURL.delete(`/board/delete/reply/${articleId}/${commentId}/${replyId}`, {
-    //   headers: {
-    //     Authorization: `Bearer ${token}`
-    //   }
-    // }).then(res => {
-    //   alert("답글이 삭제되었습니다!") 
-    // }).catch(err => console.log(err))
+    axiosURL.put(`/contents/reaction/${articleId}`, {reactionType:"F"},{
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then(res => {
+      alert("싫어요가 취소되었습니다!") 
+    }).catch(err => console.log(err))
   }
 
   return (
@@ -277,7 +289,7 @@ const Mypage = ({ dmGraduate }) => {
                                   <div className='c-content'>{item.content}</div>
                                   <div className='icon-box c'>
                                     <GoodIcon className='icon c' />&nbsp;{item.sympathyCnt}&nbsp;&nbsp; 
-                                    <span className='icon c del-icon' onClick={() => { onDelModal(selectMenu,'reply',item.articleId,item.commentId,item.ReplyId) }}>삭제</span>
+                                    <span className='icon c del-icon' onClick={() => { onDelModal(selectMenu,'reply',item.articleId,item.commentId,item.replyId) }}>삭제</span>
                                   </div>
                                 </div>
                                 <Link to={`/articleDetail/${item.articleId}`} className='title c'><ReReplyIcon className='icon'/><b>[{categoryToText(item.articleBoardType)}]</b>&nbsp;{item.articleTitle}</Link>
