@@ -5,8 +5,7 @@ import { Link,useParams,useNavigate } from 'react-router-dom';
 import MajorSelect from '../../Component/MajorSelect'
 import GoodIcon from '@mui/icons-material/ThumbUpOffAltOutlined';
 import ReplyIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
-import axiosURL from '../../Utill/AxiosURL';
-import { useLoginContext } from '../../Utill/LogInContext';
+import axiosURL from '../../Utill/AxiosURL'; 
 import Pagination from '../../Component/Pagination';
 const StudyAsList = () => {
   const navigate = useNavigate()
@@ -20,11 +19,9 @@ const StudyAsList = () => {
   }, [major,pageNum])
 
   const getArticles=(category,page)=>{ 
-    // setCateInit(category)
     console.log(category,page)
     axiosURL.get(`/board/article/list/study/${category}/${page}`)
       .then(res => {  
-        // console.log(res.data.list)
         setArticles(res.data.list)
         setPageInfo(res.data.pageInfo)
         setRender(true) 

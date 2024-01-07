@@ -42,7 +42,8 @@ const MainPage = () => {
                             <Route path="/articleDetail/:id" element={<ArticleDetail/>} />
                             <Route path="/searchResult/:word" element={<SearchResult />} />
                             <Route path="/searchResult/plus/:boardType/:word" element={<SearchResultPlus />} />
-                            <Route path="/mypage/:menu" element={<Mypage/>} />
+                            <Route path="/mypage/:menu" element={<Mypage/>} /> 
+                            
                         </Routes>
                     </div>
                     <ProfileBox/>

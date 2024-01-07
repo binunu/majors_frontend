@@ -88,7 +88,7 @@
 #article-detail .re-reply-who{color:var(--m-g)}
 #article-detail .re-reply-icon{font-size:20px;margin-right:6px}
 #article-detail .write-reply-box{padding:15px;border:1px solid var(--s-g1);width:90%;margin:0 auto;margin-top:20px;border-radius:15px 0 15px 0}
-#article-detail .txtarea{line-height:1.4em;margin-bottom:5px;font-size:15px;border:none;display:block;width:100%;min-height:50px;resize:none}
+#article-detail .txtarea{line-height:1.4em;margin-bottom:5px;font-size:15px;border:none;display:block;width:100%;min-height:50px;resize:none;}
 #article-detail .write-reply-btn{display:flex;justify-content:flex-end}
 #article-detail .wr-btn{width:90px;height:35px;border-radius:15px 0 15px 0;border:none;color: #fff;background-color:var(--m-lg)}
 #article-detail .wr-btn.sub.no{color: #fff;background-color:var(--s-g1);}
@@ -108,6 +108,10 @@
 #article-detail .peed-eply-box.visible{transition:max-height 0.3s ease;}
 #article-detail .peed-article{margin-bottom:80px;}
 #article-detail .peed-visible-btn:hover{cursor:pointer}
+
+#article-detail .is-del{margin-top: 4%;}
+#article-detail .sympathy.del{cursor: default;}
+
 
 
 #study-as-peed .scroll-button{cursor:pointer;position:fixed;right:60px;bottom:185px;font-size:50px;font-weight:lighter;box-shadow:0 0 2px 2px var(--s-g2);border-radius:50%;padding:5px;color:var(--s-g2)}

@@ -2,17 +2,14 @@ import React, { useState, useEffect } from 'react'
 
 const Pagination = ({ pageInfo, changePage }) => {
     const [pageNumbers, setPageNumbers] = useState([])
-    useEffect(() => {
-        //버튼만들기
+    useEffect(() => { 
         const arr = []
         for (let i = pageInfo.startPage; i <= pageInfo.endPage; i++) {
             arr.push(i)
         }
-        console.log(pageInfo)
         setPageNumbers(arr);
     }, [pageInfo])
-    const callChangePage = (page) => {
-        console.log("요청페이지:",page)
+    const callChangePage = (page) => { 
         changePage(page);
     }
     return (

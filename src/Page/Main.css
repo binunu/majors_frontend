@@ -12,6 +12,6 @@
 #header .m.on{color: black; }
  
 /* footer */
-#footer { margin-top:70px; background-color: var(--s-g0);}
+#footer { margin-top:100px; background-color: var(--s-g0);}
 #footer .wrap{padding-top : 40px; padding-bottom: 40px; display: flex; justify-content: space-between; align-items: center;}
 #footer .text{ color:var(--s-g1); line-height: 2em; font-size: 12px; font-style: italic;}  

@@ -41,14 +41,20 @@ const ArticleDetail = () => {
       }).catch(err => console.log(err))//로그인되어있으면 유저정보받아오기
     }
     axiosURL.get(`/board/article/detail/${id}`) //
-      .then(res => {
+      .then(res => {  
+        if(res.data.deleted){
+          alert('삭제된 게시글입니다.')
+          navigate(-1)
+        }
         setArticle(res.data)
-        setRender(true)
+        setRender(true) 
+        // reaction()
+        //좋아요 및 싫어요 초기세팅 
       }).catch(err => {
         console.log(err)
         alert("존재하지 않는 게시물입니다.")
       })
-  }, [])
+  }, []) 
   const stamp = (e) => {
     if (!isLogIn) {
       alert("로그인 후에 가능합니다.")
@@ -142,19 +148,18 @@ const ArticleDetail = () => {
       [index]: !replyVisible[index] ?? false,
     })
   }
-  const bookmark = () => {
-    console.log(removeItem)
-    // if (!isLogIn) {
-    //   alert("로그인 후에 가능합니다.")
-    // } else {
+  const bookmark = () => { 
+    if (!isLogIn) {
+      alert("로그인 후에 가능합니다.")
+    } else {
 
-    //   axiosURL.get(`/contents/bookmark/${id}`, {
-    //     headers: {
-    //       Authorization: `Bearer ${token}`,
-    //     }
-    //   }).then(res => setArticle(res.data))
-    //     .catch(err => console.log(err))
-    // }
+      axiosURL.post(`/contents/bookmark/${id}`,{}, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
+      }).then(res => setArticle(res.data))
+        .catch(err => console.log(err))
+    }
   }
   const commentSympthy = (commentId) => {
     if (!isLogIn) {
@@ -288,6 +293,10 @@ const ArticleDetail = () => {
                   article.comments.map((item, index) => (
                     <div key={index}>
                       <div className='reply' >
+                          {item.deleted?
+                         <div className='is-del'>삭제된 댓글입니다.</div> 
+                        : 
+                        <>
                         <div className='sec-1'>
                           <div className='sec-1-1'>
                             <div className='img'><img src='' alt='' /></div>
@@ -296,15 +305,23 @@ const ArticleDetail = () => {
                             <p className='nickname'>{item.from.nickname}({item.from.major})</p>
                             <p className='upload-date'>{item.createdAt}</p>
                           </div>
+                             
                           {
                             curMember && curMember.email === item.from.email &&
                             <button className='edit-btn re-del-btn' onClick={() => { delAction('comment', id, item.id) }} >삭제</button>
                           }
                         </div>
                         <div className='sec-2'>{item.content}</div>
+                        </>
+                        }
                         <div className='sec-3'>
                           <button className='edit-btn re-reply' onClick={() => { toggleReply(index) }} >답글({item.replies ? item.replies.length : 0})</button>
-                          <button className={`sympathy ${item.sympathy && item.sympathy.includes(curMember && curMember.email) ? 'on' : ''}`} onClick={() => commentSympthy(item.id)}>공감 {item.sympathy ? item.sympathy.length : 0}</button>
+                          {
+                           item.deleted? 
+                            <button className={`sympathy del ${item.sympathy && item.sympathy.includes(curMember && curMember.email) ? 'on' : ''}`}>공감 {item.sympathy ? item.sympathy.length : 0}</button>
+                            :
+                            <button className={`sympathy ${item.sympathy && item.sympathy.includes(curMember && curMember.email) ? 'on' : ''}`} onClick={() => commentSympthy(item.id)}>공감 {item.sympathy ? item.sympathy.length : 0}</button>
+                          }
                         </div>
                       </div>
                       <div className={`reply-show-box ${replyVisible[index] ? 'visible' : ''}`} style={{ maxHeight: replyVisible[index] ? commentRef.current.scrollHeight + 'px' : '0' }} >
@@ -332,6 +349,7 @@ const ArticleDetail = () => {
                             </div>
                           ))
                         }
+                        {!item.deleted &&
                         <div className='reply write-sub-reply-box' >
                           <div className='write-reply-box sub'>
                             <textarea id='reply' value={replyText[item.id]} className='txtarea' maxLength={300} onChange={(e) => areaChange(e, item.id)} placeholder='내용을 입력해주세요'>
@@ -346,6 +364,7 @@ const ArticleDetail = () => {
                             </div>
                           </div>
                         </div>
+                        }
                       </div>
                     </div>
 

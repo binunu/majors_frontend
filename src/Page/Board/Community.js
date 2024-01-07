@@ -55,8 +55,8 @@ const Community = () => {
                 <Link to={`/articleDetail/${item.id}`} className='article' key={index}>
                   <div className='a-title'><b>[{item.subject?item.subject:item.middleMajor}]</b> {item.title}</div>
                   <div className='a-tail'>
-                    <GoodIcon className='icon' />&nbsp;{item.replyCnt}&nbsp;&nbsp;
-                    <ReplyIcon className='icon' />&nbsp;{item.goodCnt}
+                    <GoodIcon className='icon' />&nbsp;{item.goods}&nbsp;&nbsp;
+                    <ReplyIcon className='icon' />&nbsp;{item.commentCnt}
                   </div>
                 </Link>
               ))

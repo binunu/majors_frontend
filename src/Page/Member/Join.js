@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { Link,useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import axiosURL from '../../Utill/AxiosURL'
+import './Member.css'
 
-const Join = () => { 
+const Join = () => {
   const navigate = useNavigate();
   const [state, setState] = useState('A')
   const [name, setName] = useState('')
@@ -12,6 +13,7 @@ const Join = () => {
   const [authNum, setAuthNum] = useState('')
   const [nickname, setNickname] = useState('')
   const [middleMajor, setMiddleMajor] = useState('')
+  const [largeMajor, setLargeMajor] = useState('')
   const [major, setMajor] = useState('')
 
   const [emailForm, setEmailForm] = useState(null) //이메일형식체크
@@ -32,18 +34,16 @@ const Join = () => {
 
   const [code, setCode] = useState('')
   const [isRetry, setIsRetry] = useState('중복확인');
-  
+  const [emailMessage,setEmailMessage] = useState()
 
 
   useEffect(() => {
     const dateString = '2023-12-15T01:59:36.274+00:00';
-const dateObject = new Date(dateString);
-console.log(dateObject.toLocaleString());
+    const dateObject = new Date(dateString);
     //대분류가져오기
     axiosURL.get('/contents/major-list/large')
       .then(res => {
         setLargeList(res.data);
-        console.log(res.data)
       })
       .catch(error => {
         console.error(error);
@@ -56,20 +56,18 @@ console.log(dateObject.toLocaleString());
     const emailPattern = /^[가-힣a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (emailPattern.test(email)) { //형식체크 통과 > 중복체크
       setEmailForm(true)
-      axiosURL.post('/member/email/exists', {email:email})
-      .then(res => {
-        if (res.data) {
-          setOnAuthEmail(true)
-          setPassEmail(true)
-          sendEmail()
-        } else {
+      axiosURL.post('/member/email/exists', { email: email })
+        .then(res => { 
+          if (res.data===true) { 
+            setOnAuthEmail(true)
+            setPassEmail(true)
+            sendEmail() }
+        }).catch(error => {
+          console.log(error)
+          setEmailMessage(error.response.data)
           setPassEmail(false)
           setOnAuthEmail(false)
-        }
-      }).catch(error => {
-        console.log(error)
-        console.log('이메일 중복체크 실패')
-      })
+        })
 
     } else {
       //형식체크 실패시
@@ -81,15 +79,15 @@ console.log(dateObject.toLocaleString());
 
   //이메일인증전송
   const sendEmail = () => {
-    axiosURL.post('/member/email/send', {email:email}) //이메일로 인증번호 보내기
-    .then(res2 => {
-      console.log(res2.data)
-      setIsRetry('재전송')
-      setCode(res2.data)
-    }).catch(error => {
-      console.log('인증번호 전송 실패')
-      console.log(error)
-    })
+    axiosURL.post('/member/email/send', { email: email }) //이메일로 인증번호 보내기
+      .then(res2 => {
+        console.log(res2.data)
+        setIsRetry('재전송')
+        setCode(res2.data)
+      }).catch(error => {
+        console.log('인증번호 전송 실패')
+        console.log(error)
+      })
   }
 
   //메세지 띄우기 관련
@@ -144,6 +142,7 @@ console.log(dateObject.toLocaleString());
     })
   }
   const changeLargeMajor = (e) => {
+    setLargeMajor(e.target.value)
     setOnCustomMajor(false)
     setShowMiddle(false)
     setShowSmall(false)
@@ -165,7 +164,7 @@ console.log(dateObject.toLocaleString());
     }
   }
   const changeMiddleMajor = (e) => {
-    setOnCustomMajor(false) 
+    setOnCustomMajor(false)
     setMiddleMajor(e.target.value)
     setMajor('')
     if (e.target.value === 'base') {
@@ -206,24 +205,25 @@ console.log(dateObject.toLocaleString());
     }
 
     const requestData = {
-      name : name,
-      email: email, 
+      name: name,
+      email: email,
       password: password,
       nickname: nickname,
-      middleMajor : middleMajor,
+      largeMajor : largeMajor,
+      middleMajor: middleMajor,
       major: major,
-      graduate: graduate,  
+      graduate: graduate,
     };
- 
-    axiosURL.post('/member/join',requestData)
-    .then(res => { 
-      setState('Last')
-    }).catch(err => {
-      console.log(err)
-    }) 
+
+    axiosURL.post('/member/join', requestData)
+      .then(res => {
+        setState('Last')
+      }).catch(err => {
+        console.log(err)
+      })
   }
-  const gologIn=()=>{
-    navigate("/login", {state:{from:"/join"}});
+  const gologIn = () => {
+    navigate("/login", { state: { from: "/join" } });
   }
   return (
     <div id='join' className='member-basic'>
@@ -247,7 +247,7 @@ console.log(dateObject.toLocaleString());
             }
             {
               emailForm && !passEmail &&
-              <p className='message-f'>이미 존재하는 이메일입니다</p>
+              <p className='message-f'>{emailMessage}</p>
 
             }
             {
@@ -363,7 +363,7 @@ console.log(dateObject.toLocaleString());
                 <button disabled className='submit-btn width no'>확인</button>
             }
           </div>
-      }
+        }
       </form>
       {state === 'Last' &&
         <div className='container'>
