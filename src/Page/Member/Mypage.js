@@ -34,10 +34,10 @@ const Mypage = ({ dmGraduate }) => {
 
   const [removeItem,setRemoveItem] = useState({})
   useEffect(() => {
-    getArticles() 
+    getArticles(page) 
   }, [menu, selectMenu, page])
-  const getArticles = () => {
-    axiosURL.get(`/member/log/${selectMenu}/${page}`, {
+  const getArticles = (pPage) => {
+    axiosURL.get(`/member/log/${selectMenu}/${pPage}`, {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -46,8 +46,7 @@ const Mypage = ({ dmGraduate }) => {
         setCboard(res.data.list) 
       } else {
         setboard(res.data.list) 
-      }
-      console.log(res.data.pageInfo)
+      } 
       setPageInfo(res.data.pageInfo)
     })
   }
@@ -155,6 +154,8 @@ const Mypage = ({ dmGraduate }) => {
       }
     }).then(res => {
       alert("게시글이 삭제되었습니다!")  
+      getArticles(1)
+      // window.location.reload();
     }).catch(err => console.log(err))
   }
   const removeComment=(articleId,commentId)=>{
@@ -164,6 +165,7 @@ const Mypage = ({ dmGraduate }) => {
       }
     }).then(res => {
       alert("댓글이 삭제되었습니다!") 
+      getArticles(1)
     }).catch(err => console.log(err))
   }
   const removeReply=(articleId,commentId,replyId)=>{
@@ -173,6 +175,7 @@ const Mypage = ({ dmGraduate }) => {
       }
     }).then(res => {
       alert("답글이 삭제되었습니다!") 
+      getArticles(1)
     }).catch(err => console.log(err))
   }
   const removeScrap=(articleId)=>{
@@ -182,6 +185,7 @@ const Mypage = ({ dmGraduate }) => {
       }
     }).then(res => {
       alert("스크랩이 제거되었습니다!") 
+      getArticles(1)
     }).catch(err => console.log(err))
   }
   const removeGood=(articleId)=>{
@@ -190,7 +194,8 @@ const Mypage = ({ dmGraduate }) => {
         Authorization: `Bearer ${token}`
       }
     }).then(res => {
-      alert("좋아요가 취소되었습니다!") 
+      alert("좋아요가 취소되었습니다!")
+      getArticles(1) 
     }).catch(err => console.log(err))
   }
   const removeBad=(articleId)=>{
@@ -200,6 +205,7 @@ const Mypage = ({ dmGraduate }) => {
       }
     }).then(res => {
       alert("싫어요가 취소되었습니다!") 
+      getArticles(1)
     }).catch(err => console.log(err))
   }
 

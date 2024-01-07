@@ -41,9 +41,13 @@ const ArticleDetail = () => {
       }).catch(err => console.log(err))//로그인되어있으면 유저정보받아오기
     }
     axiosURL.get(`/board/article/detail/${id}`) //
-      .then(res => { 
+      .then(res => {  
+        if(res.data.deleted){
+          alert('삭제된 게시글입니다.')
+          navigate(-1)
+        }
         setArticle(res.data)
-        setRender(true)
+        setRender(true) 
         // reaction()
         //좋아요 및 싫어요 초기세팅 
       }).catch(err => {

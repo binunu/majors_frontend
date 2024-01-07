@@ -32,6 +32,7 @@ const Join = () => {
 
   const [code, setCode] = useState('')
   const [isRetry, setIsRetry] = useState('중복확인');
+  const [emailMessage,setEmailMessage] = useState()
 
 
 
@@ -56,17 +57,15 @@ const Join = () => {
       setEmailForm(true)
       axiosURL.post('/member/email/exists', { email: email })
         .then(res => {
-          if (res.data) {
+          if (res.data==='true') {
             setOnAuthEmail(true)
             setPassEmail(true)
-            sendEmail()
-          } else {
-            setPassEmail(false)
-            setOnAuthEmail(false)
-          }
+            sendEmail() }
         }).catch(error => {
           console.log(error)
-          console.log('이메일 중복체크 실패')
+          setEmailMessage(res.data)
+          setPassEmail(false)
+          setOnAuthEmail(false)
         })
 
     } else {
@@ -245,7 +244,7 @@ const Join = () => {
             }
             {
               emailForm && !passEmail &&
-              <p className='message-f'>이미 존재하는 이메일입니다</p>
+              <p className='message-f'>{emailMessage}</p>
 
             }
             {
