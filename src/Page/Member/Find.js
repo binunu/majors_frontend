@@ -7,7 +7,7 @@ const Find = () => {
   const emailPattern = /^[가-힣a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   const [onBtn, setOnBtn] = useState(false)
   const [isPassTest, setIsPassTest] = useState(true)
-  const [state, setState] = useState('B')
+  const [state, setState] = useState('A')
   const [email, setEmail] = useState('')
   const [authNum, setAuthNum] = useState('')
   const [onEmailMessage,setOnEmailMessage] = useState(false)

@@ -10,7 +10,7 @@ import Alarm from './Alarm';
 import axiosURL from '../Utill/AxiosURL';  
 import { useLoginContext } from '../Utill/LogInContext';
 
-const ProfileBox = ({dmIsLogIn,dmGraduate}) => {  
+const ProfileBox = ({dmIsLogIn,dmGraduated}) => {  
   const [member,setMember] = useState({})
   const [showAlarm,setShowAlarm]=useState(false); 
   const token = localStorage.getItem("accessToken") 
@@ -26,8 +26,7 @@ const ProfileBox = ({dmIsLogIn,dmGraduate}) => {
           Authorization: `Bearer ${token}`,
         }
       }).then(res=>{
-        setMember(res.data) 
-        console.log(res.data)
+        setMember(res.data)  
       }).catch(err=>{
         localStorage.removeItem("accessToken")
         setLogOut()  
@@ -53,7 +52,7 @@ const ProfileBox = ({dmIsLogIn,dmGraduate}) => {
           </div> 
           <div className='t3'>
           {
-            member.graduate && <span>🎓</span>  }
+            member.graduated==="Y" && <span>🎓</span>  }
           <p>{member.nickname}</p> 
           </div>  
           <Link to='/mypage/write' className='t4'>개인정보수정</Link>

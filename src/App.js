@@ -7,7 +7,8 @@ import Join from './Page/Member/Join';
 import MainPage from './MainPage';
 import Error from './Error.js';
 import ScrollToTop from './Utill/ScrollToTop.jsx';
-import { LogInProvider } from './Utill/LogInContext';
+import { LogInProvider } from './Utill/LogInContext'; 
+import ChangeMajorModal from './Component/ChangeMajorModal.jsx';
 
 function App() { 
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route exact path="/find" element={<Find />} />
         <Route exact path="/join" element={<Join />} />
         <Route exact path="/error" element={<Error />} />
+        <Route path="/ChangeMajorModal" element={<ChangeMajorModal/>} />
       </Routes>
       <ScrollToTop />
     </LogInProvider>

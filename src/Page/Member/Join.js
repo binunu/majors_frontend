@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axiosURL from '../../Utill/AxiosURL'
+import './Member.css'
 
 const Join = () => {
   const navigate = useNavigate();
@@ -12,6 +13,7 @@ const Join = () => {
   const [authNum, setAuthNum] = useState('')
   const [nickname, setNickname] = useState('')
   const [middleMajor, setMiddleMajor] = useState('')
+  const [largeMajor, setLargeMajor] = useState('')
   const [major, setMajor] = useState('')
 
   const [emailForm, setEmailForm] = useState(null) //이메일형식체크
@@ -35,7 +37,6 @@ const Join = () => {
   const [emailMessage,setEmailMessage] = useState()
 
 
-
   useEffect(() => {
     const dateString = '2023-12-15T01:59:36.274+00:00';
     const dateObject = new Date(dateString);
@@ -56,14 +57,14 @@ const Join = () => {
     if (emailPattern.test(email)) { //형식체크 통과 > 중복체크
       setEmailForm(true)
       axiosURL.post('/member/email/exists', { email: email })
-        .then(res => {
-          if (res.data==='true') {
+        .then(res => { 
+          if (res.data===true) { 
             setOnAuthEmail(true)
             setPassEmail(true)
             sendEmail() }
         }).catch(error => {
           console.log(error)
-          setEmailMessage(res.data)
+          setEmailMessage(error.response.data)
           setPassEmail(false)
           setOnAuthEmail(false)
         })
@@ -141,6 +142,7 @@ const Join = () => {
     })
   }
   const changeLargeMajor = (e) => {
+    setLargeMajor(e.target.value)
     setOnCustomMajor(false)
     setShowMiddle(false)
     setShowSmall(false)
@@ -207,6 +209,7 @@ const Join = () => {
       email: email,
       password: password,
       nickname: nickname,
+      largeMajor : largeMajor,
       middleMajor: middleMajor,
       major: major,
       graduate: graduate,

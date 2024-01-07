@@ -8,18 +8,25 @@ import ReReplyIcon from '@mui/icons-material/SubdirectoryArrowRightOutlined';
 import CustomModal from '../../Component/CustomModal';
 import axiosURL from '../../Utill/AxiosURL';
 import Pagination from '../../Component/Pagination';
+import { useLoginContext } from '../../Utill/LogInContext';  
 
-const Mypage = ({ dmGraduate }) => {
+const Mypage = () => {
   const { menu } = useParams()
+  //수정객체
+  const [member,setMember] = useState({})
+  const [nickname, setNickname] = useState()
+  const [largeMajor, setLargeMajor] =useState()
+  const [middleMajor, setMiddleMajor] = useState()
+  const [smallMajor, setSmallMajor] = useState()
+  const [isGraduated, setIsGraduated] = useState()
+ 
   const [board, setboard] = useState([])
   const [cBoard, setCboard] = useState([])
   const navigate = useNavigate()
   //닉네임수정관련 
   const [nickCheckMessage, setNickCheckMessage] = useState('')
   const [nickCheckBtn, setNickCheckBtn] = useState(false)
-  const [isAbleNickname, setIsAbleNicname] = useState(false)
-  //졸업여부수정관련
-  const [isGraduate, setIsGraduate] = useState('yes-btn')
+  const [isAbleNickname, setIsAbleNicname] = useState(false) 
   //수정하기버튼
   const [activeUpdateBtn, setActiveUpdateBtn] = useState(false)
   //내활동 메뉴선택
@@ -33,9 +40,25 @@ const Mypage = ({ dmGraduate }) => {
   const [page, setPage] = useState(1)
 
   const [removeItem,setRemoveItem] = useState({})
+  const {setLogOut} = useLoginContext();
+  useEffect(()=>{
+    axiosURL.get('/member/info/simple',{
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then(res=>{
+      setMember(res.data)
+      setLargeMajor(res.data.largeMajor)
+      setMiddleMajor(res.data.middleMajor)
+      setNickname(res.data.nickname)
+      setIsGraduated(res.data.graduated) 
+      setSmallMajor(res.data.major)
+    }).catch(err=>console.log(err))
+  },[])
   useEffect(() => {
     getArticles(page) 
   }, [menu, selectMenu, page])
+
   const getArticles = (pPage) => {
     axiosURL.get(`/member/log/${selectMenu}/${pPage}`, {
       headers: {
@@ -49,31 +72,74 @@ const Mypage = ({ dmGraduate }) => {
       } 
       setPageInfo(res.data.pageInfo)
     })
-  }
-  //졸업생여부관련
-  const onNickBtn = (e) => {
-    setNickCheckBtn(true)
+  } 
+  const onNickBtn = (e) => { 
+    setNickname(e.target.value)  
+    if(e.target.value===member.nickname){
+      setNickCheckBtn(false)
+      setNickCheckMessage('')
+    }else{
+      setNickCheckBtn(true)
+    } 
   }
   const nicknameCheck = () => {
-    // 닉네임중복확인  
-    // 결과에 따라 메세지 변경
-    const dmTest = false
-    if (dmTest) {
-      setNickCheckMessage('변경 가능한 닉네임입니다')
-      setIsAbleNicname(true)
-      setActiveUpdateBtn(true) //수정버튼
-    } else {
-      setNickCheckMessage('이미 존재하는 닉네임입니다')
-      setIsAbleNicname(false)
-    }
+    // 닉네임중복확인    
+    console.log(nickname)
+      axiosURL.get('/member/nickname/exist', {
+        params: { nickname: nickname }
+      }).then(res => {
+        console.log(res.data)
+        if (res.data) {
+          setNickCheckMessage('변경 가능한 닉네임입니다')
+          setIsAbleNicname(true)
+          setActiveUpdateBtn(true)
+        } else {
+          setNickCheckMessage('이미 존재하는 닉네임입니다')
+          setIsAbleNicname(false)
+        }
+      }).catch(err => {
+        console.log(err)
+      })  
   }
-  const changeGdBtn = (e) => {
-    setIsGraduate(e.target.id)
-    setActiveUpdateBtn(true) //수정버튼
+  //졸업여부변경
+  const changeGdBtn = (e) => {  
+    setIsGraduated(e.target.value)
+      setActiveUpdateBtn(true) 
   }
+  //전공수정
+  const changeMajor=()=>{
+    // setOnChangeMajorModal(true)
+    window.name = 'mypage'
+    const newWindow = window.open(`/ChangeMajorModal?major=${member.major}`,'_blank', 'width=500,height=400')
+    if(newWindow){
+      newWindow.setMajorObject= (large,middle,small)=>{
+        setLargeMajor(large)
+        setMiddleMajor(middle)
+        setSmallMajor(small)
+        setActiveUpdateBtn(true) 
+      } 
+    } 
+  }  
   const update = () => {
-    //수정점있는지확인 후 수정하기
+    //폼데이터로변경?
+    // console.log(nickname, largeMajor, middleMajor, smallMajor, isGraduated) 
+    const user = {
+      nickname: nickname,  
+      largeMajor : largeMajor, 
+      middleMajor : middleMajor, 
+      major : smallMajor,  
+      graduated : isGraduated 
+    }   
+    axiosURL.post('/member/update',user,{
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then(res=>{
+      alert("변경되었습니다!")
+      window.location.reload()
+    }).catch(err=>console.log(err))
   } 
+
 
   //메뉴변경
   const changeArticle = (menu) => {
@@ -124,6 +190,12 @@ const Mypage = ({ dmGraduate }) => {
     setModalType(type)
     setOnModal(true) 
   }
+  const onWithdrawalModal=()=>{
+    onDelModal('leave')
+    setModalType('leave')
+    setOnModal(true) 
+    setRemoveItem({ type:'leave'})
+  }
   //삭제
   const removeSubmit=()=>{
     switch(removeItem.type){
@@ -144,9 +216,13 @@ const Mypage = ({ dmGraduate }) => {
         break;
       case 'bad':
         removeBad(removeItem.articleId)
+        break; 
+      case 'leave':
+        withdraw()
         break;
     }
   }
+
   const removeArticle=(articleId)=>{ 
     axiosURL.delete(`/board/delete/article/${articleId}`, {
       headers: {
@@ -208,7 +284,20 @@ const Mypage = ({ dmGraduate }) => {
       getArticles(1)
     }).catch(err => console.log(err))
   }
+  const withdraw=()=>{
+    axiosURL.delete('/member/withdrawal',{
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then(res => {
+      alert("회원탈퇴가 완료되었습니다.") 
+      localStorage.removeItem('accessToken')
+      setLogOut()
+      navigate('/')
+    }).catch(err => console.log(err))
+  }
 
+  
   return (
     <div id='mypage'>
       <div className='container'>
@@ -219,40 +308,47 @@ const Mypage = ({ dmGraduate }) => {
 
             <div className='info-icon'>
               {
-                dmGraduate && <span>🎓</span>}
-              <p className='info-p1'>병아리는삐약삐약</p>
+                member.graduated==="Y" && <span>🎓</span>}
+              <p className='info-p1'>{member.nickname}</p>
             </div>
 
-            <p className='info-p'>홍길동</p>
-            <p className='info-p'>llsbdm@naver.com</p>
-            <p className='info-p'>가입일&nbsp;&nbsp;2023-07-11</p>
-            <div><Link to='/find' className='info-p3'>비밀번호 변경</Link><input type='button' className='info-p3 input' value='회원탈퇴' onClick={() => { onDelModal('leave') }} /> </div>
+            <p className='info-p'>{member.name}</p>
+            <p className='info-p'>{member.email}</p>
+            <p className='info-p'>가입일&nbsp;&nbsp;{member.joinedAt}</p>
+            <div><Link to='/find' className='info-p3'>비밀번호 변경</Link><input type='button' className='info-p3 input' value='회원탈퇴' onClick={onWithdrawalModal} /> </div>
 
           </div>
           <div className='update'>
             <div className='row1'>
               <div className='row'>
                 <p className='row-t'>닉네임</p>
-                <input className='row-2' defaultValue='병아리는삐약삐약' onChange={onNickBtn}></input>
-                <button className={`nic-btn ${nickCheckBtn ? 'on' : ''}`} onClick={nicknameCheck}>중복확인</button>
+                <input className='row-2' defaultValue={member.nickname} onChange={onNickBtn}></input>
+                {
+                  nickCheckBtn ? 
+                  <button className= 'nic-btn on' onClick={nicknameCheck}>중복확인</button>
+                  :
+                  <button className= 'nic-btn' >중복확인</button>
+                }
+            
               </div>
               <p className={`check ${isAbleNickname ? 'pass' : ''}`}>{nickCheckMessage}</p>
             </div>
             <div className='row'>
-              <p className='row-t'>학과/전공</p>
-              <select className='major' onChange={() => { setActiveUpdateBtn(true) }}>
-                <option>국어국문</option>
-                <option>항공</option>
-                <option>국제물류</option>
-                <option>법학과</option>
-              </select>
-            </div>
+              <p className='row-t'>전공</p>
+              <input className='major' disabled value={smallMajor}/> 
+              <button className='major-btn' onClick={changeMajor}>변경하기</button>
+            </div> 
             <div className='row'>
               <p className='row-t'>졸업여부</p>
-              <button id='yes-btn' className={`gd-btn ${isGraduate === 'yes-btn' ? 'select' : ''}`} onClick={changeGdBtn}>예</button>
-              <button id='no-btn' className={`gd-btn no ${isGraduate === 'no-btn' ? 'select' : ''}`} onClick={changeGdBtn}>아니오</button>
+              <button className={`gd-btn ${isGraduated === 'Y' ? 'select' : ''}`} value='Y' onClick={changeGdBtn}>예</button>
+              <button className={`gd-btn no ${isGraduated === 'N' ? 'select' : ''}`} value='N' onClick={changeGdBtn}>아니오</button>
             </div>
-            <button className={`update-btn no ${activeUpdateBtn ? 'on' : ''}`} onClick={update}>수정하기</button>
+            {
+              activeUpdateBtn ? 
+              <button className={`update-btn no on`} onClick={update}>수정하기</button>
+              :
+              <button className={`update-btn no`} >수정하기</button>
+            }
           </div>
         </div>
       </div>
@@ -335,6 +431,7 @@ const Mypage = ({ dmGraduate }) => {
         </div>
       </div>
       {onModal && <CustomModal type={modalType} setOnModal={setOnModal} removeSubmit={removeSubmit} />}
+      {/* {onChangeMajorModal && <ChangeMajorModal setMajorObject={setMajorObject} largeMajor={member.largeMajor} middleMajor={member.middleMajor} smallMajor={member.major} />} */}
     </div>
   )
 }
