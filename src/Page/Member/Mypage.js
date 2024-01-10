@@ -1,14 +1,17 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import './Member.css'
 import GoodIcon from '@mui/icons-material/ThumbUpOffAltOutlined';
 import ReplyIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
 import { Link, useParams,useNavigate } from 'react-router-dom';
 import DelIcon from '@mui/icons-material/ClearOutlined';
+// import EditIcon from '@mui/icons-material/Edit';
+import EditIcon from '@mui/icons-material/CropOriginal';
+// import EditIcon from '@mui/icons-material/Filter';
 import ReReplyIcon from '@mui/icons-material/SubdirectoryArrowRightOutlined';
 import CustomModal from '../../Component/CustomModal';
 import axiosURL from '../../Utill/AxiosURL';
 import Pagination from '../../Component/Pagination';
-import { useLoginContext } from '../../Utill/LogInContext';  
+import { useLoginContext } from '../../Utill/LogInContext';   
 
 const Mypage = () => {
   const { menu } = useParams()
@@ -41,6 +44,13 @@ const Mypage = () => {
 
   const [removeItem,setRemoveItem] = useState({})
   const {setLogOut} = useLoginContext();
+
+  //프로필박스
+  // const [imgActive, setImageActive] = useState(false);
+  const fileInputRef = useRef();
+  const [profileSrc, setProfileSrc] = useState();
+  const [file, setFile] = useState();
+
   useEffect(()=>{
     axiosURL.get('/member/info/simple',{
       headers: {
@@ -53,6 +63,7 @@ const Mypage = () => {
       setNickname(res.data.nickname)
       setIsGraduated(res.data.graduated) 
       setSmallMajor(res.data.major)
+      setProfileSrc("http://localhost:8080/image/view/"+res.data.profile)
     }).catch(err=>console.log(err))
   },[])
   useEffect(() => {
@@ -123,13 +134,15 @@ const Mypage = () => {
   const update = () => {
     //폼데이터로변경?
     // console.log(nickname, largeMajor, middleMajor, smallMajor, isGraduated) 
-    const user = {
-      nickname: nickname,  
-      largeMajor : largeMajor, 
-      middleMajor : middleMajor, 
-      major : smallMajor,  
-      graduated : isGraduated 
-    }   
+    const user = new FormData();
+    user.append('nickname', nickname)
+    user.append('largeMajor', largeMajor)
+    user.append('middleMajor', middleMajor)
+    user.append('major', smallMajor) 
+    user.append('graduated', isGraduated)
+    if(file){
+      user.append('file', file)
+    }
     axiosURL.post('/member/update',user,{
       headers: {
         Authorization: `Bearer ${token}`
@@ -161,6 +174,20 @@ const Mypage = () => {
       case 'community':
         return '자유게시판'
     }
+  }
+  //프로필변경
+  const profileChange=(e)=>{
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file)
+    reader.onload=()=>{
+      setProfileSrc(reader.result)
+      setActiveUpdateBtn(true) 
+      setFile(file)
+    }
+  }
+  const profileChangeClick=()=>{
+    fileInputRef.current.click()
   }
 // ========================== 삭제관련 ===============================
  
@@ -303,9 +330,9 @@ const Mypage = () => {
       <div className='container'>
         <div className='top'>내 정보</div>
         <div className='content1'>
-          <div className='info'>
-            <div className='img'><img src='' alt='프로필사진'></img></div>
-
+          <div className='info'> 
+          <input ref={fileInputRef} className='img-click-box' type='file' hidden onChange={profileChange}/>
+            <div className='img'><img src={profileSrc} alt='프로필사진'/><EditIcon className='edit-icon' onClick={profileChangeClick}/></div> 
             <div className='info-icon'>
               {
                 member.graduated==="Y" && <span>🎓</span>}
