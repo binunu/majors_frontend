@@ -56,7 +56,7 @@
 #article-detail .title{font-weight:700;font-size:17px;margin-top:5px;padding-right:20px;line-height:1.2em}
 #article-detail .t-sub-box{display:flex;justify-content:space-between;flex-direction:row;width:100%;align-items:center;margin-top:10px}
 #article-detail .t-sub-box-1{display:flex;align-items:center}
-#article-detail .img{width:35px;height:35px;background-color:var(--s-g1);border-radius:50%;margin-right:10px}
+#article-detail .img{width:35px;height:35px;background-color:var(--s-g1);border-radius:50%;margin-right:10px; overflow: hidden;}
 #article-detail .sub-p{font-size:13px;color:var(--s-g2);margin-right:15px}
 #article-detail .icon{margin-right:0}
 #article-detail .bookmark-icon{position:relative;right:20px;top:5px;font-size:25px;color:var(--m-dg)}

@@ -378,7 +378,7 @@ const BoardAsPeed = () => {
                   {
                     curMember && curMember.email === article.writer.email &&
                     <div className='edit-box'>
-                      <Link tso='#' className='edit-btn'>수정</Link>&nbsp;&nbsp;<button className='edit-btn' onClick={() => { delAction('write',article.id) }}>삭제</button>
+                      <Link to={`/modify/${article.id}`} className='edit-btn'>수정</Link>&nbsp;&nbsp;<button className='edit-btn' onClick={() => { delAction('write',article.id) }}>삭제</button>
                     </div>
                   }
                 </div>
