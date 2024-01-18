@@ -23,7 +23,7 @@ const Join = () => {
   const [passAuthNum, setPassAuthNum] = useState(null)
   const [passNickname, setPassNickname] = useState(null)
 
-  const [graduate, setGraduate] = useState()
+  const [graduated, setGraduated] = useState()
   const [onCustomMajor, setOnCustomMajor] = useState(false)
   //전공선택
   const [largeList, setLargeList] = useState([])
@@ -212,7 +212,7 @@ const Join = () => {
       largeMajor : largeMajor,
       middleMajor: middleMajor,
       major: major,
-      graduate: graduate,
+      graduated: graduated,
     };
 
     axiosURL.post('/member/join', requestData)
@@ -353,11 +353,11 @@ const Join = () => {
 
             <h1 className='h1'>대학교를 졸업했나요?</h1>
             <div className='gd-box'>
-              <input className={`gd-btn ${graduate === 'Y' ? 'on' : ''}`} type='button' value='예' onClick={() => { setGraduate('Y') }}></input>
-              <input className={`gd-btn ${graduate === 'N' ? 'on' : ''}`} type='button' value='아니오' onClick={() => { setGraduate('N') }}></input>
+              <input className={`gd-btn ${graduated === 'Y' ? 'on' : ''}`} type='button' value='예' onClick={() => { setGraduated('Y') }}></input>
+              <input className={`gd-btn ${graduated === 'N' ? 'on' : ''}`} type='button' value='아니오' onClick={() => { setGraduated('N') }}></input>
             </div>
             {
-              major && major !== 'base' && graduate ?
+              major && major !== 'base' && graduated ?
                 <button type='submit' className='submit-btn on width' onClick={submitSet}>확인</button>
                 :
                 <button disabled className='submit-btn width no'>확인</button>

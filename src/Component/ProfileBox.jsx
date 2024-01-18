@@ -27,6 +27,7 @@ const ProfileBox = ({dmIsLogIn,dmGraduated}) => {
         }
       }).then(res=>{
         setMember(res.data)  
+        console.log(res.data)
       }).catch(err=>{
         localStorage.removeItem("accessToken")
         setLogOut()  
@@ -44,7 +45,7 @@ const ProfileBox = ({dmIsLogIn,dmGraduated}) => {
     {isLogIn?
     <div id='profile'>
       <div className='container1'>
-        <div className='img-box'><img></img></div>
+        <div className='img-box'><img src={`http://localhost:8080/image/view/${member.profile}`} alt='프로필사진'></img></div>
         <div className='txt-box'>
           <div className='t1-box'>
             <p className='t1'>{member.major}전공</p>

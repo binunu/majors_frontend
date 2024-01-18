@@ -17,6 +17,7 @@ import Mypage from './Page/Member/Mypage';
 import SearchResultPlus from './Page/Board/SearchResultPlus';
 import './App.css';
 import { useLoginContext } from './Utill/LogInContext';
+import Modify from './Page/Board/Modify.js';
 
 
 
@@ -39,6 +40,7 @@ const MainPage = () => {
                             <Route path="/studyAsList/:major/:pageNum" element={<StudyAsList />} /> 
                             <Route path='/boardAsPeed/:boardType/:middleMajor/:pageNum' element={<BoardAsPeed/>}/>
                             <Route path="/write" element={<Write />} />
+                            <Route path="/modify/:id" element={<Modify />} />
                             <Route path="/articleDetail/:id" element={<ArticleDetail/>} />
                             <Route path="/searchResult/:word" element={<SearchResult />} />
                             <Route path="/searchResult/plus/:boardType/:word" element={<SearchResultPlus />} />

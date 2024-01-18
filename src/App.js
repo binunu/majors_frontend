@@ -18,7 +18,7 @@ function App() {
         <Route exact path="/login" element={<LogIn />} />
         <Route exact path="/find" element={<Find />} />
         <Route exact path="/join" element={<Join />} />
-        <Route exact path="/error" element={<Error />} />
+        {/* <Route exact path="/error" element={<Error />} /> */}
         <Route path="/ChangeMajorModal" element={<ChangeMajorModal/>} />
       </Routes>
       <ScrollToTop />
