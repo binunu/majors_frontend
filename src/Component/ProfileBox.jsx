@@ -27,6 +27,7 @@ const ProfileBox = ({dmIsLogIn,dmGraduated}) => {
         }
       }).then(res=>{
         setMember(res.data)  
+        console.log(res.data)
       }).catch(err=>{
         localStorage.removeItem("accessToken")
         setLogOut()  

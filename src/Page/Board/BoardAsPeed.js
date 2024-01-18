@@ -355,7 +355,7 @@ const BoardAsPeed = () => {
                   <p className='title'>{article.title}</p>
                   <div className='t-sub-box'>
                     <div className='t-sub-box-1'>
-                      <div className='img'><img src='' alt='' /></div>
+                      <div className='img'><img src={`http://localhost:8080/image/view/${article.writer.profile}`} alt='프로필사진' /></div>
                       {article.writer.graduate === "Y" && <span>🎓</span>}
                       <p className='sub-p'>{article.writer.nickname}</p>
                       <TimeIcon className='sub-p icon' />&nbsp;<span className='sub-p'>{article.createdAt}</span>
@@ -400,7 +400,7 @@ const BoardAsPeed = () => {
                          <>
                               <div className='sec-1'>
                                 <div className='sec-1-1'>
-                                  <div className='img'><img src='' alt='' /></div>
+                                  <div className='img'><img src={`http://localhost:8080/image/view/${item.from.profile}`} alt='프로필사진' /></div>
                                   {
                                     item.from.graduate === "Y" && <span>🎓</span>}
                                   <p className='nickname'>{item.from.nickname}({item.from.major})</p>
@@ -430,7 +430,7 @@ const BoardAsPeed = () => {
                                     <div className='sec-1'>
                                       <div className='sec-1-1'>
                                         <ReReplyIcon className='re-reply-icon' />
-                                        <div className='img'><img src='' alt='' /></div>
+                                        <div className='img'><img  src={`http://localhost:8080/image/view/${rItem.from.profile}`} alt='프로필사진' /></div>
                                         {
                                           rItem.from.graduate === "Y" && <span>🎓</span>}
                                         <p className='nickname'>{rItem.from.nickname}({rItem.from.major})</p>

@@ -1,94 +1,80 @@
-import React,{useEffect} from 'react'
+import React,{useEffect, useState} from 'react'
 // import { useState } from 'react'
 import './Board.css'
 import { Link } from 'react-router-dom'
 import { useLoginContext } from '../../Utill/LogInContext'
+import GoodIcon from '@mui/icons-material/ThumbUpOffAltOutlined';
+import ReplyIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
+import axiosURL from '../../Utill/AxiosURL'
+
 
 const Home = () => {
-  const article = { title: '선배님들 질문있습니다선배님들 질문있습니다선배님들 질문있습니다선배님들 질문있습니다선배 님들 질문있습습니다선 배님들습 니다선배님들 니다선배님들 ......질문있습니다', major: '경제학' };
   const {isLogIn} = useLoginContext();
-  useEffect(()=>{
-    // console.log('hello Home!')
-  })
-  return (
-    <div id='home'>
-      <div className='board'>
-        <p className='title'>👁&nbsp;이번 주 인기 게시글</p>
-        <div className='article'>
-          <a href='#' className='a a1'>{article.title}</a>
-          <p className='major'>({article.major})</p>
-        </div>
-        <div className='article'>
-          <a href='#' className='a a1'>{article.title}</a>
-          <p className='major'>({article.major})</p>
-        </div>
-        <div className='article'>
-          <a href='#' className='a a1'>{article.title}</a>
-          <p className='major'>({article.major})</p>
-        </div>
-        <div className='article'>
-          <a href='#' className='a a1'>{article.title}</a>
-          <p className='major'>({article.major})</p>
-        </div>
-        <div className='article'>
-          <a href='#' className='a a1'>{article.title}</a>
-          <p className='major'>({article.major})</p>
-        </div>
+  const [gArticles, setGArticles] = useState([])
+  const [cArticles, setCArticles] = useState([])
+  const [rArticles, setRArticles] = useState([])
+  const [mArticles, setMArticles] = useState([])
+  const [ranking, setRanking] = useState([])
 
-      </div>
+  useEffect(()=>{
+    if(isLogIn){
+      const token = localStorage.getItem("accessToken")
+      axiosURL.get('/board/article/list/user/major',{//전공
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }).then(res=>setMArticles(res.data)).catch(err=>console.log(err))
+      axiosURL.get('/board/article/list/user/rank',{ //랭킹(게시글 + 댓글)
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }).then(res=>setRanking(res.data)).catch(err=>console.log(err))
+    }
+    axiosURL.get('/board/article/list/goods').then(res=>setGArticles(res.data)).catch(err=>console.log(err))//추천
+    axiosURL.get('/board/article/list/comments').then(res=>setCArticles(res.data)).catch(err=>console.log(err))//댓글
+    axiosURL.get('/board/article/list/recency').then(res=>setRArticles(res.data)).catch(err=>console.log(err))//최신  
+  },[isLogIn])
+  return (
+    <div id='home'> 
       <div className='board'>
-        <p className='title'>👍추천 TOP 10</p>
-        <div className='article'>
-          <a href='#' className='a a1'>{article.title}</a>
-          <p className='major'>({article.major})</p>
-        </div>
-        <div className='article'>
-          <a href='#' className='a a1'>{article.title}</a>
-          <p className='major'>({article.major})</p>
-        </div>
-        <div className='article'>
-          <a href='#' className='a a1'>{article.title}</a>
-          <p className='major'>({article.major})</p>
-        </div>
-        <div className='article'>
-          <a href='#' className='a a1'>{article.title}</a>
-          <p className='major'>({article.major})</p>
-        </div>
-        <div className='article'>
-          <a href='#' className='a a1'>{article.title}</a>
-          <p className='major'>({article.major})</p>
-        </div>
+        <p className='title'>👍추천 TOP 5</p>
+        {
+          gArticles.map((article,index)=>(
+            <div className='article' key={index}>
+              <Link to={`/articleDetail/${article.id}`} className='a a1'><b>[{article.middleMajor}]</b> {article.title}</Link>
+              <div className='a-tail'>
+                    <GoodIcon className='icon'/>&nbsp;{article.goods}&nbsp;&nbsp; 
+                  </div>
+            </div> 
+          ))
+        }
+        
       </div>
       <div className='section'>
         <div className='board board2'>
           <p className='title'>💬 댓글 많은 게시글</p>
-          <div className='article'>
-            <a href='#' className='a a2'>{article.title}</a>
-            <p className='major'>({article.major})</p>
-          </div>
-          <div className='article'>
-            <a href='#' className='a a2'>{article.title}</a>
-            <p className='major'>({article.major})</p>
-          </div>
-          <div className='article'>
-            <a href='#' className='a a2'>{article.title}</a>
-            <p className='major'>({article.major})</p>
-          </div>
-          <div className='article'>
-            <a href='#' className='a a2'>{article.title}</a>
-            <p className='major'>({article.major})</p>
-          </div>
-          <div className='article'>
-            <a href='#' className='a a2'>{article.title}</a>
-            <p className='major'>({article.major})</p>
-          </div>
+          {
+            cArticles.map((article,index)=>(
+              <div className='article' key={index}>
+                 <Link to={`/articleDetail/${article.id}`} className='a a2'>{article.title}</Link>
+                 <div className='a-tail'> 
+                    <ReplyIcon className='icon'/>&nbsp;{article.commentCnt}
+                  </div> 
+              </div> 
+            ))
+          }
+          
         </div>
         <div className='board board2'>
           <p className='title'>🕑 최신 게시글</p>
-          <div className='article'>
-            <a href='#' className='a a2'>{article.title}</a>
-            <p className='major'>({article.major})</p>
-          </div>
+          {
+            rArticles.map((article,index)=>(
+              <div className='article' key={index}>
+                 <Link to={`/articleDetail/${article.id}`} className='a a3'>{article.title}</Link>
+                <p className='major'>({article.middleMajor})</p>
+              </div> 
+            ))
+          }
         </div>
       </div>
       <div className='section'>
@@ -96,26 +82,16 @@ const Home = () => {
           <p className='title'>🔥 우리 전공 핫한 게시글</p>
           {isLogIn ?
             <>
-              <div className='article'>
-                <a href='#' className='a a2'>{article.title}</a>
-                <p className='major'>({article.major})</p>
-              </div>
-              <div className='article'>
-                <a href='#' className='a a2'>{article.title}</a>
-                <p className='major'>({article.major})</p>
-              </div>
-              <div className='article'>
-                <a href='#' className='a a2'>{article.title}</a>
-                <p className='major'>({article.major})</p>
-              </div>
-              <div className='article'>
-                <a href='#' className='a a2'>{article.title}</a>
-                <p className='major'>({article.major})</p>
-              </div>
-              <div className='article'>
-                <a href='#' className='a a2'>{article.title}</a>
-                <p className='major'>({article.major})</p>
-              </div>
+              { mArticles.length>0?
+            mArticles.map((article,index)=>(
+              <div className='article' key={index}>
+                 <Link to={`/articleDetail/${article.id}`} className='a a3'>{article.title}</Link>
+                <p className='major'>({article.middleMajor})</p>
+              </div> 
+            ))
+            :
+            <p className='empty-p'>게시글이 존재하지 않습니다!</p>
+          }
             </>
             :
             <div className='login'>
@@ -128,41 +104,18 @@ const Home = () => {
           <p className='title'>👑 우리 전공 최고의 아웃풋은?</p>
           {isLogIn ?
             <>
-              <div className='pf-box'>
+            { 
+              ranking.map((member,index)=>(
+                <div className='pf-box'>
                 <div className='pf'>
-                  <div className='pf1'><img /></div>
-                  <div className='pf2'>넙치와순치</div>
+                  <div className='pf1'><img src={`http://localhost:8080/image/view/${member.profile}`} alt='프로필사진'/></div>
+                  <div className='pf2'>{member.nickname}</div>
                 </div>
-                <div className='pf3 rank-1'>1등</div>
-              </div>
-              <div className='pf-box'>
-                <div className='pf'>
-                  <div className='pf1'><img /></div>
-                  <div className='pf2'>넙치와순치</div>
-                </div>
-                <div className='pf3 rank-2'>2등</div>
-              </div>
-              <div className='pf-box'>
-                <div className='pf'>
-                  <div className='pf1'><img /></div>
-                  <div className='pf2'>넙치와순치</div>
-                </div>
-                <div className='pf3  rank-2'>3등</div>
-            </div>
-              <div className='pf-box'>
-                <div className='pf'>
-                  <div className='pf1'><img /></div>
-                  <div className='pf2'>넙치와순치</div>
-                </div>
-                <div className='pf3'>4등</div>
-              </div>
-              <div className='pf-box'>
-                <div className='pf'>
-                  <div className='pf1'><img /></div>
-                  <div className='pf2'>넙치와순치</div>
-                </div>
-                <div className='pf3'>5등</div>
-              </div>
+                <div className={`pf3 rank-${index+1}`}>{index+1}등</div>
+              </div> 
+                ))
+              }
+             
             </>
             :
             <div className='login'>
