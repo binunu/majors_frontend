@@ -3,7 +3,7 @@
 #header .header-wrap{width:1100px; margin:0 auto;}
 #header .menu1{ padding: 20px 0px 5px 0px;display: flex; margin:0 auto; align-items: center;  }
 #header .menu2{ padding: 10px 0px 15px 0px; display: flex;} 
-#header .logo{ margin-right: 35px; width:120px;} 
+#header .logo{cursor: pointer; margin-right: 35px; width:120px;} 
 #header .seach-text{ font-size: 14px; padding-left: 30px; color: var(--s-g2); background-color: var(--s-g0); border: 1px solid var(--s-g1); width: 540px; height: 40px; border-radius: 27px;}
 #header .seach-text:hover, #header .seach-text:focus{box-shadow: 0 0 3px 1px var(--s-g1); transition: 0.3s;}
 #header .seach-icon:hover{cursor: pointer;}

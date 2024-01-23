@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import './Main.css';
 import SearchIcon from '@mui/icons-material/Search';
@@ -12,6 +12,11 @@ const Header = () => {
     const navigate = useNavigate();
     const { isLogIn } = useLoginContext();
 
+    const goHome=()=>{
+        setOnMenu('')
+        navigate('/') 
+        window.location.reload()
+    }
     //키를눌렀을때 enter이면 서버로 전송
     const KeyDownSearch = (e) => {
         if (e.key === 'Enter') {
@@ -20,12 +25,7 @@ const Header = () => {
     }
     //서버로 전송 후 리다이렉션
     const Search = () => {
-        if (word.trim !== '') {
-            //서버전송 로직 추가
-            /*
-
-            */
-
+        if (word.trim() !== '') { 
             navigate(`/searchResult/${encodeURIComponent(word)}`);
         }
     }
@@ -64,9 +64,9 @@ const Header = () => {
         <div id='header'>
             <div className='header-wrap'>
                 <div className='menu1'>
-                    <Link to='/' className='logo' onClick={() => { setOnMenu('') }}>
+                    <div className='logo' onClick={goHome}>
                         <img src='/image/logo.png' alt='로고 및 홈버튼'></img>
-                    </Link>
+                    </div>
                     <div className='seach'>
                         <input className='seach-text' onChange={(e) => { setWord(e.target.value) }} onKeyDown={KeyDownSearch} placeholder='검색어를 입력하세요'></input>
                         <span className='seach-icon' onClick={Search}><SearchIcon /></span>
