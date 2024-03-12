@@ -92,7 +92,7 @@
 #article-detail .icon{margin-right:0}
 #article-detail .bookmark-icon{position:relative;right:20px;top:5px;font-size:25px;color:var(--m-dg)}
 #article-detail .bookmark-icon:hover{cursor: pointer;}
-#article-detail .content-box{border:1px solid var(--s-g1);line-height:1.6em;letter-spacing:.01em;min-height:300px;font-size:16px;border-top:none;padding:30px;padding-bottom:30%}
+#article-detail .content-box{border:1px solid var(--s-g1);line-height:1.6em;letter-spacing:.01em;font-size:16px;border-top:none;padding:30px;padding-bottom:30%}
 #article-detail .response-box{position:relative;display:flex;justify-content:center;top:-70px}
 #article-detail .response{line-height:2.6em;background-color: #fff;width:120px;height:45px;border-radius:7px;font-weight:700;font-size:17px;margin-left:5px;margin-right:5px}
 #article-detail .good{border:2px solid var(--r-2);color:var(--r-2)}
