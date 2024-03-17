@@ -52,6 +52,10 @@ const Mypage = () => {
   const [file, setFile] = useState();
 
   useEffect(()=>{
+    if(!token){ 
+      alert("로그인 정보가 존재하지 않습니다. 메인으로 돌아갑니다.")
+      navigate('/메인으로안돌아가는데어떢하쥥?')
+    }
     axiosURL.get('/member/info/simple',{
       headers: {
         Authorization: `Bearer ${token}`
@@ -65,7 +69,8 @@ const Mypage = () => {
       setSmallMajor(res.data.major)
       setProfileSrc("http://localhost:8080/image/view/"+res.data.profile)
     }).catch(err=>console.log(err))
-  },[])
+  }
+,[])
   useEffect(() => {
     getArticles(page) 
   }, [menu, selectMenu, page])
