@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from 'react'
 import './Component.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
 import BookmarksOutlinedIcon from '@mui/icons-material/BookmarksOutlined';
@@ -10,11 +10,12 @@ import Alarm from './Alarm';
 import axiosURL from '../Utill/AxiosURL';  
 import { useLoginContext } from '../Utill/LogInContext';
 
-const ProfileBox = ({dmIsLogIn,dmGraduated}) => {  
+const ProfileBox = () => {  
   const [member,setMember] = useState({})
   const [showAlarm,setShowAlarm]=useState(false); 
   const token = localStorage.getItem("accessToken") 
   const {isLogIn, setLogOut} = useLoginContext();
+  const navigate = useNavigate();
 
   const activeAlarm=()=>{
     setShowAlarm(!showAlarm)
@@ -39,6 +40,8 @@ const ProfileBox = ({dmIsLogIn,dmGraduated}) => {
   const logout=()=>{
     localStorage.removeItem("accessToken") 
     setLogOut()
+    // navigate("/")
+    // window.location.reload()
   }
   return (
     <div id='right-content'> 
