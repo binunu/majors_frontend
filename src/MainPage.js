@@ -23,10 +23,7 @@ import Modify from './Page/Board/Modify.js';
 
 const MainPage = () => {
     const [chatRoom, setChatRoom] = useState(false)  
-    const {isLogIn}=useLoginContext();
-    useEffect(()=>{
-      console.log('여기는 App.js, 로그인 상태인가?',isLogIn)
-    },[])
+    const {isLogIn}=useLoginContext(); 
     return (
         <> 
         <Header/>

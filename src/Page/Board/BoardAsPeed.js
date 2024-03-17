@@ -346,7 +346,7 @@ const BoardAsPeed = () => {
         </div>
       </div>
       <div id='article-detail' ref={contentRef}>
-        {articles ?
+        {articles && articles.length > 0?
           articles.map((article, fIndex) => (
             <div className='peed-article' key={fIndex} >
               <div className='article-box' ref={commentRef} >
@@ -356,7 +356,7 @@ const BoardAsPeed = () => {
                   <div className='t-sub-box'>
                     <div className='t-sub-box-1'>
                       <div className='img'><img src={`http://localhost:8080/image/view/${article.writer.profile}`} alt='프로필사진' /></div>
-                      {article.writer.graduate === "Y" && <span>🎓</span>}
+                      {article.writer.graduated === "Y" && <span>🎓</span>}
                       <p className='sub-p'>{article.writer.nickname}</p>
                       <TimeIcon className='sub-p icon' />&nbsp;<span className='sub-p'>{article.createdAt}</span>
                     </div>
@@ -402,7 +402,7 @@ const BoardAsPeed = () => {
                                 <div className='sec-1-1'>
                                   <div className='img'><img src={`http://localhost:8080/image/view/${item.from.profile}`} alt='프로필사진' /></div>
                                   {
-                                    item.from.graduate === "Y" && <span>🎓</span>}
+                                    item.from.graduated === "Y" && <span>🎓</span>}
                                   <p className='nickname'>{item.from.nickname}({item.from.major})</p>
                                   <p className='upload-date'>{item.createdAt}</p>
                                 </div>
@@ -432,7 +432,7 @@ const BoardAsPeed = () => {
                                         <ReReplyIcon className='re-reply-icon' />
                                         <div className='img'><img  src={`http://localhost:8080/image/view/${rItem.from.profile}`} alt='프로필사진' /></div>
                                         {
-                                          rItem.from.graduate === "Y" && <span>🎓</span>}
+                                          rItem.from.graduated === "Y" && <span>🎓</span>}
                                         <p className='nickname'>{rItem.from.nickname}({rItem.from.major})</p>
                                         <p className='upload-date'>{rItem.createdAt}</p>
                                       </div>
@@ -491,7 +491,7 @@ const BoardAsPeed = () => {
             </div>
           ))
           :
-          <p className='empty-p'>등록된 게시글이 존재하지 않습니다!!</p>
+          <p className='empty-p'>등록된 게시글이 없습니다!!</p>
         }
         {pageInfo.curPage < pageInfo.allPage &&
          <button className='plus' onClick={()=>plusArticles(pageInfo.curPage+1)}>더보기</button>

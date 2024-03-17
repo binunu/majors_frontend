@@ -33,12 +33,13 @@ const Home = () => {
     axiosURL.get('/board/article/list/goods').then(res=>setGArticles(res.data)).catch(err=>console.log(err))//추천
     axiosURL.get('/board/article/list/comments').then(res=>setCArticles(res.data)).catch(err=>console.log(err))//댓글
     axiosURL.get('/board/article/list/recency').then(res=>setRArticles(res.data)).catch(err=>console.log(err))//최신  
+    
   },[isLogIn])
   return (
     <div id='home'> 
       <div className='board'>
         <p className='title'>👍추천 TOP 5</p>
-        {
+        {gArticles && gArticles.length > 0 ?
           gArticles.map((article,index)=>(
             <div className='article' key={index}>
               <Link to={`/articleDetail/${article.id}`} className='a a1'><b>[{article.middleMajor}]</b> {article.title}</Link>
@@ -47,13 +48,15 @@ const Home = () => {
                   </div>
             </div> 
           ))
+          :
+              <p className='empty-p'>게시글이 존재하지 않습니다!</p>
         }
         
       </div>
       <div className='section'>
         <div className='board board2'>
           <p className='title'>💬 댓글 많은 게시글</p>
-          {
+          {cArticles && cArticles.length > 0 ?
             cArticles.map((article,index)=>(
               <div className='article' key={index}>
                  <Link to={`/articleDetail/${article.id}`} className='a a2'>{article.title}</Link>
@@ -61,19 +64,24 @@ const Home = () => {
                     <ReplyIcon className='icon'/>&nbsp;{article.commentCnt}
                   </div> 
               </div> 
+              
             ))
+            :
+              <p className='empty-p'>작성된 댓글이 존재하지 않습니다!</p>
           }
           
         </div>
         <div className='board board2'>
           <p className='title'>🕑 최신 게시글</p>
-          {
+          {rArticles && rArticles.length > 0 ?
             rArticles.map((article,index)=>(
               <div className='article' key={index}>
                  <Link to={`/articleDetail/${article.id}`} className='a a3'>{article.title}</Link>
                 <p className='major'>({article.middleMajor})</p>
               </div> 
             ))
+            :
+            <p className='empty-p'>게시글이 존재하지 않습니다!</p>
           }
         </div>
       </div>
@@ -104,7 +112,7 @@ const Home = () => {
           <p className='title'>👑 우리 전공 최고의 아웃풋은?</p>
           {isLogIn ?
             <>
-            { 
+            {  
               ranking.map((member,index)=>(
                 <div className='pf-box'>
                 <div className='pf'>
@@ -113,9 +121,8 @@ const Home = () => {
                 </div>
                 <div className={`pf3 rank-${index+1}`}>{index+1}등</div>
               </div> 
-                ))
-              }
-             
+                )) 
+              } 
             </>
             :
             <div className='login'>
