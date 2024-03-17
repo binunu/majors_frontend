@@ -257,7 +257,7 @@ const ArticleDetail = () => {
               <div className='t-sub-box'>
                 <div className='t-sub-box-1'>
                   <div className='img'><img src={`http://localhost:8080/image/view/${article.writer.profile}`} alt='프로필사진' /></div>
-                  {article.writer.graduate === "Y" && <span>🎓</span>}
+                  {article.writer.graduated === "Y" && <span>🎓</span>}
                   <p className='sub-p'>{article.writer.nickname}</p>
                   <TimeIcon className='sub-p icon' />&nbsp;<span className='sub-p'>{article.createdAt}</span>
                 </div>
@@ -301,7 +301,7 @@ const ArticleDetail = () => {
                           <div className='sec-1-1'>
                             <div className='img'><img src={`http://localhost:8080/image/view/${item.from.profile}`} alt='프로필사진' /></div>
                             {
-                              item.from.graduate === "Y" && <span>🎓</span>}
+                              item.from.graduated === "Y" && <span>🎓</span>}
                             <p className='nickname'>{item.from.nickname}({item.from.major})</p>
                             <p className='upload-date'>{item.createdAt}</p>
                           </div>
@@ -333,7 +333,7 @@ const ArticleDetail = () => {
                                   <ReReplyIcon className='re-reply-icon' />
                                   <div className='img'><img src={`http://localhost:8080/image/view/${rItem.from.profile}`} alt='프로필사진' /></div>
                                   {
-                                    rItem.from.graduate === "Y" && <span>🎓</span>}
+                                    rItem.from.graduated === "Y" && <span>🎓</span>}
                                   <p className='nickname'>{rItem.from.nickname}({rItem.from.major})</p>
                                   <p className='upload-date'>{rItem.createdAt}</p>
                                 </div>

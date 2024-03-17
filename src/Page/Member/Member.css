@@ -46,7 +46,7 @@
 #mypage .article{color: black; margin-bottom: 20px; display: flex;  align-items: center;justify-content: space-between; }
 #mypage .article.c{margin-bottom: 10px; align-items: flex-start; border: none;}
 #mypage .c-content{font-size: 14px;  width: 80%; overflow: hidden; line-height: 1.3em; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2;  -webkit-box-orient: vertical;}
-#mypage .title{font-size:14px; overflow: hidden;white-space: nowrap;text-overflow: ellipsis; }
+#mypage .title{font-size:14px; overflow: hidden;white-space: nowrap;text-overflow: ellipsis; width: 450px;}
 #mypage .title.c{margin-bottom: 0; font-size:13px; display: block; width: 80%; color: var(--s-g2);}
 #mypage .title.c:hover{color: black;}
 #mypage .icon-box{display:flex; align-items: center; font-size:12px;}

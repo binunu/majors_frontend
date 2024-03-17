@@ -53,7 +53,7 @@ const SearchResultPlus = () => {
       {
         board.length ?
           board.map((item, index) => (
-            <Link to='/articleDetail' className='article' key={index}>
+            <Link to={`/articleDetail/${item.id}`} className='article' key={index}>
               <div className='row1'>
                 <div className='title'><b>[{item.middleMajor}]</b>&nbsp;{highlightText(item.title)}</div>
                 <div className='icon-box'>

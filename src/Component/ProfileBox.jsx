@@ -40,8 +40,8 @@ const ProfileBox = () => {
   const logout=()=>{
     localStorage.removeItem("accessToken") 
     setLogOut()
-    // navigate("/")
-    // window.location.reload()
+    navigate("/")
+    window.location.reload()
   }
   return (
     <div id='right-content'> 

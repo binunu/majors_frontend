@@ -197,8 +197,7 @@ const Join = () => {
     setState('B')
   }
   const submitSet = (e) => {
-    e.preventDefault()
-    console.log(passEmail, passAuthNum, passPassword, passNickname)
+    e.preventDefault() 
     if (!passEmail || !passAuthNum || !passPassword || !passNickname) {
       e.preventDefault()
       alert("입력한 정보를 다시 확인해주세요")
