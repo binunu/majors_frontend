@@ -30,19 +30,19 @@
 ## 🐤 Demo
 
   
-<img width="500" alt="전공자들1" src="readme_images/메인.png"> <img width="500" alt="전공자들2" src="readme_images/로그인메인.png"> 
+<img width="400" alt="전공자들1" src="readme_images/메인.png"> <img width="400" alt="전공자들2" src="readme_images/로그인메인.png"> 
 
 <br>
 
-<img width="500" alt="전공자들3" src="readme_images/리스트.png"> <img width="500" alt="전공자들4" src="readme_images/피드.png"> 
+<img width="400" alt="전공자들3" src="readme_images/리스트.png"> <img width="400" alt="전공자들4" src="readme_images/피드.png"> 
 
 <br>
 
-<img width="500" alt="전공자들5" src="readme_images/댓글삭제전.png"> <img width="500" alt="전공자들6" src="readme_images/글쓰기.png"> 
+<img width="400" alt="전공자들5" src="readme_images/댓글삭제전.png"> <img width="400" alt="전공자들6" src="readme_images/글쓰기.png"> 
 
 <br>
 
-<img width="500" alt="전공자들7" src="readme_images/회원가입(3).png"> <img width="500" alt="전공자들8" src="readme_images/마이페이지.png"> 
+<img width="400" alt="전공자들7" src="readme_images/회원가입(3).png"> <img width="400" alt="전공자들8" src="readme_images/마이페이지.png"> 
 
 <br><br>
 
